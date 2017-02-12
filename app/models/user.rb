@@ -20,9 +20,17 @@ class User < ApplicationRecord
   end
 
   def email_activate
-    self.email_confirmed = 1
-    self.confirm_token = nil
-    save!(:validate => false)
+    self.update_columns(email_confirmed: 1, confirm_token: nil)
+  end
+
+  def confirm_password_reset
+    self.update_columns(reset_confirmed: 1, reset_token: nil)
+  end
+
+  def set_reset_token
+    if self.reset_token.blank?
+      self.update_columns(reset_confirmed: 0, reset_token: SecureRandom.urlsafe_base64.to_s)
+    end
   end
 
   private
@@ -32,4 +40,6 @@ class User < ApplicationRecord
       self.confirm_token = SecureRandom.urlsafe_base64.to_s
     end
   end
+
+
 end
