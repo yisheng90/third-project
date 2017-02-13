@@ -1,5 +1,8 @@
 class User < ApplicationRecord
   before_create :set_confirmation_token
+  has_many :messages
+  has_one :freelancer
+  has_many :enquiries
 
   validates :name,
   presence: true,
