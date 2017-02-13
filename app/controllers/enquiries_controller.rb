@@ -13,13 +13,17 @@ class EnquiriesController < ApplicationController
 
   def new
     @enquiry = Enquiry.new
+    @freelancer = Freelancer.find(params[:profile_id])
+    puts "freelancer id is #{@freelancer.id}"
   end
 
   def create
     @enquiry = Enquiry.new(enquiry_params)
-    @enquiry.user_id = @current_user.id
-    @enquiry.freelancer_id  = @freelancer.id
-    @enquiry.save
+    @enquiry.user_id = current_user.id
+    # @freelancer = Freelancer.find(params[:profile_id])
+    # @enquiry.freelancer_id = @freelancer.id
+
+    @enquiry.save!
       redirect_to @enquiry, notice: 'Enquiry was successfully created.'
       end
 
