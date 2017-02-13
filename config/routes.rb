@@ -18,7 +18,9 @@ Rails.application.routes.draw do
   get 'create' => 'freelancers#create'
   get 'update' => 'freelancers#update'
 
-  resources :freelancers, only: [:show, :new, :update, :edit, :create], as: 'profile'
+
+  resources :freelancers, only: [:show, :new, :update, :edit, :create, :index], as: 'profile'
+
 
 
   resources :enquiries

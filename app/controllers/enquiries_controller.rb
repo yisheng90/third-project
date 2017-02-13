@@ -17,6 +17,8 @@ class EnquiriesController < ApplicationController
 
   def create
     @enquiry = Enquiry.new(enquiry_params)
+    @enquiry.user_id = @current_user.id
+    @enquiry.freelancer_id  = @freelancer.id
     @enquiry.save
       redirect_to @enquiry, notice: 'Enquiry was successfully created.'
       end
