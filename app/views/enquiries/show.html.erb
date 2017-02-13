@@ -2,12 +2,25 @@
 
 <table>
   <tr>
-    <td><%=@freelancer.name%></td>
+
     <td><%=@enquiry.description%></td>
+
     <td><%=@enquiry.start_date%></td>
     <td><%=@enquiry.end_date%></td>
-    <% @enquiries.messages.each do |message| %>
-    <td>message</td>
-    <%end%>
+
   </tr>
 </table>
+
+
+<h1>Messages</h1>
+<div class='messages'>
+  <% @enquiry.messages.each do |message| %>
+    <div><%= message.content%></div>
+  <%end%>
+</div>
+
+<%= form_for :message, url:enquiry_messages_path(@enquiry.id) do |f| %>
+  <%= f.text_field :content %>
+  <%= f.hidden_field :sender_id, value: current_user.id %>
+  <%= f.submit "Send" %>
+<% end %>

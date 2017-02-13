@@ -2,12 +2,10 @@ class MessagesController < ApplicationController
 
 
   def create
-    @enquiry = Enquiry.find(params[:id])
-    @message = @enquiry.create!(message_param)
+    @enquiry = Enquiry.find_by_id(params.require(:enquiry_id))
+    @message = @enquiry.messages.create!(message_param)
 
-    respond_to do |format|
-      format.js
-    end
+    redirect_to @enquiry
   end
 
 
