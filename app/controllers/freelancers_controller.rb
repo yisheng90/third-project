@@ -11,6 +11,7 @@ class FreelancersController < ApplicationController
 
   def index
     # @listings = Listings.all
+    @freelancer = Freelancer.all
   end
 
   def show
