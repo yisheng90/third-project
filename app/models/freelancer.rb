@@ -7,4 +7,9 @@ class Freelancer < ApplicationRecord
 
   # BOOKABLE GEM (ANDREW)
   acts_as_bookable time_type: :range
+
+  # VALIDATION (ZL)
+  validates :id,
+  uniqueness: true
+
 end

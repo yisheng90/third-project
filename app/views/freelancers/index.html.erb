@@ -1,0 +1,12 @@
+<h1>CLick me to become a freelancer</h1>
+<%= link_to 'new freelancer', new_profile_path %>
+<h3>Or look at the available listings</h3>
+<table>
+
+<% @freelancer.each do |freelancer| %>
+<tr>
+  <td><%=freelancer.id%></td>
+  <td><%=freelancer.profession%></td>
+  <td><%= link_to 'new enquiry', new_profile_enquiry_path(freelancer)%></td>
+</tr>
+<%end%>
