@@ -1,2 +1,14 @@
 <h1>Freelancer's dashboard</h1>
-<%= link_to 'show bookings', '#' %>
+<h3><%= link_to 'edit your profile!', edit_profile_path(@freelancer) %>
+<h3>Pending enquires</h3>
+
+<table>
+  <tr>
+    <% @enquiries.each do |enquiry| %>
+    <td><%=enquiry.user_id%></td>
+    <td><%=enquiry.description%></td>
+    <td><%=enquiry.start_date%></td>
+    <td><%=enquiry.end_date%></td>
+    <% end %>
+  </tr>
+</table>

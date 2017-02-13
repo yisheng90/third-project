@@ -1,5 +1,5 @@
 class FreelancersController < ApplicationController
-  before_action :check_user, except: [:index]
+  before_action :check_user
   before_action :is_freelancer?, except: [:index,:new, :create]
   def new
     if Freelancer.find_by(user_id: current_user[:id])
@@ -11,11 +11,14 @@ class FreelancersController < ApplicationController
 
   def index
     # @listings = Listings.all
-    @freelancer = Freelancer.all
+    # debugger
+    @freelancers = Freelancer.all
   end
 
   def show
     @freelancer = Freelancer.find_by(id: params[:id])
+    @enquiries = Enquiry.all.where(freelancer_id: params[:id]).where(status: 'open')
+    # debugger
   end
 
   def edit
@@ -25,7 +28,6 @@ class FreelancersController < ApplicationController
   def update
     @freelancer = Freelancer.find_by(id: params[:id])
     if @freelancer.update(freelancer_params)
-      debugger
       redirect_to profile_path(@freelancer.user_id)
     end
   end
@@ -55,6 +57,7 @@ class FreelancersController < ApplicationController
     end
     def check_user
       if !current_user
+        flash[:danger] = 'Please login in to use the service!'
         redirect_to login_path
       end
     end

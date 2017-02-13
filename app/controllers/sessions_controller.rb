@@ -7,8 +7,13 @@ class SessionsController < ApplicationController
     if user
       if user.email_confirmed == 1
         session[:user_id] = user.id
-        flash.now[:success] = "Wlecome #{user.name}. You have logged in."
-        redirect_to root_path
+        flash[:success] = "Welcome #{user.name}. You have logged in."
+        unless !!Freelancer.find_by(user_id: current_user[:id])
+          redirect_to profile_index_path
+        else
+          @freelancer = Freelancer.find_by(user_id: current_user[:id])
+          redirect_to profile_path(@freelancer)
+        end
       else
         flash.now[:danger] = 'Please activate your account by following the
         instructions in the account confirmation email you received to proceed'

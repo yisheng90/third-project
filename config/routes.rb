@@ -14,11 +14,6 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
 
-  get 'profile' => 'freelancers#show'
-  get 'create' => 'freelancers#create'
-  get 'update' => 'freelancers#update'
-
-
   resources :freelancers, only: [:show, :new, :update, :edit, :create, :index], as: 'profile' do |f|
     resources :enquiries,only: [:new]
   end
