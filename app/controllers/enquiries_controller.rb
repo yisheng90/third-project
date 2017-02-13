@@ -25,7 +25,7 @@ class EnquiriesController < ApplicationController
 
     @enquiry.save!
       redirect_to @enquiry, notice: 'Enquiry was successfully created.'
-      end
+  end
 
   def update
     respond_to do |format|
