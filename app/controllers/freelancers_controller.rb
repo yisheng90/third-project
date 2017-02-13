@@ -2,6 +2,9 @@ class FreelancersController < ApplicationController
   before_action :check_user, except: [:index]
   before_action :is_freelancer?, except: [:index,:new, :create]
   def new
+    if Freelancer.find_by(user_id: current_user[:id])
+      redirect_to profile_index_path
+    end
     puts current_user.name
     @freelancer = Freelancer.new
   end
@@ -21,7 +24,8 @@ class FreelancersController < ApplicationController
   def update
     @freelancer = Freelancer.find_by(id: params[:id])
     if @freelancer.update(freelancer_params)
-      redirect_to @freelancer
+      debugger
+      redirect_to profile_path(@freelancer.user_id)
     end
   end
 

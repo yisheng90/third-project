@@ -1,4 +1,4 @@
-<h1>Add Profile</h1>
+<h1>Edit Profile</h1>
 <%= form_for :freelancer, url: profile_path(@freelancer), method: :patch do |f| %>
 <p>
   <%= f.label :profession %><br>
@@ -17,12 +17,12 @@
 
 <p>
   <%= f.label :start_working_hours %><br>
-  <%= f.datetime_field(:start_working_hours, {:class => 'form-control'}) %>
+  <%= f.time_field(:start_working_hours, {:class => 'form-control'}) %>
 </p>
 
 <p>
   <%= f.label :end_working_hours %><br>
-  <%= f.datetime_field(:end_working_hours, {:class => 'form-control'}) %>
+  <%= f.time_field(:end_working_hours, {:class => 'form-control'}) %>
 </p>
 
 <p>
