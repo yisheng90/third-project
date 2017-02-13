@@ -1,0 +1,21 @@
+<h1>Enquiry Index</h1>
+
+<table>
+  <tbody>
+    <% @enquiries.each do |enquiry| %>
+      <tr>
+        <td><%= enquiry.freelancer_id %></td>
+        <td><%= enquiry.description %></td>
+        <td><%= enquiry.start_date %></td>
+        <td><%= enquiry.end_date %></td>
+        <td><%= link_to 'Show', enquiry %></td>
+        <td><%= link_to 'Edit', edit_enquiry_path(enquiry) %></td>
+        <td><%= link_to 'Destroy', enquiry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Enquiry', new_enquiry_path %>

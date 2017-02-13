@@ -16,8 +16,8 @@ Rails.application.routes.draw do
   get 'create' => 'freelancers#create'
   get 'update' => 'freelancers#update'
 
+
   resources :enquiries do |f|
     resources :messages, only: [:create]
   end
-
 end

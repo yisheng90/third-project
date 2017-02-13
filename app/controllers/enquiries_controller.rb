@@ -2,7 +2,9 @@ class EnquiriesController < ApplicationController
   before_action :set_enquiry, only: [:show, :edit, :update, :destroy]
 
   def index
+    # @enquiries = Enquiry.where("user_id=?", @current_user.id)
     @enquiries = Enquiry.all
+    @freelancers = Freelancer.all
   end
 
   def show
@@ -15,10 +17,9 @@ class EnquiriesController < ApplicationController
 
   def create
     @enquiry = Enquiry.new(enquiry_params)
-    if @enquiry.save
+    @enquiry.save
       redirect_to @enquiry, notice: 'Enquiry was successfully created.'
-    end
-  end
+      end
 
   def update
     respond_to do |format|
@@ -49,7 +50,5 @@ class EnquiriesController < ApplicationController
   def enquiry_params
     params.require(:enquiry).permit(:name, :description, :start_date, :end_date, :user_id, :freelancer_id, :price, :status, :id)
   end
-
-end
 
 end
