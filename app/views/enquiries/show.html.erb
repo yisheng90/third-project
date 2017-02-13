@@ -1,0 +1,13 @@
+<h1>Enquiry</h1>
+
+<table>
+  <tr>
+    <td><%=@freelancer.name%></td>
+    <td><%=@enquiry.description%></td>
+    <td><%=@enquiry.start_date%></td>
+    <td><%=@enquiry.end_date%></td>
+    <% @enquiries.messages.each do |message| %>
+    <td>message</td>
+    <%end%>
+  </tr>
+</table>
