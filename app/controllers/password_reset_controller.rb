@@ -1,16 +1,4 @@
 class PasswordResetController < ApplicationController
-  # def show
-  #   @user = User.find_by_reset_token(params[:id])
-  #
-  #   if @user
-  #     @user.email_activate
-  #     flash[:success] = "Welcome to the Sample App! Your email has been confirmed. \n Please sign in to continue."
-  #     redirect_to login_url
-  #   else
-  #     flash[:error] = "Sorry. User does not exist"
-  #     redirect_to root_url
-  #   end
-  # end
 
   def new
   end
@@ -20,7 +8,7 @@ class PasswordResetController < ApplicationController
 
     if @user
       @user.set_reset_token
-      UserMailer.password_reset(@user).deliver_later
+      UserMailer.password_reset(@user).deliver_later(wait: 1.minute)
       flash.now[:success] = 'Please check you mail box'
       redirect_to login_path
     else
@@ -29,7 +17,7 @@ class PasswordResetController < ApplicationController
     end
   end
 
-  def edit
+  def show
     @user = User.find_by_reset_token(params[:id])
 
     if !@user
