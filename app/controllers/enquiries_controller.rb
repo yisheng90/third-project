@@ -29,7 +29,7 @@ class EnquiriesController < ApplicationController
 
   def update
     respond_to do |format|
-      if @enquiry.update(enquire_params)
+      if @enquiry.update(enquiry_params)
         format.html { redirect_to @enquiry, notice: 'Enquiry was successfully updated.' }
         format.json { render :show, status: :ok, location: @enquiry }
       else
