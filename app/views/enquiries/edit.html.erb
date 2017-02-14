@@ -19,23 +19,35 @@
 <br>
 <div class="field">
   <%= f.label :start_date %>
-  <%= f.text_field :start_date %>
+  <%= f.datetime_field :start_date %>
 </div>
 <br>
 <br>
 <div class="field">
   <%= f.label :end_date %>
-  <%= f.text_field :end_date %>
+  <%= f.datetime_field :end_date %>
 </div>
 <br>
 <br>
 <div class="field">
   <%= f.label :price %>
-  <%= f.text_field :price %>
+  <%= f.number_field :price %>
 </div>
 <br>
 <br>
-<div class="actions">
+<div class="update_enquiry">
   <%= f.submit %>
 </div>
 <% end %>
+
+
+<div id='messages'>
+  <%= render 'messages/message'%>
+</div>
+
+<form class="new_message" data-behavior="enquiry_speaker">
+  <input name="enquiry_id" type="hidden" value="<%= @enquiry.id %>">
+  <input name="sender_id" type="hidden" value="<%= current_user.id %>">
+  <textarea name="content" class="form-control" ></textarea>
+  <!-- <input type="submit" class="btn btn-success" value="Send"> -->
+</form>
