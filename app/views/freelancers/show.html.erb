@@ -1,6 +1,7 @@
 <h1>Freelancer's dashboard</h1>
 <h3><%= link_to 'edit your profile!', edit_profile_path(@freelancer) %>
 <h3>Pending enquires</h3>
+<h3><%= @freelancer.schedule %></h3>
 
 <table>
   <tr>
@@ -12,3 +13,10 @@
     <% end %>
   </tr>
 </table>
+
+<h3>View Your Schedule</h3>
+<h3><%= @freelancer.schedule.start_time %></h3>
+<%= month_calendar(partial: 'simple_calendar/month_calendar') do |date| %>
+  <%= date %>
+  <div>1</div>
+<% end %>

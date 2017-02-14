@@ -17,5 +17,4 @@ class Freelancer < ApplicationRecord
     @freelancer.end_working_hours = @freelancer.end_working_hours.to_time.utc
   end
 
-
 end
