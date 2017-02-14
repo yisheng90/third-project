@@ -1,9 +1,13 @@
-<h1>CLick me to become a freelancer</h1>
-<%= link_to 'new freelancer', new_profile_path %>
-<h3>Or look at the available listings</h3>
+<% unless !!Freelancer.find_by(user_id: current_user[:id]) %>
+<h3><%= link_to "Click me to setup a freelancer's profile!", new_profile_path %></h3>
+<h3>or look at the available listings</h3>
+
+<% else %>
+<h3>Look at the available listings</h3>
+<% end %>
 <table>
 
-<% @freelancer.each do |freelancer| %>
+<% @freelancers.each do |freelancer| %>
 <tr>
   <td><%=freelancer.id%></td>
   <td><%=freelancer.profession%></td>
