@@ -4,14 +4,13 @@ class Freelancer < ApplicationRecord
   has_many :enquires, dependent: :destroy
   has_many :bookings, dependent: :destroy
 
-  attr_accessor :user
   # BOOKABLE GEM (ANDREW)
   acts_as_bookable time_type: :range, bookable_across_occurrences: true
 
   validates :user_id, uniqueness: true
 
   # UPDATE SCHEDULE COLUMN IF WORKING HOURS CHANGE
-  before_update :update_fl_schedule_column, :if => "start_working_hours_changed? && end_working_hours_change?"
+  before_update :update_fl_schedule_column, :if => "start_working_hours_changed?"
 
   def local_time_scrub(datetime)
     datetime.in_time_zone("Singapore").to_time
@@ -23,6 +22,7 @@ class Freelancer < ApplicationRecord
   end
 
   def update_fl_schedule_column
+    debugger
     if current_user
       # FIND FREELANCER
       @freelancer = Freelancer.find_by_id(current_user.id)
