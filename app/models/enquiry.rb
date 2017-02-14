@@ -17,10 +17,13 @@ class Enquiry < ApplicationRecord
   def check_update(params)
     changes = {}
     params.each_pair do |key, value|
-      if key == 'price'
+
+      if key == 'start_date' || key == 'end_date'
+        changes[key] = value if self[key].to_time != value.to_time
+      elsif key == 'price'
         changes[key] = value if self[key].to_s != value.to_s
       else
-      changes[key] = value if self[key] != value
+        changes[key] = value if self[key] != value
       end
     end
     changes

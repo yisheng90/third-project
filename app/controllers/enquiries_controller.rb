@@ -21,6 +21,8 @@ class EnquiriesController < ApplicationController
   def create
     @enquiry = Enquiry.new(enquiry_params)
     @enquiry.user_id = current_user.id
+    @enquiry.start_date = enquiry_params[:start_date].utc
+    @enquiry.end_date = enquiry_params[:end_date].utc
     # @freelancer = Freelancer.find(params[:profile_id])
     # @enquiry.freelancer_id = @freelancer.id
 
