@@ -36,6 +36,7 @@ class FreelancersController < ApplicationController
   def update
     @freelancer = Freelancer.find_by(id: params[:id])
 
+    # HELPER FUNCTION -> DELETE PRE RECURRENCES
     delete_recurrence_rule(params[:id])
 
     if @freelancer.update(freelancer_params)
