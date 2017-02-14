@@ -45,7 +45,10 @@ class FreelancersController < ApplicationController
     if @freelancer.update(freelancer_params)
 
       # HELPER FUNCTION -> UPDATE FREELANCER SCHEDULE COLUMN
-      update_fl_schedule_column(params[:id])
+      fl_schedule_column(@freelancer)
+      
+      # SAVE AFTER UPDATE COLUMN
+      @freelancer.save
 
       # HELPER FUNCTION -> UPDATE DAILY RECURRENCE
       if params[:days]
@@ -63,6 +66,10 @@ class FreelancersController < ApplicationController
   def create
     @freelancer = Freelancer.new(freelancer_params)
     @freelancer.user_id = current_user[:id]
+
+    # HILPER FUNCTION -> CREATE FREELANCER SCHEDULE COLUMN
+    fl_schedule_column(@freelancer)
+
     if @freelancer.save
       flash[:success] = 'created a profile!'
       redirect_to profile_path(@freelancer.user_id)

@@ -8,13 +8,11 @@ module FreelancersHelper
     puts end_t
   end
 
-  def update_fl_schedule_column(user_id)
-    # FIND FREELANCER
-    @freelancer = Freelancer.find_by_id(user_id)
+  def fl_schedule_column(freelancer)
 
     # FIND START AND END WORKING HOURS
-    @fl_start_time = @freelancer.start_working_hours.to_time
-    @fl_end_time = @freelancer.end_working_hours.to_time
+    @fl_start_time = freelancer.start_working_hours.to_time
+    @fl_end_time = freelancer.end_working_hours.to_time
 
     # PRINT BOTH START AND END
     print_working_hours(@fl_start_time, @fl_end_time)
@@ -24,8 +22,7 @@ module FreelancersHelper
     puts @duration
 
     # SET FREELANCER SCHEDULE
-    @freelancer.schedule = IceCube::Schedule.new(@fl_start_time, duration: @duration.hours)
-    @freelancer.save
+    freelancer.schedule = IceCube::Schedule.new(@fl_start_time, duration: @duration.hours)
   end
 
   def string_to_symbol_scrub(array)
