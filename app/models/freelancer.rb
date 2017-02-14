@@ -1,8 +1,10 @@
 class Freelancer < ApplicationRecord
   # ASSOCIATIONS (ANDREW)
-  belongs_to :user, inverse_of: freelancer
+  belongs_to :user
   has_many :enquires, dependent: :destroy
   has_many :bookings, dependent: :destroy
+
+  attr_accessor :user
   # BOOKABLE GEM (ANDREW)
   acts_as_bookable time_type: :range, bookable_across_occurrences: true
 
