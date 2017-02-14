@@ -6,3 +6,5 @@
   <%= f.password_field :password, placeholder: 'Password (min 8 characters)' %>
   <%= f.submit 'SignUp' %>
 <% end %>
+
+<%= current_user.try(:id) %>

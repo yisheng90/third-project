@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
     if user
       if user.email_confirmed == 1
         session[:user_id] = user.id
+        cookies.signed[:user_id] = user.id
         flash.now[:success] = "Wlecome #{user.name}. You have logged in."
         redirect_to root_path
       else
@@ -22,6 +23,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
+    cookies.signed[:user_id] = nil
     flash[:success] = "You have logged out."
     redirect_to root_path
   end

@@ -1,12 +1,12 @@
 class MessagesController < ApplicationController
 
-
-  def create
-    @enquiry = Enquiry.find_by_id(params.require(:enquiry_id))
-    @message = @enquiry.messages.create!(message_param)
-
-    redirect_to @enquiry
-  end
+  # 
+  # def create
+  #   @enquiry = Enquiry.find_by_id(params.require(:enquiry_id))
+  #   @message = @enquiry.messages.create!(message_param)
+  #
+  #   redirect_to @enquiry
+  # end
 
 
   private

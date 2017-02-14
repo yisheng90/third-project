@@ -1,0 +1,5 @@
+<div class="messages-<%= "#{@enquiry.id}"%>">
+  <% @enquiry.messages.each do |message| %>
+    <p><%= message.content %></p>
+  <% end %>
+</div>
