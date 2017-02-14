@@ -10,7 +10,9 @@
 
   <body>
     <%= render 'partials/flash' %>
-    <%= current_user.name.inspect %>
+    <% if current_user %>
+     <%= current_user.name.inspect %>
+    <% end %>
     <%= yield %>
   </body>
 </html>
