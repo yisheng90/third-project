@@ -20,6 +20,9 @@ class FreelancersController < ApplicationController
   def show
     @freelancer = Freelancer.find_by(id: params[:id])
     @enquiries = Enquiry.all.where(freelancer_id: params[:id]).where(status: 'open')
+    @occurrences = @freelancer.schedule.occurrences_between(Date.today - 1.year,Date.today + 1.year)
+    @sanitized_start_time = @freelancer.schedule.start_time.strftime("%I:%M%p")
+    @sanitized_end_time = @freelancer.schedule.end_time.strftime("%I:%M%p")
     # debugger
   end
 
