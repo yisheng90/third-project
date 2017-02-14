@@ -1,6 +1,7 @@
 class BookingsController < ApplicationController
   def index
     @freelancer = Freelancer.find_by_id(current_user.id)
+    debugger
     @bookings = @freelancer.schedule.first(3)
   end
 

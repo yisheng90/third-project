@@ -25,7 +25,10 @@ class FreelancersController < ApplicationController
   def update
     @freelancer = Freelancer.find_by(id: params[:id])
     if @freelancer.update(freelancer_params)
-      debugger
+      flash[:success] = 'updated profile!'
+      redirect_to profile_path(@freelancer.user_id)
+    else
+      flash[:danger] = 'unable to update profile'
       redirect_to profile_path(@freelancer.user_id)
     end
   end
