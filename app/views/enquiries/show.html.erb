@@ -2,11 +2,8 @@
 
 <table>
   <tr>
-<<<<<<< HEAD
-
-=======
     <td><%=@enquiry.freelancer_id%></td>
->>>>>>> 7d701c1d2fc68ea5cb02915b34d7359daba82fce
+
     <td><%=@enquiry.description%></td>
 
     <td><%=@enquiry.start_date%></td>
@@ -14,14 +11,3 @@
 
   </tr>
 </table>
-
-<div id='messages'>
-  <%= render 'messages/message'%>
-</div>
-
-<form class="new_message" data-behavior="enquiry_speaker">
-  <input name="enquiry_id" type="hidden" value="<%= @enquiry.id %>">
-  <input name="sender_id" type="hidden" value="<%= current_user.id %>">
-  <input name="content" class="form-control" >
-  <!-- <input type="submit" class="btn btn-success" value="Send"> -->
-</form>

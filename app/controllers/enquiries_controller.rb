@@ -30,8 +30,10 @@ class EnquiriesController < ApplicationController
 
   def update
     respond_to do |format|
+      changes = @enquiry.check_update(enquiry_params)
       if @enquiry.update(enquiry_params)
-        format.html { redirect_to @enquiry, notice: 'Enquiry was successfully updated.' }
+        @enquiry.send_auto_message(changes, current_user.id) if changes.size > 0
+        format.html { redirect_to edit_enquiry_path(@enquiry), notice: 'Enquiry was successfully updated.' }
         format.json { render :show, status: :ok, location: @enquiry }
       else
         format.html { render :edit }
