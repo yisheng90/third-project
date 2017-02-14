@@ -17,19 +17,12 @@ Rails.application.routes.draw do
   get 'create' => 'freelancers#create'
   get 'update' => 'freelancers#update'
 
-<<<<<<< HEAD
-=======
+
 
   resources :freelancers, only: [:show, :new, :update, :edit, :create, :index], as: 'profile' do |f|
     resources :enquiries,only: [:new]
   end
 
-resources :enquiries,except: [:new]
+  resources :enquiries,except: [:new]
 
-
->>>>>>> 7d701c1d2fc68ea5cb02915b34d7359daba82fce
-
-  resources :enquiries do |f|
-    resources :messages, only: [:create]
-  end
 end
