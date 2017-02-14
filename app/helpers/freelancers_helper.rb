@@ -25,6 +25,5 @@ module FreelancersHelper
 
     # SET FREELANCER SCHEDULE
     @freelancer.schedule = IceCube::Schedule.new(@fl_start_time, duration: @duration.hours)
-    @freelancer.save
   end
 end

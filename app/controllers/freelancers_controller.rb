@@ -1,6 +1,7 @@
 class FreelancersController < ApplicationController
   before_action :check_user
   before_action :is_freelancer?, except: [:index,:new, :create]
+
   def new
     if Freelancer.find_by(user_id: current_user[:id])
       redirect_to profile_index_path
