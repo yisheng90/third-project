@@ -12,3 +12,15 @@
     <% end %>
   </tr>
 </table>
+
+<h2>View Your Schedule</h2>
+<h3>You Work <%= @freelancer.schedule %></h3>
+<h3>Edit your profile to change your schedule</h3>
+<%= month_calendar(partial: 'simple_calendar/month_calendar', events: @occurrences) do |date, occurrences| %>
+  <%= date %>
+  <% occurrences.each do |occurrence| %>
+  <div>
+    Available from <%= @sanitized_start_time %> to <%= @sanitized_end_time %>
+  </div>
+  <% end %>
+<% end %>
