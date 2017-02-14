@@ -37,8 +37,15 @@
 
 <p>Choose your schedule</p>
 <% Date::DAYNAMES.each do |day| %>
-<%= check_box_tag('days[]', day) %>
-<%= f.label day %>
+  <% @freelancer_days.each do |f_day|%>
+    <% if day.eql? f_day %>
+      <%= check_box_tag('days[]', day, checked = true) %>
+      <%= f.label day %>
+    <% else %>
+      <%= check_box_tag('days[]', day, checked = false) %>
+      <%= f.label day %>
+    <% end %>
+  <% end %>
 <% end %>
 
 <p>

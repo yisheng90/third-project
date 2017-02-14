@@ -9,12 +9,27 @@ class Freelancer < ApplicationRecord
 
   validates :user_id, uniqueness: true
 
-  after_validation :convert_to_utc
+  after_validation :convert_to_utc, :if => :working_hours_set
 
   def convert_to_utc
     @freelancer = Freelancer.find_by_id(id)
     @freelancer.start_working_hours = @freelancer.start_working_hours.to_time.utc
     @freelancer.end_working_hours = @freelancer.end_working_hours.to_time.utc
+  end
+
+  private
+
+  def working_hours_set
+    @freelancer = Freelancer.find_by_id(id)
+    if @freelancer
+      if @freelancer.start_working_hours && @freelancer.end_working_hours
+        return true
+      else
+        return false
+      end
+    else
+      return false
+    end
   end
 
 end

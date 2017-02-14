@@ -2,6 +2,7 @@ class FreelancersController < ApplicationController
   include FreelancersHelper
   before_action :check_user
   before_action :is_freelancer?, except: [:index,:new, :create]
+
   def new
     if Freelancer.find_by(user_id: current_user[:id])
       redirect_to profile_index_path
@@ -24,18 +25,29 @@ class FreelancersController < ApplicationController
 
   def edit
     @freelancer = Freelancer.find_by(id: params[:id])
+    if @freelancer.schedule.rrules.length != 0
+      @freelancer_days = integer_to_date(@freelancer.schedule.to_hash[:rrules][0][:validations][:day])
+    else
+      # SET FREELANCER_DAYS TO MONDAY IF NO RECCURENCE SET
+      @freelancer_days = integer_to_date([1])
+    end
   end
 
   def update
     @freelancer = Freelancer.find_by(id: params[:id])
+
+    delete_recurrence_rule(params[:id])
+
     if @freelancer.update(freelancer_params)
 
       # HELPER FUNCTION -> UPDATE FREELANCER SCHEDULE COLUMN
       update_fl_schedule_column(params[:id])
 
       # HELPER FUNCTION -> UPDATE DAILY RECURRENCE
-      update_recurrence_rule(params[:id])
-      
+      if params[:days]
+        update_recurrence_rule(params[:id])
+      end
+
       flash[:success] = 'updated profile!'
       redirect_to profile_path(@freelancer.user_id)
     else

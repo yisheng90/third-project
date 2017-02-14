@@ -29,7 +29,6 @@ module FreelancersHelper
   end
 
   def string_to_symbol_scrub(array)
-    debugger
     day_arr = []
     array.each do | day |
       day = day.downcase.to_sym
@@ -40,10 +39,33 @@ module FreelancersHelper
 
   def update_recurrence_rule(user_id)
     @freelancer = Freelancer.find_by_id(user_id)
-    # SCRUB STRING TO SYMBOLS
-    srubbed_days = string_to_symbol_scrub(params[:days])
 
-    @freelancer.schedule.add_reccurrence_rule IceCube::Rule.weekly.day(scrubbed_days)
+    # SCRUB STRING TO SYMBOLS
+    scrubbed_days = string_to_symbol_scrub(params[:days])
+
+    # ADDING RECURRENCE TO ICE_CUBE SCHEDULING
+    @freelancer.schedule.add_recurrence_rule IceCube::Rule.weekly.day(scrubbed_days)
+    @freelancer.save
+  end
+
+  def integer_to_date(arr)
+    res = []
+    arr.each do | number |
+      res << Date::DAYNAMES[number]
+    end
+    res
+  end
+
+  def delete_recurrence_rule(user_id)
+    @freelancer = Freelancer.find_by_id(user_id)
+
+    # FIRST RECURRENCE IN SCHEDULE VALIDATION
+    freelancer_schedule_validation = @freelancer.schedule.rrules.shift
+
+    # DELETE RECURRENCE IN ICE_CUBE SCHEDULE RULE
+    @freelancer.schedule.remove_recurrence_rule(freelancer_schedule_validation)
+
+    # SAVE AFTER DELETE
     @freelancer.save
   end
 end
