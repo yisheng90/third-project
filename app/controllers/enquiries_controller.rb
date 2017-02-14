@@ -9,7 +9,7 @@ class EnquiriesController < ApplicationController
   end
 
   def show
-    redirect_to signup_path  if @enquiry.user_id != current_user.id || @enquiry.freelancer.user_id != current_user.id
+    redirect_to signup_path  if @enquiry.user_id != current_user.id && @enquiry.freelancer.user_id != current_user.id
   end
 
   def new

@@ -1,6 +1,6 @@
 <h1>Edit Enquiry</h1>
 
-<%= form_for(@enquiry) do |f| %>
+<%= form_for(@enquiry, :html=>{:remote => true})do |f| %>
 <% if @enquiry.errors.any? %>
   <div id="error_explanation">
     <h2><%= pluralize(enquiry.errors.count, "error") %> prohibited this enquiry from being saved:</h2>
@@ -19,13 +19,13 @@
 <br>
 <div class="field">
   <%= f.label :start_date %>
-  <%= f.text_field :start_date %>
+  <%= f.datetime_field :start_date %>
 </div>
 <br>
 <br>
 <div class="field">
   <%= f.label :end_date %>
-  <%= f.text_field :end_date %>
+  <%= f.datetime_field :end_date %>
 </div>
 <br>
 <br>
@@ -36,6 +36,6 @@
 <br>
 <br>
 <div class="actions">
-  <%= f.submit %>
+  <%= f.submit, remote: true %>
 </div>
 <% end %>
