@@ -31,5 +31,4 @@ class Freelancer < ApplicationRecord
       return false
     end
   end
-
 end

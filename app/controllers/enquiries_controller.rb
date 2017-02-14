@@ -1,6 +1,7 @@
 class EnquiriesController < ApplicationController
   before_action :set_enquiry, only: [:show, :edit, :update, :destroy]
 
+
   def index
     # @enquiries = Enquiry.where("user_id=?", @current_user.id)
     @enquiries = Enquiry.all
@@ -8,7 +9,7 @@ class EnquiriesController < ApplicationController
   end
 
   def show
-    @enquiry = Enquiry.find(params[:id])
+    redirect_to signup_path  if @enquiry.user_id != current_user.id && @enquiry.freelancer.user_id != current_user.id
   end
 
   def new
@@ -29,8 +30,10 @@ class EnquiriesController < ApplicationController
 
   def update
     respond_to do |format|
-      if @enquiry.update(enquire_params)
-        format.html { redirect_to @enquiry, notice: 'Enquiry was successfully updated.' }
+      changes = @enquiry.check_update(enquiry_params)
+      if @enquiry.update(enquiry_params)
+        @enquiry.send_auto_message(changes, current_user.id) if changes.size > 0
+        format.html { redirect_to edit_enquiry_path(@enquiry), notice: 'Enquiry was successfully updated.' }
         format.json { render :show, status: :ok, location: @enquiry }
       else
         format.html { render :edit }
@@ -56,5 +59,6 @@ class EnquiriesController < ApplicationController
   def enquiry_params
     params.require(:enquiry).permit(:name, :description, :start_date, :end_date, :user_id, :freelancer_id, :price, :status, :id)
   end
+
 
 end

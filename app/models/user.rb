@@ -1,5 +1,8 @@
 class User < ApplicationRecord
   before_create :set_confirmation_token
+  has_many :messages
+  has_one :freelancer
+  has_many :enquiries
 
   validates :name,
   presence: true,
@@ -37,6 +40,7 @@ class User < ApplicationRecord
 
   def set_confirmation_token
     if self.confirm_token.blank?
+      self.email_confirmed = 1
       self.confirm_token = SecureRandom.urlsafe_base64.to_s
     end
   end

@@ -63,7 +63,15 @@ class FreelancersController < ApplicationController
   def create
     @freelancer = Freelancer.new(freelancer_params)
     @freelancer.user_id = current_user[:id]
+
+    # CREATE ICE CUBE SCHEDULE
+    @freelancer.schedule = IceCube::Schedule.new
+
     if @freelancer.save
+      
+      # UPDATE FL SCHEDULE COLUMN
+      update_fl_schedule_column(current_user[:id])
+
       flash[:success] = 'created a profile!'
       redirect_to profile_path(@freelancer.user_id)
     else
