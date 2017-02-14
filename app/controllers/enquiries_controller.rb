@@ -1,6 +1,7 @@
 class EnquiriesController < ApplicationController
   before_action :set_enquiry, only: [:show, :edit, :update, :destroy]
 
+
   def index
     # @enquiries = Enquiry.where("user_id=?", @current_user.id)
     @enquiries = Enquiry.all
@@ -8,22 +9,28 @@ class EnquiriesController < ApplicationController
   end
 
   def show
-    @enquiry = Enquiry.find(params[:id])
+    redirect_to signup_path  if @enquiry.user_id != current_user.id || @enquiry.freelancer.user_id != current_user.id
   end
 
   def new
     @enquiry = Enquiry.new
+    @freelancer = Freelancer.find(params[:profile_id])
+    puts "freelancer id is #{@freelancer.id}"
   end
 
   def create
     @enquiry = Enquiry.new(enquiry_params)
-    @enquiry.save
+    @enquiry.user_id = current_user.id
+    # @freelancer = Freelancer.find(params[:profile_id])
+    # @enquiry.freelancer_id = @freelancer.id
+
+    @enquiry.save!
       redirect_to @enquiry, notice: 'Enquiry was successfully created.'
       end
 
   def update
     respond_to do |format|
-      if @enquiry.update(enquire_params)
+      if @enquiry.update(enquiry_params)
         format.html { redirect_to @enquiry, notice: 'Enquiry was successfully updated.' }
         format.json { render :show, status: :ok, location: @enquiry }
       else
@@ -50,5 +57,6 @@ class EnquiriesController < ApplicationController
   def enquiry_params
     params.require(:enquiry).permit(:name, :description, :start_date, :end_date, :user_id, :freelancer_id, :price, :status, :id)
   end
+
 
 end

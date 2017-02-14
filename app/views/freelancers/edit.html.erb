@@ -1,0 +1,42 @@
+<h1>Add Profile</h1>
+<%= form_for :freelancer, url: profile_path(@freelancer), method: :patch do |f| %>
+<p>
+  <%= f.label :profession %><br>
+  <%= f.text_field(:profession, {:class => 'form-control'}) %>
+</p>
+
+<p>
+  <%= f.label :description %><br>
+  <%= f.text_field(:description, {:class => 'form-control'}) %>
+</p>
+
+<p>
+  <%= f.label :picture %><br>
+  <%= f.text_field(:picture, {:class => 'form-control'}) %>
+</p>
+
+<p>
+  <%= f.label :start_working_hours %><br>
+  <%= f.datetime_field(:start_working_hours, {:class => 'form-control'}) %>
+</p>
+
+<p>
+  <%= f.label :end_working_hours %><br>
+  <%= f.datetime_field(:end_working_hours, {:class => 'form-control'}) %>
+</p>
+
+<p>
+  <%= f.label :price_start %><br>
+  <%= f.number_field(:price_start, {:class => 'form-control'}) %>
+</p>
+
+<p>
+  <%= f.label :price_end %><br>
+  <%= f.number_field(:price_end, {:class => 'form-control'}) %>
+</p>
+
+
+<p>
+  <%= f.submit({:class => 'btn btn-primary'}) %>
+</p>
+<% end %>

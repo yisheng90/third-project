@@ -4,6 +4,11 @@
   <tbody>
     <% @enquiries.each do |enquiry| %>
       <tr>
+        <% for freelancer in @freelancers %>
+        <% if freelancer.id == enquiry.freelancer_id %>
+        <td><%= freelancer.profession %></td>
+        <% end %>
+        <% end %>
         <td><%= enquiry.freelancer_id %></td>
         <td><%= enquiry.description %></td>
         <td><%= enquiry.start_date %></td>
@@ -17,5 +22,3 @@
 </table>
 
 <br>
-
-<%= link_to 'New Enquiry', new_enquiry_path %>
