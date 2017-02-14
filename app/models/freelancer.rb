@@ -8,4 +8,14 @@ class Freelancer < ApplicationRecord
   acts_as_bookable time_type: :range, bookable_across_occurrences: true
 
   validates :user_id, uniqueness: true
+
+  after_validation :convert_to_utc
+
+  def convert_to_utc
+    @freelancer = Freelancer.find_by_id(id)
+    @freelancer.start_working_hours = @freelancer.start_working_hours.to_time.utc
+    @freelancer.end_working_hours = @freelancer.end_working_hours.to_time.utc
+  end
+
+
 end
