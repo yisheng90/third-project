@@ -1,6 +1,7 @@
 class EnquiriesController < ApplicationController
   before_action :set_enquiry, only: [:show, :edit, :update, :destroy]
 
+
   def index
     # @enquiries = Enquiry.where("user_id=?", @current_user.id)
     @enquiries = Enquiry.all
@@ -8,7 +9,7 @@ class EnquiriesController < ApplicationController
   end
 
   def show
-    @enquiry = Enquiry.find(params[:id])
+    redirect_to signup_path  if @enquiry.user_id != current_user.id || @enquiry.freelancer.user_id != current_user.id
   end
 
   def new
@@ -56,5 +57,6 @@ class EnquiriesController < ApplicationController
   def enquiry_params
     params.require(:enquiry).permit(:name, :description, :start_date, :end_date, :user_id, :freelancer_id, :price, :status, :id)
   end
+
 
 end
