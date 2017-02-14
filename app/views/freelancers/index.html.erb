@@ -12,5 +12,6 @@
   <td><%=freelancer.id%></td>
   <td><%=freelancer.profession%></td>
   <td><%= link_to 'new enquiry', new_profile_enquiry_path(freelancer)%></td>
+  <td><%= link_to "view freelancer's profile", profile_path(freelancer.id)%></td>
 </tr>
 <%end%>
