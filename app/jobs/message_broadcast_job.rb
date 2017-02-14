@@ -15,7 +15,8 @@ class MessageBroadcastJob < ApplicationJob
     ActionCable.server.broadcast(
       "enquiry_channel_#{user.id}",
       message: message.content,
-      enquiry_id: message.enquiry_id
+      enquiry_id: message.enquiry_id,
+      sender: 1
     )
   end
 
@@ -23,7 +24,8 @@ class MessageBroadcastJob < ApplicationJob
     ActionCable.server.broadcast(
       "enquiry_channel_#{user.id}",
       message: message.content,
-      enquiry_id: message.enquiry_id
+      enquiry_id: message.enquiry_id,
+      sender: 0
     )
   end
 

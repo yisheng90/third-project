@@ -1,5 +1,9 @@
 <div class="messages-<%= "#{@enquiry.id}"%>">
   <% @enquiry.messages.each do |message| %>
-    <p><%= message.content %></p>
+    <% if current_user == message.sender %>
+      <p class='sender' ><%= message.content %></p>
+    <% else %>
+      <p class='recipient' ><%= message.content %></p>
+    <% end %>
   <% end %>
 </div>
