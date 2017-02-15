@@ -18,6 +18,7 @@ class FreelancersController < ApplicationController
   def show
     @freelancer = Freelancer.find_by(id: params[:id])
     @bookings = @freelancer.bookings
+    @dummy_data = 'Hello'
 
     # not clean could refactor into function ZL
     if @freelancer.ratings.average('professionalism').is_a? Numeric
@@ -29,9 +30,15 @@ class FreelancersController < ApplicationController
     end
 
     @enquiries = Enquiry.all.where(freelancer_id: params[:id]).where(status: 'open')
-    @occurrences = @freelancer.schedule.occurrences_between(Date.today - 1.year,Date.today + 1.year)
+
+    #pass in data as a hash
     @sanitized_start_time = @freelancer.schedule.start_time.strftime("%I:%M%p")
     @sanitized_end_time = @freelancer.schedule.end_time.strftime("%I:%M%p")
+    @occurrences = {
+      dates: @freelancer.schedule.occurrences_between(Date.today - 1.year,Date.today + 1.year),
+      test: @dummy_data,
+      start_time: @sanitized_start_time,
+      end_time: @sanitized_end_time }
   end
 
   def edit

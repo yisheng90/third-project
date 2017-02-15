@@ -19,15 +19,13 @@
 <br>
 <div class="field">
 <%= f.label :start_date %>
-<%= f.date_select :start_date %>
-<%= f.time_select :start_date %>
+<%= f.datetime_field :start_date %>
 </div>
 <br>
 <br>
 <div class="field">
 <%= f.label :end_date %>
-<%= f.date_select :end_date %>
-<%= f.time_select :end_date %>
+<%= f.datetime_field :end_date %>
 </div>
 <br>
 <br>
@@ -44,4 +42,13 @@
 <div class="actions">
 <%= f.submit %>
 </div>
+
+<% end %>
+<%= month_calendar(partial: 'simple_calendar/month_calendar', events: @occurrences[:dates]) do |date, occurrences| %>
+  <%= date %>
+  <% occurrences.each do |occurrence| %>
+  <div>
+    Available from <%=  @occurrences[:start_time] %> to <%=  @occurrences[:end_time] %>
+  </div>
+  <% end %>
 <% end %>

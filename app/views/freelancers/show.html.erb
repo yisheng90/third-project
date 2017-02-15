@@ -1,32 +1,38 @@
-<% unless current_freelancer %>
+<% if current_freelancer %>
   <h1>Freelancer's dashboard</h1>
   <h3><%= link_to 'edit your profile!', edit_profile_path(@freelancer) %>
+  <h3>Current Overall Rating</h3>
+  <!-- do some algo magic here -->
+  <%= render partial: 'partials/form_for_ratings', locals: {big_rating: @compiled_rating, cool_var: 'hey gurl'} %>
   <h3>Pending enquires</h3>
 
-  <%= link_to '#' do %>
-    <table>
+
+  <table>
+    <% @enquiries.each do |enquiry| %>
       <tr>
-        <% @enquiries.each do |enquiry| %>
         <td><%=enquiry.user_id%></td>
         <td><%=enquiry.description%></td>
         <td><%=enquiry.start_date%></td>
         <td><%=enquiry.end_date%></td>
-        <% end %>
+        <td><%= link_to 'view enquiry', enquiry_path(enquiry.id) %></td>
       </tr>
-    </table>
-  <% end %>
+    <% end %>
+  </table>
+
 
   <h2>View Your Schedule</h2>
   <h3>You Work <%= @freelancer.schedule %></h3>
   <h3>Edit your profile to change your schedule</h3>
-  <%= month_calendar(partial: 'simple_calendar/month_calendar', events: @occurrences) do |date, occurrences| %>
+  <%= month_calendar(partial: 'simple_calendar/month_calendar', events: @occurrences[:dates] ) do |date, occurrences| %>
     <%= date %>
+    <%= @occurrences[:test] %>
     <% occurrences.each do |occurrence| %>
     <div>
       Available from <%= @sanitized_start_time %> to <%= @sanitized_end_time %>
     </div>
     <% end %>
   <% end %>
+
 
 <% else %>
   <h1>hello world</h1>
@@ -42,11 +48,11 @@
   <%= render partial: 'partials/form_for_ratings', locals: {big_rating: @compiled_rating, cool_var: 'hey gurl'} %><br>
   <br>
 
-  <%= month_calendar(partial: 'simple_calendar/month_calendar', events: @occurrences) do |date, occurrences| %>
+  <%= month_calendar(partial: 'simple_calendar/month_calendar', events: @occurrences[:dates]) do |date, occurrences| %>
     <%= date %>
     <% occurrences.each do |occurrence| %>
     <div>
-      Available from <%= @sanitized_start_time %> to <%= @sanitized_end_time %>
+      Available from <%= @occurrences[:start_time] %> to <%= @occurrences[:end_time] %>
     </div>
     <% end %>
   <% end %>
