@@ -1,4 +1,6 @@
+<%= link_to 'Go to your Profile', profile_path(current_user), class:'btn btn-primary' %>
 <% @freelancers.each do |freelancer| %>
+
   <% if freelancer.user_id != current_user.id%>
     <div>
       <h3><%=freelancer.user.name%></h3>

@@ -73,10 +73,10 @@ class FreelancersController < ApplicationController
       end
 
       flash[:success] = 'updated profile!'
-      redirect_to profile_path(@freelancer.user_id)
+      redirect_to profile_path(@freelancer.id)
     else
       flash[:danger] = 'unable to update profile'
-      redirect_to profile_path(@freelancer.user_id)
+      render :edit
     end
   end
 
