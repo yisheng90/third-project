@@ -40,6 +40,11 @@
   <%= f.number_field(:capacity, {:class => 'form-control'}) %>
 </p>
 
+<p>
+  <%= f.label :address %><br>
+  <%= f.text_field(:address, {:class => 'form-control'}) %>
+</p>
+
 <p>Choose your schedule</p>
 <% Date::DAYNAMES.each do |day| %>
   <% if @freelancer_days.include? day %>

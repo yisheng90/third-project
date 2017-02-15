@@ -18,7 +18,7 @@ class FreelancersController < ApplicationController
   def show
     @freelancer = Freelancer.find_by(id: params[:id])
     @bookings = @freelancer.bookings
-
+    @enquiry = Enquiry.new
     # not clean could refactor into function ZL
     if @freelancer.ratings.average('professionalism').is_a? Numeric
       @compiled_rating = ( @freelancer.ratings.average('professionalism') +
@@ -48,6 +48,11 @@ class FreelancersController < ApplicationController
   #CAPACITY IS THROWING AN ERROR for now
   def update
     @freelancer = Freelancer.find_by(id: params[:id])
+    @address = @freelancer.address
+    response = HTTParty.get("https://maps.googleapis.com/maps/api/geocode/json?address=#{@address}&key=AIzaSyBCTtS1KnxXuh22lty2vDgBn54QlfhiVKM", verify: false)
+    parsed_json = JSON.parse(response.body)
+    @freelancer.latitude= parsed_json["results"][0]['geometry']['location']['lat']
+    @freelancer.longitude= parsed_json["results"][0]['geometry']['location']['lng']
     # HELPER FUNCTION -> DELETE PRE RECURRENCES
     delete_recurrence_rule(@freelancer)
     # SAVE AFTER REMOVE RULE
@@ -77,6 +82,11 @@ class FreelancersController < ApplicationController
   def create
     @freelancer = Freelancer.new(freelancer_params)
     @freelancer.user_id = current_user[:id]
+    @address = @freelancer.address
+    response = HTTParty.get("https://maps.googleapis.com/maps/api/geocode/json?address=#{@address}&key=AIzaSyBCTtS1KnxXuh22lty2vDgBn54QlfhiVKM", verify: false)
+    parsed_json = JSON.parse(response.body)
+    @freelancer.latitude= parsed_json["results"][0]['geometry']['location']['lat']
+    @freelancer.longitude= parsed_json["results"][0]['geometry']['location']['lng']
     # HELPER FUNCTION -> CREATE FREELANCER SCHEDULE COLUMN
     fl_schedule_column(@freelancer)
     # HELPER FUNCTION -> UPDATE CAPACITY COLUMN
