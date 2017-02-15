@@ -35,6 +35,13 @@ ActiveRecord::Schema.define(version: 20170214150336) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "bookings", force: :cascade do |t|
+    t.integer  "enquiry_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["enquiry_id"], name: "index_bookings_on_enquiry_id", using: :btree
+  end
+
   create_table "enquiries", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "freelancer_id"
@@ -61,9 +68,9 @@ ActiveRecord::Schema.define(version: 20170214150336) do
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.text     "schedule"
-    t.integer  "capacity"
     t.string   "latitude"
     t.string   "longitude"
+    t.integer  "capacity"
     t.index ["user_id"], name: "index_freelancers_on_user_id", using: :btree
   end
 
@@ -106,6 +113,7 @@ ActiveRecord::Schema.define(version: 20170214150336) do
     t.datetime "updated_at",                  null: false
   end
 
+  add_foreign_key "bookings", "enquiries"
   add_foreign_key "enquiries", "freelancers"
   add_foreign_key "enquiries", "users"
   add_foreign_key "freelancers", "users"
