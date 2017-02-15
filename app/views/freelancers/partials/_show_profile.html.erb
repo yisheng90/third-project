@@ -1,4 +1,8 @@
 <h1>Freelancer's Profile</h1>
+<%= cl_image_tag(@freelancer.picture,
+      :width => 400, :height => 400,
+      :crop => :fill, :gravity => :face)
+      %>
 <h3>name: <%= @freelancer.user.name %></h3>
 <h3>profession: <%= @freelancer.profession %></h3>
 <h3>description: <%= @freelancer.description %></h3>

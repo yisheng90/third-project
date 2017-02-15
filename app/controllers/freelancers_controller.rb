@@ -48,6 +48,7 @@ class FreelancersController < ApplicationController
   #CAPACITY IS THROWING AN ERROR for now
   def update
     @freelancer = Freelancer.find_by(id: params[:id])
+      upload_picture
     @address = @freelancer.address
     if @address.blank?
       @freelancer.latitude = 0
@@ -62,6 +63,7 @@ class FreelancersController < ApplicationController
     # HELPER FUNCTION -> DELETE PRE RECURRENCES
     delete_recurrence_rule(@freelancer)
     # SAVE AFTER REMOVE RULE
+
     @freelancer.save
     if @freelancer.update(freelancer_params)
       # HELPER FUNCTION -> UPDATE SCHEDULE COLUMN
@@ -142,4 +144,17 @@ class FreelancersController < ApplicationController
         redirect_to profile_index_path
       end
     end
+
+
+    def upload_picture
+     if params[:freelancer][:picture] != nil
+       if @freelancer.valid?
+         uploaded_file = params[:freelancer][:picture].path
+         puts "PATH #{uploaded_file}"
+         cloudnary_file = Cloudinary::Uploader.upload(uploaded_file)
+         @freelancer.picture = cloudnary_file['public_id']
+       end
+       params[:freelancer].delete :picture
+     end
+  end
 end

@@ -2,6 +2,11 @@
 <h3><%= link_to 'edit your profile!', edit_profile_path(@freelancer) %>
 <h3>Pending enquiries</h3>
 
+<%= cl_image_tag(@freelancer.picture,
+      :width => 400, :height => 400,
+      :crop => :fill, :gravity => :face)
+      %>
+
 
   <table>
     <% @enquiries.each do |enquiry| %>
