@@ -12,8 +12,6 @@ class FreelancersController < ApplicationController
   end
 
   def index
-    # @listings = Listings.all
-    # debugger
     @freelancers = Freelancer.all
   end
 
@@ -23,11 +21,11 @@ class FreelancersController < ApplicationController
     @occurrences = @freelancer.schedule.occurrences_between(Date.today - 1.year,Date.today + 1.year)
     @sanitized_start_time = @freelancer.schedule.start_time.strftime("%I:%M%p")
     @sanitized_end_time = @freelancer.schedule.end_time.strftime("%I:%M%p")
-    # debugger
   end
 
   def edit
     @freelancer = Freelancer.find_by(id: params[:id])
+    # IF RECCURENCE RULE NOT 0
     if @freelancer.schedule.rrules.length != 0
       @freelancer_days = integer_to_date(@freelancer.schedule.to_hash[:rrules][0][:validations][:day])
     else
@@ -38,21 +36,22 @@ class FreelancersController < ApplicationController
 
   def update
     @freelancer = Freelancer.find_by(id: params[:id])
-
     # HELPER FUNCTION -> DELETE PRE RECURRENCES
-    delete_recurrence_rule(params[:id])
-
+    delete_recurrence_rule(@freelancer)
+    # SAVE AFTER REMOVE RULE
+    @freelancer.save
     if @freelancer.update(freelancer_params)
-
-      # HELPER FUNCTION -> UPDATE FREELANCER SCHEDULE COLUMN
+      # HELPER FUNCTION -> UPDATE SCHEDULE COLUMN
       fl_schedule_column(@freelancer)
-      
+      # HELPER FUNCTION -> UPDATE CAPACITY COLUMN
+      fl_capacity_column(@freelancer)
       # SAVE AFTER UPDATE COLUMN
       @freelancer.save
-
       # HELPER FUNCTION -> UPDATE DAILY RECURRENCE
       if params[:days]
-        update_recurrence_rule(params[:id])
+        recurrence_rule(@freelancer)
+        # SAVE AFTER UPDATE COLUMN
+        @freelancer.save
       end
 
       flash[:success] = 'updated profile!'
@@ -66,11 +65,16 @@ class FreelancersController < ApplicationController
   def create
     @freelancer = Freelancer.new(freelancer_params)
     @freelancer.user_id = current_user[:id]
-
-    # HILPER FUNCTION -> CREATE FREELANCER SCHEDULE COLUMN
+    # HELPER FUNCTION -> CREATE FREELANCER SCHEDULE COLUMN
     fl_schedule_column(@freelancer)
+    # HELPER FUNCTION -> UPDATE CAPACITY COLUMN
+    fl_capacity_column(@freelancer, params[:capacity])
+    # HELPER FUNCTION -> UPDATE DAILY RECURRENCE
+    if params[:days]
+      recurrence_rule(@freelancer)
+    end
 
-    if @freelancer.save
+    if @freelancer.save!
       flash[:success] = 'created a profile!'
       redirect_to profile_path(@freelancer.user_id)
     else
@@ -89,6 +93,7 @@ class FreelancersController < ApplicationController
         :end_working_hours,
         :price_start,
         :price_end,
+        :capacity,
         :days)
     end
     def check_user
