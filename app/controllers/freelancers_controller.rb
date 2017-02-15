@@ -36,8 +36,8 @@ class FreelancersController < ApplicationController
     @sanitized_end_time = @freelancer.schedule.end_time.strftime("%I:%M%p")
     # @freelancer.bookings.each do |freelancer_booking|
       #### YOU STOPPED HERE ZL
-    @freelancer_bookings_start = @freelancer.bookings[0].time_start
-    @freelancer_bookings_end = @freelancer.bookings[0].time_end
+    # @freelancer_bookings_start = @freelancer.bookings[0].time_start
+    # @freelancer_bookings_end = @freelancer.bookings[0].time_end
     @occurrences = {
       dates: @freelancer.schedule.occurrences_between(Date.today - 1.year,Date.today + 1.year),
       test: @dummy_data,

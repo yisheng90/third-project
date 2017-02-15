@@ -26,12 +26,7 @@
   <h3>Edit your profile to change your schedule</h3>
   <%= month_calendar(partial: 'simple_calendar/month_calendar', events: @occurrences[:dates] ) do |date, occurrences| %>
     <%= date %>
-    <!-- if date is equivalent to the enquiry's booking start date -->
-    <% if date == @occurrences[:start_booked_times].to_date %>
     <h3>Slot 1 from <%= @occurrences[:start_booked_times] %> to <%= @occurrences[:end_booked_times] %>  </h3>
-    <!-- <%= @occurrences[:start_booked_times] %>
-    <%= @occurrences[:end_booked_times] %> -->
-    <% end %>
     <% occurrences.each do |occurrence| %>
     <div>
       Available from <%= @sanitized_start_time %> to <%= @sanitized_end_time %>
