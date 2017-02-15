@@ -5,10 +5,12 @@
   <h3>Look at the available listings</h3>
 <% end %>
   <table>
-  <% @freelancers.each do |freelancer| %>
-  <tr>
-    <td><%=freelancer.id%></td>
-    <td><%=freelancer.profession%></td>
-    <td><%= link_to 'new enquiry', new_profile_enquiry_path(freelancer)%></td>
-  </tr>
+    <% @freelancers.each do |freelancer| %>
+    <tr>
+      <td><%=freelancer.id%></td>
+      <td><%=freelancer.profession%></td>
+      <td><%= link_to 'new enquiry', new_profile_enquiry_path(freelancer)%></td>
+      <td><%= link_to "view freelancer's profile", profile_path(freelancer.id)%></td>
+    </tr>
+  <table>
 <%end%>

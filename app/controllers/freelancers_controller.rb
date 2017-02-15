@@ -17,6 +17,17 @@ class FreelancersController < ApplicationController
 
   def show
     @freelancer = Freelancer.find_by(id: params[:id])
+
+    # not clean could refactor into function ZL
+    if @freelancer.ratings.average('professionalism').is_a? Numeric
+      @compiled_rating = ( @freelancer.ratings.average('professionalism') +
+                          @freelancer.ratings.average('value') +
+                            @freelancer.ratings.average('cleanliness') ) / 3
+    else
+      @compiled_rating = nil
+    end
+
+    #
     @enquiries = Enquiry.all.where(freelancer_id: params[:id]).where(status: 'open')
     @occurrences = @freelancer.schedule.occurrences_between(Date.today - 1.year,Date.today + 1.year)
     @sanitized_start_time = @freelancer.schedule.start_time.strftime("%I:%M%p")
