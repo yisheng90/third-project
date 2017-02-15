@@ -5,6 +5,10 @@
 
   <table>
     <% @enquiries.each do |enquiry| %>
+    <%= cl_image_tag(enquiry.picture,
+      :width => 400, :height => 400,
+      :crop => :fill, :gravity => :face)
+      %>
     <%= link_to edit_enquiry_path(enquiry) do %>
     <tr>
       <td><%=enquiry.user_id%></td>
