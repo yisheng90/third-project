@@ -1,0 +1,25 @@
+<h1>Freelancer's Profile</h1>
+<h3>name: <%= @freelancer.user.name %></h3>
+<h3>profession: <%= @freelancer.profession %></h3>
+<h3>description: <%= @freelancer.description %></h3>
+<h3>picture: <%= @freelancer.picture %></h3>
+<h3>price range from <%= @freelancer.price_start %> to <%= @freelancer.price_end %></h3>
+
+
+
+<% if Enquiry.where(user_id: current_user[:id], freelancer_id: @freelancer.id) %>
+<!-- <%= link_to 'Click here to rate me!', rating_path %> -->
+<h3>Current Overall Rating</h3>
+<%= render partial: 'partials/form_for_ratings', locals: {big_rating: @compiled_rating, cool_var: 'hey gurl'} %><br>
+<br>
+<% end %>
+
+<%= month_calendar(partial: 'simple_calendar/month_calendar', events: @occurrences) do |date, occurrences| %>
+  <%= date %>
+  <% occurrences.each do |occurrence| %>
+  <div>
+    Available from <%= @sanitized_start_time %> to <%= @sanitized_end_time %>
+  </div>
+  <% end %>
+<% end %>
+<%= render 'enquiries/new' %><br>

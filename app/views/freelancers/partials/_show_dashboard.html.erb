@@ -1,0 +1,29 @@
+<h1>Freelancer's dashboard</h1>
+<h3><%= link_to 'edit your profile!', edit_profile_path(@freelancer) %>
+<h3>Pending enquires</h3>
+
+
+  <table>
+    <% @enquiries.each do |enquiry| %>
+    <%= link_to edit_enquiry_path(enquiry) do %>
+    <tr>
+      <td><%=enquiry.user_id%></td>
+      <td><%=enquiry.description%></td>
+      <td><%=enquiry.start_date%></td>
+      <td><%=enquiry.end_date%></td>
+    </tr>
+    <% end %>
+  </table>
+<% end %>
+
+<h2>View Your Schedule</h2>
+<h3>You Work <%= @freelancer.schedule %></h3>
+<h3>Edit your profile to change your schedule</h3>
+<%= month_calendar(partial: 'simple_calendar/month_calendar', events: @occurrences) do |date, occurrences| %>
+  <%= date %>
+  <% occurrences.each do |occurrence| %>
+  <div>
+    Available from <%= @sanitized_start_time %> to <%= @sanitized_end_time %>
+  </div>
+  <% end %>
+<% end %>

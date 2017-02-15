@@ -3,11 +3,10 @@
 <table>
   <tr>
     <td><%=@enquiry.freelancer_id%></td>
-
     <td><%=@enquiry.description%></td>
-
     <td><%=@enquiry.start_date%></td>
     <td><%=@enquiry.end_date%></td>
-
   </tr>
 </table>
+
+<%= link_to "Chat with #{@enquiry.freelancer.user.name.capitalize}", edit_enquiry_path(@enquiry), class:'btn btn-primary' %>
