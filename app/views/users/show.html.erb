@@ -2,3 +2,6 @@
 <p>Find me in app/views/users/show.html.erb</p>
 
 <p> Should show user profile </p>
+
+<h1><%= @user.name.capitalize %></h1>
+<%= link_to 'edit profile', edit_user_path(@user) %>

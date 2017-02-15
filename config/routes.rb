@@ -1,22 +1,25 @@
 Rails.application.routes.draw do
-  get 'ratings/create'
-
-  get 'ratings/show'
-
-  get 'bookings/index'
-  post 'bookings/create'
-
-  root 'users#new'
+  root 'freelancers#index'
 
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
   match 'logout' => 'sessions#destroy', via: [:get, :delete]
-
-  get 'signup' => 'users#new'
   post 'signup' => 'users#create'
 
-  resources :email_confirmations, only: [:show]
+  resources :users, only: [:edit, :update, :show]
+  resources :email_confirmations, only: [:show, :index]
   resources :password_reset, only: [:show, :new, :update, :create]
+  resources :ratings, only: [:create, :show]
+
+
+  get 'bookings/index'
+  post 'bookings/create'
+
+
+
+
+
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
 
@@ -28,7 +31,10 @@ Rails.application.routes.draw do
     resources :booking
   end
 
-  resources :enquiries, except: [:new]
+
+  resources :enquiries,except: [:new]
   resources :ratings, only: [:show,:create]
+
+
 
 end

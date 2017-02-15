@@ -1,0 +1,8 @@
+<% @freelancers.each do |freelancer| %>
+    <div>
+      <h3><%=freelancer.user.name%></h3>
+      <p><%=freelancer.profession%><p>
+      <%= link_to 'new enquiry', new_profile_enquiry_path(freelancer), class:'btn btn-primary'%>
+      <%= link_to "view freelancer's profile", profile_path(freelancer.id), class:'btn btn-primary'%>
+    </div>
+<%end%>

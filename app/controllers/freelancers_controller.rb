@@ -1,6 +1,6 @@
 class FreelancersController < ApplicationController
   include FreelancersHelper
-  before_action :check_user
+  before_action :check_user, except: [:index, :show]
   before_action :is_freelancer?, except: [:index,:new, :create]
 
   def new

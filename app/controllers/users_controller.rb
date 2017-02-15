@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     if @user.save!
       UserMailer.registration_confirmation(@user).deliver_later
       flash.now[:success] = 'Please check you mail box and confirm email'
-      redirect_to login_path
+      redirect_to email_confirmations_path
     else
       flash.now[:error] = "Ooooppss, something went wrong!"
       render :new
@@ -28,8 +28,8 @@ class UsersController < ApplicationController
     @user.update(user_params)
 
     if @user
-      flash.now[:success] = 'Please check you mail box and confirm email'
-      redirect_to user_path[id: @user.id]
+      flash.now[:success] = 'You have successfully updated your profile'
+      redirect_to user_path(@user)
     else
       flash.now[:error] = "Ooooppss, something went wrong!"
       render :edit

@@ -61,11 +61,12 @@ ActiveRecord::Schema.define(version: 20170215061329) do
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.text     "schedule"
-    t.integer  "capacity"
     t.string   "latitude"
     t.string   "longitude"
     t.string   "address"
     t.string   "experience"
+    t.integer  "capacity"
+
     t.index ["user_id"], name: "index_freelancers_on_user_id", using: :btree
   end
 
