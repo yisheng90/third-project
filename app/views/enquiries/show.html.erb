@@ -9,4 +9,9 @@
   </tr>
 </table>
 
+<h1>This is <%= @enquiry.freelancer.user.name %>'s schedule for the week <%=@enquiry.start_date.to_date.cweek%> of 2017 </h1>
+<!-- testing out partial for weekly calendar ZL -->
+<!-- passed_datum requires :dates, :start_time, :end_time and start date and time slots as well later -->
+<%= render partial: 'partials/calendar_for_specific_booking', locals: { passed_datum: @occurrences } %>
+
 <%= link_to "Chat with #{@enquiry.freelancer.user.name.capitalize}", edit_enquiry_path(@enquiry), class:'btn btn-primary' %>

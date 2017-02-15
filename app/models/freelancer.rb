@@ -6,10 +6,12 @@ class Freelancer < ApplicationRecord
   has_many :ratings,  dependent: :destroy
 
   # BOOKABLE GEM (ANDREW)
-  acts_as_bookable time_type: :range, bookable_across_occurrences: true, capacity_type: :open
+  acts_as_bookable time_type: :range, bookable_across_occurrences: true
 
   validates :user_id, uniqueness: true
 
+  before_save :downcase_description_profression
+  before_update :downcase_description_profression
   after_validation :convert_to_utc, :if => :working_hours_set
 
   def convert_to_utc
@@ -19,6 +21,11 @@ class Freelancer < ApplicationRecord
   end
 
   private
+
+  def downcase_description_profression
+    self.description = self.description.downcase
+    self.profession = self.profession.downcase
+  end
 
   def working_hours_set
     @freelancer = Freelancer.find_by_id(id)

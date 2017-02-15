@@ -31,5 +31,5 @@ class MessageBroadcastJob < ApplicationJob
 
   def render_message(message, user)
 
- end
+  end
 end

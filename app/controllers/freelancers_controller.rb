@@ -1,7 +1,9 @@
 class FreelancersController < ApplicationController
   include FreelancersHelper
+
   before_action :check_user, except: [:index, :show]
   before_action :is_freelancer?, except: [:index,:new, :create]
+
 
   def new
     if Freelancer.find_by(user_id: current_user[:id])
@@ -18,6 +20,7 @@ class FreelancersController < ApplicationController
   def show
     @freelancer = Freelancer.find_by(id: params[:id])
     @bookings = @freelancer.bookings
+    @dummy_data = 'Hello'
     @enquiry = Enquiry.new
     # not clean could refactor into function ZL
     if @freelancer.ratings.average('professionalism').is_a? Numeric
@@ -29,9 +32,22 @@ class FreelancersController < ApplicationController
     end
 
     @enquiries = Enquiry.all.where(freelancer_id: params[:id]).where(status: 'open')
-    @occurrences = @freelancer.schedule.occurrences_between(Date.today - 1.year,Date.today + 1.year)
+
+    #pass in data as a hash
     @sanitized_start_time = @freelancer.schedule.start_time.strftime("%I:%M%p")
     @sanitized_end_time = @freelancer.schedule.end_time.strftime("%I:%M%p")
+    # @freelancer.bookings.each do |freelancer_booking|
+      #### YOU STOPPED HERE ZL
+    # @freelancer_bookings_start = @freelancer.bookings[0].time_start
+    # @freelancer_bookings_end = @freelancer.bookings[0].time_end
+    @occurrences = {
+      dates: @freelancer.schedule.occurrences_between(Date.today - 1.year,Date.today + 1.year),
+      test: @dummy_data,
+      start_time: @sanitized_start_time,
+      end_time: @sanitized_end_time,
+      start_booked_times: @freelancer_bookings_start,
+      end_booked_times: @freelancer_bookings_end
+    }
   end
 
   def edit
@@ -68,8 +84,6 @@ class FreelancersController < ApplicationController
     if @freelancer.update(freelancer_params)
       # HELPER FUNCTION -> UPDATE SCHEDULE COLUMN
       fl_schedule_column(@freelancer)
-      # HELPER FUNCTION -> UPDATE CAPACITY COLUMN
-      fl_capacity_column(@freelancer, params[:capacity])
       # SAVE AFTER UPDATE COLUMN
       @freelancer.save
       # HELPER FUNCTION -> UPDATE DAILY RECURRENCE
@@ -98,8 +112,6 @@ class FreelancersController < ApplicationController
     @freelancer.longitude= parsed_json["results"][0]['geometry']['location']['lng']
     # HELPER FUNCTION -> CREATE FREELANCER SCHEDULE COLUMN
     fl_schedule_column(@freelancer)
-    # HELPER FUNCTION -> UPDATE CAPACITY COLUMN
-    fl_capacity_column(@freelancer, params[:capacity])
     # HELPER FUNCTION -> UPDATE DAILY RECURRENCE
     if params[:days]
       recurrence_rule(@freelancer)
@@ -128,7 +140,6 @@ class FreelancersController < ApplicationController
         :end_working_hours,
         :price_start,
         :price_end,
-        :capacity,
         :days)
     end
 
@@ -146,15 +157,15 @@ class FreelancersController < ApplicationController
     end
 
 
-    def upload_picture
-     if params[:freelancer][:picture] != nil
-       if @freelancer.valid?
-         uploaded_file = params[:freelancer][:picture].path
-         puts "PATH #{uploaded_file}"
-         cloudnary_file = Cloudinary::Uploader.upload(uploaded_file)
-         @freelancer.picture = cloudnary_file['public_id']
-       end
-       params[:freelancer].delete :picture
+  def upload_picture
+   if params[:freelancer][:picture] != nil
+     if @freelancer.valid?
+       uploaded_file = params[:freelancer][:picture].path
+       puts "PATH #{uploaded_file}"
+       cloudnary_file = Cloudinary::Uploader.upload(uploaded_file)
+       @freelancer.picture = cloudnary_file['public_id']
      end
+     params[:freelancer].delete :picture
+   end
   end
 end

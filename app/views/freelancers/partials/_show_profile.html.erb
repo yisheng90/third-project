@@ -3,6 +3,7 @@
       :width => 400, :height => 400,
       :crop => :fill, :gravity => :face)
       %>
+
 <h3>name: <%= @freelancer.user.name %></h3>
 <h3>profession: <%= @freelancer.profession %></h3>
 <h3>description: <%= @freelancer.description %></h3>
@@ -20,12 +21,13 @@
 <%= render partial: 'partials/form_for_ratings', locals: {big_rating: @compiled_rating, cool_var: 'hey gurl'} %><br>
 <br>
 
-<%= month_calendar(partial: 'simple_calendar/month_calendar', events: @occurrences) do |date, occurrences| %>
+<%= month_calendar(partial: 'simple_calendar/month_calendar', events: @occurrences[:dates]) do |date, occurrences| %>
   <%= date %>
   <% occurrences.each do |occurrence| %>
   <div>
-    Available from <%= @sanitized_start_time %> to <%= @sanitized_end_time %>
+    Available from <%= @occurrences[:start_time] %> to <%= @occurrences[:end_time] %>
   </div>
   <% end %>
 <% end %>
+
 <%= render 'enquiries/new' %><br>
