@@ -10,11 +10,22 @@ class EnquiriesController < ApplicationController
 
   def show
     redirect_to signup_path  if @enquiry.user_id != current_user.id && @enquiry.freelancer.user_id != current_user.id
+    @occurrences = {
+       dates: @enquiry.freelancer.schedule.occurrences_between(Date.today - 1.year,Date.today + 1.year),
+       start_time: @enquiry.freelancer.schedule.start_time.strftime("%I:%M%p"),
+       end_time: @enquiry.freelancer.schedule.end_time.strftime("%I:%M%p"),
+       start_date: @enquiry.start_date
+     }
   end
 
   def new
     @enquiry = Enquiry.new
     @freelancer = Freelancer.find(params[:profile_id])
+    @occurrences = {
+      dates: @freelancer.schedule.occurrences_between(Date.today - 1.year,Date.today + 1.year),
+      start_time: @freelancer.schedule.start_time.strftime("%I:%M%p"),
+      end_time: @freelancer.schedule.end_time.strftime("%I:%M%p")
+    }
     puts "freelancer id is #{@freelancer.id}"
   end
 

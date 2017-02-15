@@ -49,7 +49,7 @@ GEM
     bcrypt (3.1.11-x86-mingw32)
     bootstrap-sass (3.2.0.2)
       sass (~> 3.2)
-    bootstrap_form (2.3.0)
+    bootstrap_form (2.6.0)
     builder (3.2.3)
     byebug (9.0.6)
     cloudinary (1.4.0)
@@ -143,6 +143,11 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    rest-client (2.0.0-x86-mingw32)
+      ffi (~> 1.9)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     sass (3.4.23)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
@@ -178,11 +183,8 @@ GEM
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
-<<<<<<< HEAD
+
     unf_ext (0.0.7.2-x86-mingw32)
-=======
-    unf_ext (0.0.7.2)
->>>>>>> 5ac3caa79c759f70867665def9ccef4e558da68c
     web-console (3.4.0)
       actionview (>= 5.0)
       activemodel (>= 5.0)
