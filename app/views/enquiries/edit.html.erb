@@ -1,6 +1,6 @@
 <h1>Edit Enquiry</h1>
 
-<%= form_for(@enquiry) do |f| %>
+<%= form_for(@enquiry, :html=>{:remote => true})do |f| %>
 <% if @enquiry.errors.any? %>
   <div id="error_explanation">
     <h2><%= pluralize(enquiry.errors.count, "error") %> prohibited this enquiry from being saved:</h2>
@@ -37,7 +37,8 @@
 
 <br>
 <br>
-<div class="update_enquiry">
+
+<div class="actions">
   <%= f.submit %>
 </div>
 <% end %>
