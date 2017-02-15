@@ -1,7 +1,7 @@
 class FreelancersController < ApplicationController
   include FreelancersHelper
   before_action :check_user
-  before_action :is_freelancer?, except: [:index,:new, :create]
+  before_action :is_freelancer?, except: [:index, :new, :create]
 
   def new
     if Freelancer.find_by(user_id: current_user[:id])
@@ -55,8 +55,6 @@ class FreelancersController < ApplicationController
     if @freelancer.update(freelancer_params)
       # HELPER FUNCTION -> UPDATE SCHEDULE COLUMN
       fl_schedule_column(@freelancer)
-      # HELPER FUNCTION -> UPDATE CAPACITY COLUMN
-      fl_capacity_column(@freelancer, params[:capacity])
       # SAVE AFTER UPDATE COLUMN
       @freelancer.save
       # HELPER FUNCTION -> UPDATE DAILY RECURRENCE
@@ -79,8 +77,6 @@ class FreelancersController < ApplicationController
     @freelancer.user_id = current_user[:id]
     # HELPER FUNCTION -> CREATE FREELANCER SCHEDULE COLUMN
     fl_schedule_column(@freelancer)
-    # HELPER FUNCTION -> UPDATE CAPACITY COLUMN
-    fl_capacity_column(@freelancer, params[:capacity])
     # HELPER FUNCTION -> UPDATE DAILY RECURRENCE
     if params[:days]
       recurrence_rule(@freelancer)
@@ -105,7 +101,6 @@ class FreelancersController < ApplicationController
         :end_working_hours,
         :price_start,
         :price_end,
-        :capacity,
         :days)
     end
 

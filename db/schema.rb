@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170214150336) do
+ActiveRecord::Schema.define(version: 20170215110452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,13 +33,6 @@ ActiveRecord::Schema.define(version: 20170214150336) do
   create_table "archives", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "bookings", force: :cascade do |t|
-    t.integer  "enquiry_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["enquiry_id"], name: "index_bookings_on_enquiry_id", using: :btree
   end
 
   create_table "enquiries", force: :cascade do |t|
@@ -68,7 +61,6 @@ ActiveRecord::Schema.define(version: 20170214150336) do
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.text     "schedule"
-    t.integer  "capacity"
     t.string   "latitude"
     t.string   "longitude"
     t.index ["user_id"], name: "index_freelancers_on_user_id", using: :btree
@@ -76,11 +68,11 @@ ActiveRecord::Schema.define(version: 20170214150336) do
 
   create_table "messages", force: :cascade do |t|
     t.string   "content"
-    t.boolean  "read"
+    t.boolean  "read",       default: false
     t.integer  "enquiry_id"
     t.integer  "sender_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.index ["enquiry_id"], name: "index_messages_on_enquiry_id", using: :btree
     t.index ["sender_id"], name: "index_messages_on_sender_id", using: :btree
   end
@@ -113,7 +105,6 @@ ActiveRecord::Schema.define(version: 20170214150336) do
     t.datetime "updated_at",                  null: false
   end
 
-  add_foreign_key "bookings", "enquiries"
   add_foreign_key "enquiries", "freelancers"
   add_foreign_key "enquiries", "users"
   add_foreign_key "freelancers", "users"

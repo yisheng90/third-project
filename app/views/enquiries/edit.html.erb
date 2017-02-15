@@ -1,46 +1,93 @@
 <h1>Edit Enquiry</h1>
 
-<%= form_for(@enquiry, :html=>{:remote => true})do |f| %>
-<% if @enquiry.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(enquiry.errors.count, "error") %> prohibited this enquiry from being saved:</h2>
-    <ul>
-      <% @enquiry.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-      <% end %>
-    </ul>
+<% if current_freelancer %>
+  <%= form_for(@enquiry, url: bookings_create_path, html: {method: "POST"})do |f| %>
+  <% if @enquiry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(enquiry.errors.count, "error") %> prohibited this enquiry from being saved:</h2>
+      <ul>
+        <% @enquiry.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :description %>
+    <%= @enquiry.description %>
+    <%= f.hidden_field :description, {:class => 'form-control'} %>
   </div>
-<% end %>
-<div class="field">
-  <%= f.label :description %>
-  <%= f.text_field :description %>
-</div>
-<br>
-<br>
-<div class="field">
-  <%= f.label :start_date %>
-  <%= f.datetime_field :start_date %>
-</div>
-<br>
-<br>
-<div class="field">
-  <%= f.label :end_date %>
-  <%= f.datetime_field :end_date %>
-</div>
-<br>
-<br>
-<div class="field">
-  <%= f.label :price %>
-  <%= f.number_field :price %>
-</div>
+  <br>
+  <div class="field">
+    <%= f.label :start_date %>
+    <%= @enquiry.start_date %>
+    <%= f.hidden_field :start_date, {:class => 'form-control'} %>
+  </div>
+  <br>
+  <div class="field">
+    <%= f.label :end_date %>
+    <%= @enquiry.end_date %>
+    <%= f.hidden_field :end_date, {:class => 'form-control'} %>
+  </div>
+  <br>
+  <div class="field">
+    <%= f.label :price %>: $
+    <%= @enquiry.price %>
+    <%= f.hidden_field :price, {:class => 'form-control'} %>
+  </div>
+  <br>
+  <div class="field">
+    <%= f.label :params %>: $
+    <%= @enquiry.price %>
+    <%= f.hidden_field :id, {:class => 'form-control'} %>
+  </div>
 
+  <div class="actions">
+    <%= f.label "Click me to accept" %></br>
+    <%= f.submit "Accept"%>
+  </div>
+  <% end %>
+<% elsif current_user %>
+  <%= form_for(@enquiry, :html=>{:remote => true})do |f| %>
+  <% if @enquiry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(enquiry.errors.count, "error") %> prohibited this enquiry from being saved:</h2>
+      <ul>
+        <% @enquiry.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_field :description, {:class => 'form-control'} %>
+  </div>
+  <br>
+  <br>
+  <div class="field">
+    <%= f.label :start_date %>
+    <%= f.datetime_field :start_date, {:class => 'form-control'} %>
+  </div>
+  <br>
+  <br>
+  <div class="field">
+    <%= f.label :end_date %>
+    <%= f.datetime_field :end_date, {:class => 'form-control'} %>
+  </div>
+  <br>
+  <br>
+  <div class="field">
+    <%= f.label :price %>: $
+    <%= f.number_field :price, {:class => 'form-control'} %>
+  </div>
+  <br>
+  <br>
 
-<br>
-<br>
-
-<div class="actions">
-  <%= f.submit %>
-</div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  <% end %>
 <% end %>
 
 

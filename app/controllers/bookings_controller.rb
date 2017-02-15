@@ -3,16 +3,21 @@ class BookingsController < ApplicationController
   before_action :is_freelancer?
 
   def create
-    # FREELANCER ID
-    @freelancer = Freelancer.find(params[:id])
-    # ENQUIRY ID
-    @enquiry = Enquiry.find(params[:id])
-    if enquiry.book! @freelancer, time_start: params[:start_time], time_end: params[:end_time]
-      flash[:success] = 'Booking created!'
-      redirect_to bookings_index_path
+    # ENQUIRY SEARCH
+    debugger
+    @enquiry = Enquiry.find(params[:enquiry][:id])
+    # FREELANCER SEARCH BY ENQUIRY freelancer_id
+    @freelancer = Freelancer.find(@enquiry.freelancer_id)
+    # SCRUB PARAMS STRING TO TIME
+    start_date = params[:enquiry][:start_date].to_time
+    end_date = params[:enquiry][:end_date].to_time
+    # BOOK FREELANCER
+    if @enquiry.book! @freelancer, time_start: start_date, time_end: end_date
+      flash[:success] = 'User booked!'
+      redirect_to edit_enquiry_path(@enquiry)
     else
-      flash[:danger] = 'Please login in to use the service!'
-      redirect_to bookings_index_path
+      flash[:danger] = 'Error in booking..'
+      redirect_to edit_enquiry_path(@enquiry)
     end
   end
 
@@ -22,6 +27,15 @@ class BookingsController < ApplicationController
   end
 
   private
+
+  def booking_params
+    params.require(@enquiry).permit(
+      :description,
+      :start_date,
+      :end_date,
+      :price,
+      :id)
+  end
 
   def is_freelancer?
     if !current_freelancer

@@ -35,11 +35,6 @@
   <%= f.number_field(:price_end, {:class => 'form-control'}) %>
 </p>
 
-<p>
-  <%= f.label :capacity %><br>
-  <%= f.number_field(:capacity, {:class => 'form-control'}) %>
-</p>
-
 <p>Choose your schedule</p>
 <% Date::DAYNAMES.each do |day| %>
   <%= check_box_tag('days[]', day) %>
