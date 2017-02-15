@@ -30,6 +30,11 @@ ActiveRecord::Schema.define(version: 20170214150336) do
     t.index ["booker_type", "booker_id"], name: "index_acts_as_bookable_bookings_booker", using: :btree
   end
 
+  create_table "archives", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "bookings", force: :cascade do |t|
     t.integer  "enquiry_id"
     t.datetime "created_at", null: false
@@ -65,6 +70,7 @@ ActiveRecord::Schema.define(version: 20170214150336) do
     t.text     "schedule"
     t.string   "latitude"
     t.string   "longitude"
+    t.integer  "capacity"
     t.index ["user_id"], name: "index_freelancers_on_user_id", using: :btree
   end
 
