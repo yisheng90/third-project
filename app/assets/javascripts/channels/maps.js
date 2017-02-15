@@ -1,26 +1,10 @@
+$.getScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyBCTtS1KnxXuh22lty2vDgBn54QlfhiVKM&callback=initMap", function(){
 
-<% unless !!Freelancer.find_by(user_id: current_user[:id]) %>
-<h3><%= link_to "Click me to setup a freelancer's profile!", new_profile_path %></h3>
-<h3>or look at the available listings</h3>
+   alert("Script loaded but not necessarily executed.");
 
-<% else %>
-<h3>Look at the available listings</h3>
-<% end %>
-<table>
+});
 
-<% @freelancers.each do |freelancer| %>
-<tr>
-  <td><%=freelancer.id%></td>
-  <td><%=freelancer.profession%></td>
-  <td><%= link_to 'new enquiry', new_profile_enquiry_path(freelancer)%></td>
-</tr>
-<%end%>
-
-<div id="map"></div>
-
-<script>
 function initMap() {
-  console.log("entered")
   var uluru = {lat: 1.3521, lng: 103.8198};
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
@@ -69,7 +53,3 @@ var posit
 
   <% end %>
 }
-</script>
-<script async defer
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCTtS1KnxXuh22lty2vDgBn54QlfhiVKM&callback=initMap&libraries=geometry">
-</script>
