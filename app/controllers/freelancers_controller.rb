@@ -45,7 +45,10 @@ class FreelancersController < ApplicationController
     if @freelancer.update(freelancer_params)
 
       # HELPER FUNCTION -> UPDATE FREELANCER SCHEDULE COLUMN
-      update_fl_schedule_column(params[:id])
+      fl_schedule_column(@freelancer)
+      
+      # SAVE AFTER UPDATE COLUMN
+      @freelancer.save
 
       # HELPER FUNCTION -> UPDATE DAILY RECURRENCE
       if params[:days]
@@ -64,14 +67,10 @@ class FreelancersController < ApplicationController
     @freelancer = Freelancer.new(freelancer_params)
     @freelancer.user_id = current_user[:id]
 
-    # CREATE ICE CUBE SCHEDULE
-    @freelancer.schedule = IceCube::Schedule.new
+    # HILPER FUNCTION -> CREATE FREELANCER SCHEDULE COLUMN
+    fl_schedule_column(@freelancer)
 
     if @freelancer.save
-      
-      # UPDATE FL SCHEDULE COLUMN
-      update_fl_schedule_column(current_user[:id])
-
       flash[:success] = 'created a profile!'
       redirect_to profile_path(@freelancer.user_id)
     else
