@@ -49,11 +49,16 @@ class FreelancersController < ApplicationController
   def update
     @freelancer = Freelancer.find_by(id: params[:id])
     @address = @freelancer.address
-    response = HTTParty.get("https://maps.googleapis.com/maps/api/geocode/json?address=#{@address}&key=AIzaSyBCTtS1KnxXuh22lty2vDgBn54QlfhiVKM", verify: false)
-    parsed_json = JSON.parse(response.body)
-    puts "response is #{parsed_json}"
-    @freelancer.latitude= parsed_json["results"][0]['geometry']['location']['lat']
-    @freelancer.longitude= parsed_json["results"][0]['geometry']['location']['lng']
+    if @address.blank?
+      @freelancer.latitude = 0
+      @freelancer.longitude = 0
+    else
+      response = HTTParty.get("https://maps.googleapis.com/maps/api/geocode/json?address=#{@address}&key=AIzaSyBCTtS1KnxXuh22lty2vDgBn54QlfhiVKM", verify: false)
+      parsed_json = JSON.parse(response.body)
+      puts "response is #{parsed_json}"
+      @freelancer.latitude= parsed_json["results"][0]['geometry']['location']['lat']
+      @freelancer.longitude= parsed_json["results"][0]['geometry']['location']['lng']
+    end
     # HELPER FUNCTION -> DELETE PRE RECURRENCES
     delete_recurrence_rule(@freelancer)
     # SAVE AFTER REMOVE RULE
