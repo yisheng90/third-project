@@ -1,9 +1,9 @@
 <% if current_user == nil %>
-  <%= render 'freelancers/index_guest' %>
+  <%= render 'freelancers/partials/index_guest' %>
 <% elsif current_freelancer %>
-  <%= render 'freelancers/index_freelancer' %>
+  <%= render 'freelancers/partials/index_freelancer' %>
 <% else %>
-  <%= render 'freelancers/index_user' %>
+  <%= render 'freelancers/partials/index_user' %>
 <% end %>
 
 
