@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
-  root 'home#index'
+  root 'freelancers#index'
 
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
   match 'logout' => 'sessions#destroy', via: [:get, :delete]
   post 'signup' => 'users#create'
+
+  resources :users, only: [:edit, :update, :show]
   resources :email_confirmations, only: [:show, :index]
   resources :password_reset, only: [:show, :new, :update, :create]
   resources :ratings, only: [:create, :show]
