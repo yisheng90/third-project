@@ -51,6 +51,7 @@ class FreelancersController < ApplicationController
     @address = @freelancer.address
     response = HTTParty.get("https://maps.googleapis.com/maps/api/geocode/json?address=#{@address}&key=AIzaSyBCTtS1KnxXuh22lty2vDgBn54QlfhiVKM", verify: false)
     parsed_json = JSON.parse(response.body)
+    puts "response is #{parsed_json}"
     @freelancer.latitude= parsed_json["results"][0]['geometry']['location']['lat']
     @freelancer.longitude= parsed_json["results"][0]['geometry']['location']['lng']
     # HELPER FUNCTION -> DELETE PRE RECURRENCES
@@ -85,6 +86,7 @@ class FreelancersController < ApplicationController
     @address = @freelancer.address
     response = HTTParty.get("https://maps.googleapis.com/maps/api/geocode/json?address=#{@address}&key=AIzaSyBCTtS1KnxXuh22lty2vDgBn54QlfhiVKM", verify: false)
     parsed_json = JSON.parse(response.body)
+    puts "response is #{parsed_json}"
     @freelancer.latitude= parsed_json["results"][0]['geometry']['location']['lat']
     @freelancer.longitude= parsed_json["results"][0]['geometry']['location']['lng']
     # HELPER FUNCTION -> CREATE FREELANCER SCHEDULE COLUMN
@@ -109,6 +111,10 @@ class FreelancersController < ApplicationController
     def freelancer_params
       params.require(:freelancer).permit(
         :profession,
+        :address,
+        :latitude,
+        :longitude,
+        :experience,
         :description,
         :picture,
         :start_working_hours,

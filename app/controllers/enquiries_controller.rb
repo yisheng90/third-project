@@ -25,7 +25,7 @@ class EnquiriesController < ApplicationController
     # @enquiry.freelancer_id = @freelancer.id
 
     @enquiry.save!
-      redirect_to enquiry_path(@enquiry), notice: 'Enquiry was successfully created.'
+    redirect_to edit_enquiry_path(@enquiry), notice: 'Enquiry was successfully created.'
   end
 
   def update
