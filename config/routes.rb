@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'ratings/show'
 
   get 'bookings/index'
+  post 'bookings/create'
 
   root 'users#new'
 
@@ -21,10 +22,6 @@ Rails.application.routes.draw do
 
   resources :freelancers, only: [:show, :new, :update, :edit, :create, :index], as: 'profile' do |f|
     resources :enquiries, only: [:new]
-  end
-
-  resources :freelancers, only: [:show, :new, :update, :edit, :create, :index], as: 'restricted' do |f|
-    resources :booking
   end
 
   resources :enquiries, except: [:new]
