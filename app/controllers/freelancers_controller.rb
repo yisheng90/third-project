@@ -20,7 +20,6 @@ class FreelancersController < ApplicationController
   def show
     @freelancer = Freelancer.find_by(id: params[:id])
     @bookings = @freelancer.bookings
-    @dummy_data = 'Hello'
     @enquiry = Enquiry.new
     # not clean could refactor into function ZL
     if @freelancer.ratings.average('professionalism').is_a? Numeric
@@ -31,22 +30,22 @@ class FreelancersController < ApplicationController
       @compiled_rating = nil
     end
 
-    @enquiries = Enquiry.all.where(freelancer_id: params[:id]).where(status: 'open')
+    @enquiries = Enquiry.all.where(freelancer_id: params[:id]).where(status: 'open').order(:start_date)
+    @own_enquiries = Enquiry.all.where(user_id: params[:id]).where(status: 'open').order(:start_date)
 
     #pass in data as a hash
     @sanitized_start_time = @freelancer.schedule.start_time.strftime("%I:%M%p")
     @sanitized_end_time = @freelancer.schedule.end_time.strftime("%I:%M%p")
-    # @freelancer.bookings.each do |freelancer_booking|
-      #### YOU STOPPED HERE ZL
-    # @freelancer_bookings_start = @freelancer.bookings[0].time_start
-    # @freelancer_bookings_end = @freelancer.bookings[0].time_end
+
+    #might be able to do something cool with this
+    @bookings_grped_by_date = @freelancer.bookings.order("date(time_start)").group("date(time_start)").count
+
+    #### YOU STOPPED HERE ZL
+    ## done
     @occurrences = {
       dates: @freelancer.schedule.occurrences_between(Date.today - 1.year,Date.today + 1.year),
-      test: @dummy_data,
       start_time: @sanitized_start_time,
       end_time: @sanitized_end_time,
-      start_booked_times: @freelancer_bookings_start,
-      end_booked_times: @freelancer_bookings_end
     }
   end
 

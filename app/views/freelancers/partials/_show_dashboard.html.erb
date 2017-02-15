@@ -6,7 +6,6 @@
       :crop => :fill, :gravity => :face)
       %>
 
-
 <h3>Pending enquires</h3>
 <table>
     <% @enquiries.each do |enquiry| %>
@@ -24,25 +23,30 @@
 <%= render partial: 'partials/form_for_ratings', locals: {big_rating: @compiled_rating, cool_var: 'hey gurl'} %>
 
 <h3>Submitted enquiries(My enquiries)</h3>
-<% @freelancer.enquiries.where(:user_id == current_user.id).each do |enquiry| %>
+<% @own_enquiries.each do |enquiry| %>
   <div>
     <%= enquiry.description %>
     <%= enquiry.start_date.to_time %>
     <%= link_to "Chat with #{enquiry.freelancer.user.name.capitalize}", edit_enquiry_path(enquiry.id)%>
   </div>
 <% end %>
+<br>
 
-
+<%= @bookings_grped_by_date %>
 
 <h2>View Your Schedule</h2>
 <h3>Your Work <%= @freelancer.schedule %></h3>
 <h3>Edit your profile to change your schedule</h3>
 <%= month_calendar(partial: 'simple_calendar/month_calendar', events: @occurrences[:dates] ) do |date, occurrences| %>
   <%= date %>
-  <h3>Slot 1 from <%= @occurrences[:start_booked_times] %> to <%= @occurrences[:end_booked_times] %>  </h3>
+  <% @freelancer.bookings.order(:time_start).each do |booking| %>
+    <% if date == booking.time_start.to_date %>
+    <p class='slot'>Slot booked from <%= booking.time_start.strftime("%I:%M%p") %> to <%= booking.time_end.strftime("%I:%M%p") %>  </p>
+    <% end %>
+  <% end %>
   <% occurrences.each do |occurrence| %>
-  <div>
-    Available from <%= @sanitized_start_time %> to <%= @sanitized_end_time %>
+  <div class='free'>
+    Available from <%= @occurrences[:start_time] %> to <%= @occurrences[:end_time] %>
   </div>
   <% end %>
 <% end %>

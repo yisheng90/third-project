@@ -70,11 +70,11 @@ ActiveRecord::Schema.define(version: 20170215110452) do
 
   create_table "messages", force: :cascade do |t|
     t.string   "content"
-    t.boolean  "read",       default: false
+    t.boolean  "read"
     t.integer  "enquiry_id"
     t.integer  "sender_id"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["enquiry_id"], name: "index_messages_on_enquiry_id", using: :btree
     t.index ["sender_id"], name: "index_messages_on_sender_id", using: :btree
   end
