@@ -12,7 +12,7 @@
 
 <p>
   <%= f.label :picture %><br>
-  <%= f.text_field(:picture, {:class => 'form-control'}) %>
+  <%= f.file_field :picture %>
 </p>
 
 <p>
@@ -33,6 +33,11 @@
 <p>
   <%= f.label :price_end %><br>
   <%= f.number_field(:price_end, {:class => 'form-control'}) %>
+</p>
+
+<p>
+  <%= f.label :address %><br>
+  <%= f.text_field(:address, {:class => 'form-control'}) %>
 </p>
 
 <p>Choose your schedule</p>

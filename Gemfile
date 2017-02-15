@@ -38,8 +38,10 @@ gem 'acts_as_bookable'
 gem "simple_calendar", "~> 2.0"
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
+gem 'bootstrap_form'
+gem 'cloudinary'
 
-
+gem "httparty"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

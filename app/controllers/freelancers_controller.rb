@@ -1,7 +1,9 @@
 class FreelancersController < ApplicationController
   include FreelancersHelper
-  before_action :check_user
-  before_action :is_freelancer?, except: [:index, :new, :create]
+
+  before_action :check_user, except: [:index, :show]
+  before_action :is_freelancer?, except: [:index,:new, :create]
+
 
   def new
     if Freelancer.find_by(user_id: current_user[:id])
@@ -19,7 +21,7 @@ class FreelancersController < ApplicationController
     @freelancer = Freelancer.find_by(id: params[:id])
     @bookings = @freelancer.bookings
     @dummy_data = 'Hello'
-
+    @enquiry = Enquiry.new
     # not clean could refactor into function ZL
     if @freelancer.ratings.average('professionalism').is_a? Numeric
       @compiled_rating = ( @freelancer.ratings.average('professionalism') +
@@ -62,9 +64,22 @@ class FreelancersController < ApplicationController
   #CAPACITY IS THROWING AN ERROR for now
   def update
     @freelancer = Freelancer.find_by(id: params[:id])
+      upload_picture
+    @address = @freelancer.address
+    if @address.blank?
+      @freelancer.latitude = 0
+      @freelancer.longitude = 0
+    else
+      response = HTTParty.get("https://maps.googleapis.com/maps/api/geocode/json?address=#{@address}&key=AIzaSyBCTtS1KnxXuh22lty2vDgBn54QlfhiVKM", verify: false)
+      parsed_json = JSON.parse(response.body)
+      puts "response is #{parsed_json}"
+      @freelancer.latitude= parsed_json["results"][0]['geometry']['location']['lat']
+      @freelancer.longitude= parsed_json["results"][0]['geometry']['location']['lng']
+    end
     # HELPER FUNCTION -> DELETE PRE RECURRENCES
     delete_recurrence_rule(@freelancer)
     # SAVE AFTER REMOVE RULE
+
     @freelancer.save
     if @freelancer.update(freelancer_params)
       # HELPER FUNCTION -> UPDATE SCHEDULE COLUMN
@@ -79,16 +94,22 @@ class FreelancersController < ApplicationController
       end
 
       flash[:success] = 'updated profile!'
-      redirect_to profile_path(@freelancer.user_id)
+      redirect_to profile_path(@freelancer.id)
     else
       flash[:danger] = 'unable to update profile'
-      redirect_to profile_path(@freelancer.user_id)
+      render :edit
     end
   end
 
   def create
     @freelancer = Freelancer.new(freelancer_params)
     @freelancer.user_id = current_user[:id]
+    @address = @freelancer.address
+    response = HTTParty.get("https://maps.googleapis.com/maps/api/geocode/json?address=#{@address}&key=AIzaSyBCTtS1KnxXuh22lty2vDgBn54QlfhiVKM", verify: false)
+    parsed_json = JSON.parse(response.body)
+    puts "response is #{parsed_json}"
+    @freelancer.latitude= parsed_json["results"][0]['geometry']['location']['lat']
+    @freelancer.longitude= parsed_json["results"][0]['geometry']['location']['lng']
     # HELPER FUNCTION -> CREATE FREELANCER SCHEDULE COLUMN
     fl_schedule_column(@freelancer)
     # HELPER FUNCTION -> UPDATE DAILY RECURRENCE
@@ -109,6 +130,10 @@ class FreelancersController < ApplicationController
     def freelancer_params
       params.require(:freelancer).permit(
         :profession,
+        :address,
+        :latitude,
+        :longitude,
+        :experience,
         :description,
         :picture,
         :start_working_hours,
@@ -130,4 +155,17 @@ class FreelancersController < ApplicationController
         redirect_to profile_index_path
       end
     end
+
+
+  def upload_picture
+   if params[:freelancer][:picture] != nil
+     if @freelancer.valid?
+       uploaded_file = params[:freelancer][:picture].path
+       puts "PATH #{uploaded_file}"
+       cloudnary_file = Cloudinary::Uploader.upload(uploaded_file)
+       @freelancer.picture = cloudnary_file['public_id']
+     end
+     params[:freelancer].delete :picture
+   end
+  end
 end

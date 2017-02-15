@@ -3,12 +3,9 @@
 <table>
   <tr>
     <td><%=@enquiry.freelancer_id%></td>
-
     <td><%=@enquiry.description%></td>
-
     <td><%=@enquiry.start_date%></td>
     <td><%=@enquiry.end_date%></td>
-
   </tr>
 </table>
 
@@ -16,3 +13,5 @@
 <!-- testing out partial for weekly calendar ZL -->
 <!-- passed_datum requires :dates, :start_time, :end_time and start date and time slots as well later -->
 <%= render partial: 'partials/calendar_for_specific_booking', locals: { passed_datum: @occurrences } %>
+
+<%= link_to "Chat with #{@enquiry.freelancer.user.name.capitalize}", edit_enquiry_path(@enquiry), class:'btn btn-primary' %>

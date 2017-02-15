@@ -15,25 +15,25 @@
   <div class="field">
     <%= f.label :description %>
     <%= @enquiry.description %>
-    <%= f.hidden_field :description, {:class => 'form-control'} %>
+    <%= f.text_field :description, class:"enquiry-"+ @enquiry.id.to_s + "-description", disabled: disabled %>
   </div>
   <br>
   <div class="field">
     <%= f.label :start_date %>
     <%= @enquiry.start_date %>
-    <%= f.hidden_field :start_date, {:class => 'form-control'} %>
+    <%= f.datetime_field :start_date, class:"enquiry-"+@enquiry.id.to_s + "-start_date", disabled: disabled  %>
   </div>
   <br>
   <div class="field">
     <%= f.label :end_date %>
     <%= @enquiry.end_date %>
-    <%= f.hidden_field :end_date, {:class => 'form-control'} %>
+    <%= f.datetime_field :end_date, class:"enquiry-"+@enquiry.id.to_s+ "-end_date", disabled: disabled  %>
   </div>
   <br>
   <div class="field">
     <%= f.label :price %>: $
     <%= @enquiry.price %>
-    <%= f.hidden_field :price, {:class => 'form-control'} %>
+    <%= f.number_field :price, class:"enquiry-"+ @enquiry.id.to_s + "-price", disabled: disabled  %>
   </div>
   <br>
   <div class="field">
@@ -41,7 +41,6 @@
     <%= @enquiry.price %>
     <%= f.hidden_field :id, {:class => 'form-control'} %>
   </div>
-
   <div class="actions">
     <%= f.label "Click me to accept" %></br>
     <%= f.submit "Accept"%>
@@ -61,29 +60,26 @@
   <% end %>
   <div class="field">
     <%= f.label :description %>
-    <%= f.text_field :description, {:class => 'form-control'} %>
+    <%= f.text_field :description, class:"enquiry-"+ @enquiry.id.to_s + "-description" %>
   </div>
   <br>
   <br>
   <div class="field">
     <%= f.label :start_date %>
-    <%= f.datetime_field :start_date, {:class => 'form-control'} %>
+    <%= f.datetime_field :start_date, class:"enquiry-"+@enquiry.id.to_s + "-start_date" %>
   </div>
   <br>
   <br>
   <div class="field">
     <%= f.label :end_date %>
-    <%= f.datetime_field :end_date, {:class => 'form-control'} %>
+    <%= f.datetime_field :end_date, class:"enquiry-"+@enquiry.id.to_s+ "-end_date" %>
   </div>
   <br>
   <br>
   <div class="field">
-    <%= f.label :price %>: $
-    <%= f.number_field :price, {:class => 'form-control'} %>
+    <%= f.label :price %>
+    <%= f.number_field :price, class:"enquiry-"+ @enquiry.id.to_s + "-price" %>
   </div>
-  <br>
-  <br>
-
   <div class="actions">
     <%= f.submit %>
   </div>

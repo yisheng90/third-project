@@ -1,20 +1,11 @@
-<% unless current_freelancer %>
-  <h3><%= link_to "Click me to setup a freelancer's profile!", new_profile_path %></h3>
-  <h3>or look at the available listings</h3>
-
+<% if current_user == nil %>
+  <%= render 'freelancers/partials/index_guest' %>
+<% elsif current_freelancer %>
+  <%= render 'freelancers/partials/index_freelancer' %>
 <% else %>
-  <h3>Look at the available listings</h3>
+  <%= render 'freelancers/partials/index_user' %>
 <% end %>
-  <table>
-    <% @freelancers.each do |freelancer| %>
-    <tr>
-      <td><%=freelancer.id%></td>
-      <td><%=freelancer.profession%></td>
-      <td><%= link_to 'new enquiry', new_profile_enquiry_path(freelancer)%></td>
-      <td><%= link_to "view freelancer's profile", profile_path(freelancer.id)%></td>
-    </tr>
-  <table>
-<%end%>
+
 
 <div id="map"></div>
 
@@ -27,7 +18,6 @@ function initMap() {
     center: uluru
   });
 
-var posit
   var infoWindow = new google.maps.InfoWindow({map: map});
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
@@ -54,6 +44,7 @@ var posit
       }
 
   <% @freelancers.each do |freelancer| %>
+  <% if !freelancer.latitude.blank? && !freelancer.longitude.blank? %>
 
   var marker = new google.maps.Marker({
     position: {lat: <%=freelancer.latitude%>, lng: <%=freelancer.longitude%>},
@@ -64,9 +55,10 @@ var posit
   marker.addListener('click', function() {
     console.log('entered')
     infowindow.open(map, this);
-    infowindow.setContent('<a href="<%= profile_path(freelancer) %>">Book</a>')
+    infowindow.setContent('<p><%= freelancer.profession%></p><br><a href="<%= profile_path(freelancer) %>">Book</a>')
   });
 
+  <% end %>
   <% end %>
 }
 </script>

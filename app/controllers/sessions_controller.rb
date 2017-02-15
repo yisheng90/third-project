@@ -1,5 +1,8 @@
 class SessionsController < ApplicationController
   def new
+    if current_user.present?
+      redirect_to root_path
+    end
   end
 
   def create
@@ -9,10 +12,17 @@ class SessionsController < ApplicationController
       if user.email_confirmed == 1
         session[:user_id] = user.id
         cookies.signed[:user_id] = user.id
-        flash[:success] = "Welcome #{user.name}. You have logged in."
+        flash[:success] = "Welcome #{user.name.capitalize}. You have logged in."
         # flash.now[:success] = "Welcome #{user.name}. You have logged in."
         unless !!Freelancer.find_by(user_id: current_user[:id])
-          redirect_to profile_index_path
+          if  user.address ==  nil
+              redirect_to edit_user_path(user)
+          else
+            redirect_to user_path(user)
+          end
+
+
+
         else
           @freelancer = Freelancer.find_by(user_id: current_user[:id])
           redirect_to profile_path(@freelancer)
@@ -28,7 +38,7 @@ class SessionsController < ApplicationController
       flash.now[:error] = 'Invalid email/password combination' # Not quite right!
        render 'new'
     end
-    
+
   end
 
   def destroy

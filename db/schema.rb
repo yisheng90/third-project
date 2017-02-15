@@ -63,6 +63,9 @@ ActiveRecord::Schema.define(version: 20170215110452) do
     t.text     "schedule"
     t.string   "latitude"
     t.string   "longitude"
+    t.integer  "capacity"
+    t.string   "address"
+    t.string   "experience"
     t.index ["user_id"], name: "index_freelancers_on_user_id", using: :btree
   end
 
