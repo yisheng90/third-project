@@ -6,9 +6,17 @@ App.enquiry = App.cable.subscriptions.create "EnquiryChannel",
     # Called when the subscription has been terminated by the server
 
   received: (data) ->
+    if data['message'] then
     elm = '<p class="sender">'+data['message']+'</p>' if data['sender'] == 1
     elm = '<p class="recipient">'+data['message']+'</p>' if data['sender'] == 0
     $("#messages").find(".messages-"+ data['enquiry_id']).append(elm)
+
+    if data['changes'] then
+    for k,v of data['changes']
+      alert "enquiry-"+ data['enquiry_id']+"-"+k
+      alert v
+      $(".enquiry-"+ data['enquiry_id']+"-"+k).attr('value', v)
+
 
     # Called when there's incoming data on the websocket for this channel
 
