@@ -1,4 +1,4 @@
-<% if !!Freelancer.find_by(user_id: current_user[:id]) %>
+<% unless current_freelancer %>
   <h1>Freelancer's dashboard</h1>
   <h3><%= link_to 'edit your profile!', edit_profile_path(@freelancer) %>
   <h3>Pending enquires</h3>
