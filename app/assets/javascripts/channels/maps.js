@@ -41,14 +41,14 @@ var posit
 
   var marker = new google.maps.Marker({
     position: {lat: <%=freelancer.latitude%>, lng: <%=freelancer.longitude%>},
-    url: '<%= restricted_path(freelancer) %>',
+    url: '<%= profile_path(freelancer) %>',
     map: map
   });
   var infowindow = new google.maps.InfoWindow();
   marker.addListener('click', function() {
     console.log('entered')
     infowindow.open(map, this);
-    infowindow.setContent('<a href="<%= restricted_path(freelancer) %>">Book</a>')
+    infowindow.setContent('<a href="<%= profile_path(freelancer) %>">Book</a>')
   });
 
   <% end %>

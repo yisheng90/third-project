@@ -24,9 +24,9 @@ Rails.application.routes.draw do
     resources :enquiries, only: [:new]
   end
 
-  resources :freelancers, only: [:show, :new, :update, :edit, :create, :index], as: 'restricted' do |f|
-    resources :booking
-  end
+  # resources :freelancers, only: [:show, :new, :update, :edit, :create, :index], as: 'restricted' do |f|
+  #   resources :booking
+  # end
 
   resources :enquiries, except: [:new]
   resources :ratings, only: [:show,:create]
