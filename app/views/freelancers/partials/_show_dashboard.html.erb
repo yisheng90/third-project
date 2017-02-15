@@ -8,18 +8,17 @@
 
 
 <h3>Pending enquires</h3>
-  <table>
+<table>
     <% @enquiries.each do |enquiry| %>
-    <%= link_to edit_enquiry_path(enquiry) do %>
-    <tr>
-      <td><%=enquiry.user_id%></td>
-      <td><%=enquiry.description%></td>
-      <td><%=enquiry.start_date%></td>
-      <td><%=enquiry.end_date%></td>
-    </tr>
+      <tr>
+        <td><%=enquiry.user_id%></td>
+        <td><%=enquiry.description%></td>
+        <td><%=enquiry.start_date%></td>
+        <td><%=enquiry.end_date%></td>
+        <td><%= link_to 'view enquiry', enquiry_path(enquiry.id) %></td>
+      </tr>
     <% end %>
   </table>
-<% end %>
 
 <h3>Current Overall Rating</h3>
 <%= render partial: 'partials/form_for_ratings', locals: {big_rating: @compiled_rating, cool_var: 'hey gurl'} %>

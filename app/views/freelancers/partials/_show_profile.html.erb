@@ -24,7 +24,6 @@
 <%= month_calendar(partial: 'simple_calendar/month_calendar', events: @occurrences[:dates]) do |date, occurrences| %>
   <%= date %>
   <% occurrences.each do |occurrence| %>
-  <h1><%= @occurrence[:start_booked_times] %></h1>
   <div>
     Available from <%= @occurrences[:start_time] %> to <%= @occurrences[:end_time] %>
   </div>

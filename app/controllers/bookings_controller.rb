@@ -4,7 +4,6 @@ class BookingsController < ApplicationController
 
   def create
     # ENQUIRY SEARCH
-    debugger
     @enquiry = Enquiry.find(params[:enquiry][:id])
     # FREELANCER SEARCH BY ENQUIRY freelancer_id
     @freelancer = Freelancer.find(@enquiry.freelancer_id)
