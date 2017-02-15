@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
 
   get 'bookings/index'
+  post 'bookings/create'
 
 
 
