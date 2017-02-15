@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'ratings/create'
+
+  get 'ratings/show'
+
   get 'bookings/index'
 
   root 'users#new'
@@ -23,5 +27,6 @@ Rails.application.routes.draw do
   end
 
   resources :enquiries,except: [:new]
+  resources :ratings, only: [:show,:create]
 
 end
