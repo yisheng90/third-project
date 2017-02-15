@@ -44,6 +44,7 @@ function initMap() {
       }
 
   <% @freelancers.each do |freelancer| %>
+  <% if !freelancer.latitude.blank? && !freelancer.longitude.blank? %>
 
   var marker = new google.maps.Marker({
     position: {lat: <%=freelancer.latitude%>, lng: <%=freelancer.longitude%>},
@@ -57,6 +58,7 @@ function initMap() {
     infowindow.setContent('<p><%= freelancer.profession%></p><br><a href="<%= profile_path(freelancer) %>">Book</a>')
   });
 
+  <% end %>
   <% end %>
 }
 </script>
