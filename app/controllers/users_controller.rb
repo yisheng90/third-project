@@ -25,6 +25,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    upload_picture
     @user.update(user_params)
 
     if @user
@@ -45,5 +46,16 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :email, :password, :phone, :address, :profile_picture)
   end
+
+  def upload_picture
+   if params[:user][:profile_picture] != nil
+     if @user.valid?
+       uploaded_file = params[:user][:profile_picture].path
+       cloudnary_file = Cloudinary::Uploader.upload(uploaded_file)
+       @user.profile_picture = cloudnary_file['public_id']
+     end
+     params[:user].delete :profile_picture
+   end
+end
 
 end

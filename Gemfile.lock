@@ -139,8 +139,7 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.8)
       ffi (>= 0.5.0)
-    rest-client (2.0.0-x86-mingw32)
-      ffi (~> 1.9)
+    rest-client (2.0.0)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
@@ -179,7 +178,11 @@ GEM
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
+<<<<<<< HEAD
     unf_ext (0.0.7.2-x86-mingw32)
+=======
+    unf_ext (0.0.7.2)
+>>>>>>> 5ac3caa79c759f70867665def9ccef4e558da68c
     web-console (3.4.0)
       actionview (>= 5.0)
       activemodel (>= 5.0)

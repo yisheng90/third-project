@@ -54,6 +54,12 @@ class Enquiry < ApplicationRecord
       content = content + '<br>' + name.capitalize + ':<strong> '+ render_value + '</strong>'
     end
     self.messages.create!(content: "#{content} <br> Changed ", sender_id: user)
+
+    ActionCable.server.broadcast(
+      "enquiry_channel_#{self.freelancer.user.id}",
+      changes: changes,
+      enquiry_id: self.id,
+    )
   end
 
 end

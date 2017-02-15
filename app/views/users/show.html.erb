@@ -1,7 +1,26 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
-
-<p> Should show user profile </p>
-
 <h1><%= @user.name.capitalize %></h1>
 <%= link_to 'edit profile', edit_user_path(@user) %>
+
+
+<h1>Upcoming Bookings</h1>
+  <% @user.enquiries.where(:user_id == current_user.id).each do |enquiry| %>
+    <% if enquiry.bookings[0] %>
+      <div>
+        <%= enquiry.description %>
+      </div>
+    <% end %>
+  <% end %>
+
+
+<h1>Open Enquiries</h1>
+<% if @user.enquiries.where(:user_id == current_user.id).size > 0 %>
+  <% @user.enquiries.where(:user_id == current_user.id).each do |enquiry| %>
+    <div>
+      <%= link_to enquiry.description, enquiry_path(enquiry.id) %>
+      <%= link_to "Chat with #{enquiry.freelancer.user.name.capitalize}", edit_enquiry_path(enquiry.id) %>
+    </div>
+  <% end %>
+
+  <% else %>
+    No open enquiry
+<% end %>

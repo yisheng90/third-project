@@ -11,27 +11,29 @@
     </ul>
   </div>
 <% end %>
+
+
 <div class="field">
   <%= f.label :description %>
-  <%= f.text_field :description %>
+  <%= f.text_field :description, class:"enquiry-"+ @enquiry.id.to_s + "-description" %>
 </div>
 <br>
 <br>
 <div class="field">
   <%= f.label :start_date %>
-  <%= f.datetime_field :start_date %>
+  <%= f.datetime_field :start_date, class:"enquiry-"+@enquiry.id.to_s + "-start_date" %>
 </div>
 <br>
 <br>
 <div class="field">
   <%= f.label :end_date %>
-  <%= f.datetime_field :end_date %>
+  <%= f.datetime_field :end_date, class:"enquiry-"+@enquiry.id.to_s+ "-end_date" %>
 </div>
 <br>
 <br>
 <div class="field">
   <%= f.label :price %>
-  <%= f.number_field :price %>
+  <%= f.number_field :price, class:"enquiry-"+ @enquiry.id.to_s + "-price" %>
 </div>
 
 

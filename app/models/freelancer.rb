@@ -1,7 +1,7 @@
 class Freelancer < ApplicationRecord
   # ASSOCIATIONS (ANDREW)
   belongs_to :user
-  has_many :enquires, dependent: :destroy
+  has_many :enquiries, dependent: :destroy
   has_many :bookings, dependent: :destroy
   has_many :ratings,  dependent: :destroy
 
