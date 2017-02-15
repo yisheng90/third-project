@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:edit, :update, :show]
   resources :email_confirmations, only: [:show, :index]
-  resources :password_reset, only: [:show, :new, :update, :create]
+  resources :password_reset, only: [:show, :update, :create]
   resources :ratings, only: [:create, :show]
 
 

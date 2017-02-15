@@ -22,7 +22,7 @@ class PasswordResetController < ApplicationController
 
     if !@user
       flash.now[:danger] = 'Ooooppss. Something went wrong.'
-      redirect_to new_password_reset_path
+      redirect_to login_path
     end
   end
 
