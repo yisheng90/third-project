@@ -1,9 +1,13 @@
 <%= form_for :rating, url:"#", html: { method: :post } do |f| %>
-  <fieldset class="rating">
-    <%= f.radio_button(:rating, "5") %> <%= f.label(:rating.to_s + "_5", "Rocks") %>
-    <%= f.radio_button(:rating, "4") %> <%= f.label(:rating.to_s + "_4", "Pretty good") %>
-    <%= f.radio_button(:rating, "3") %> <%= f.label(:rating.to_s + "_3", "Meh") %>
-    <%= f.radio_button(:rating, "2") %> <%= f.label(:rating.to_s + "_2", "Kinda bad") %>
-    <%= f.radio_button(:rating, "1") %> <%= f.label(:rating.to_s + "_1", "Sucks big time") %>
+  <fieldset class="rating_read_only">
+    <% 5.downto(1) do |btn| %>
+      <% if big_rating.to_i == btn %>
+      <%= f.radio_button(:rating, "#{btn}", options = {checked: true}) %> <%= f.label(:rating.to_s + "_#{btn}", "egs") %>
+      <% else %>
+      <%= f.radio_button(:rating, "#{btn}", options = {disabled: true}) %> <%= f.label(:rating.to_s + "_#{btn}", "egs") %>
+      <% end %>
+    <% end %>
   </fieldset>
 <% end %>
+<%= cool_var %>
+<%= big_rating %>
