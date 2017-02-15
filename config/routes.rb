@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'ratings/show'
 
   get 'bookings/index'
+  post 'bookings/create'
 
   root 'users#new'
 

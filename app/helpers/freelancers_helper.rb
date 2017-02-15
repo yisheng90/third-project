@@ -21,9 +21,9 @@ module FreelancersHelper
     freelancer.schedule = IceCube::Schedule.new(@fl_start_time, duration: @duration.hours)
   end
 
-  def fl_capacity_column(freelancer, capacity=3)
+  def fl_capacity_column(freelancer, capacity)
     # SETTING FREELANCER DAILY CAPACITY
-    freelancer.capacity = capacity
+    freelancer.capacity = capacity || 3
   end
 
   def string_to_symbol_scrub(array)
