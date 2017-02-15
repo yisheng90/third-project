@@ -45,6 +45,7 @@ class FreelancersController < ApplicationController
     end
   end
 
+  #CAPACITY IS THROWING AN ERROR for now
   def update
     @freelancer = Freelancer.find_by(id: params[:id])
     # HELPER FUNCTION -> DELETE PRE RECURRENCES
