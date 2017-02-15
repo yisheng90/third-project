@@ -30,11 +30,9 @@ ActiveRecord::Schema.define(version: 20170214150336) do
     t.index ["booker_type", "booker_id"], name: "index_acts_as_bookable_bookings_booker", using: :btree
   end
 
-  create_table "bookings", force: :cascade do |t|
-    t.integer  "enquiry_id"
+  create_table "archives", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["enquiry_id"], name: "index_bookings_on_enquiry_id", using: :btree
   end
 
   create_table "enquiries", force: :cascade do |t|
@@ -63,6 +61,7 @@ ActiveRecord::Schema.define(version: 20170214150336) do
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.text     "schedule"
+    t.integer  "capacity"
     t.string   "latitude"
     t.string   "longitude"
     t.index ["user_id"], name: "index_freelancers_on_user_id", using: :btree
@@ -77,6 +76,19 @@ ActiveRecord::Schema.define(version: 20170214150336) do
     t.datetime "updated_at", null: false
     t.index ["enquiry_id"], name: "index_messages_on_enquiry_id", using: :btree
     t.index ["sender_id"], name: "index_messages_on_sender_id", using: :btree
+  end
+
+  create_table "ratings", force: :cascade do |t|
+    t.integer  "professionalism"
+    t.integer  "value"
+    t.integer  "cleanliness"
+    t.text     "description_of_job"
+    t.integer  "user_id"
+    t.integer  "freelancer_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["freelancer_id"], name: "index_ratings_on_freelancer_id", using: :btree
+    t.index ["user_id"], name: "index_ratings_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -94,10 +106,11 @@ ActiveRecord::Schema.define(version: 20170214150336) do
     t.datetime "updated_at",                  null: false
   end
 
-  add_foreign_key "bookings", "enquiries"
   add_foreign_key "enquiries", "freelancers"
   add_foreign_key "enquiries", "users"
   add_foreign_key "freelancers", "users"
   add_foreign_key "messages", "enquiries"
   add_foreign_key "messages", "users", column: "sender_id"
+  add_foreign_key "ratings", "freelancers"
+  add_foreign_key "ratings", "users"
 end

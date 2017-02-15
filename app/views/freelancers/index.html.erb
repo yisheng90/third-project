@@ -1,19 +1,19 @@
-
-<% unless !!Freelancer.find_by(user_id: current_user[:id]) %>
-<h3><%= link_to "Click me to setup a freelancer's profile!", new_profile_path %></h3>
-<h3>or look at the available listings</h3>
+<% unless current_freelancer %>
+  <h3><%= link_to "Click me to setup a freelancer's profile!", new_profile_path %></h3>
+  <h3>or look at the available listings</h3>
 
 <% else %>
-<h3>Look at the available listings</h3>
+  <h3>Look at the available listings</h3>
 <% end %>
-<table>
-
-<% @freelancers.each do |freelancer| %>
-<tr>
-  <td><%=freelancer.id%></td>
-  <td><%=freelancer.profession%></td>
-  <td><%= link_to 'new enquiry', new_profile_enquiry_path(freelancer)%></td>
-</tr>
+  <table>
+    <% @freelancers.each do |freelancer| %>
+    <tr>
+      <td><%=freelancer.id%></td>
+      <td><%=freelancer.profession%></td>
+      <td><%= link_to 'new enquiry', new_profile_enquiry_path(freelancer)%></td>
+      <td><%= link_to "view freelancer's profile", profile_path(freelancer.id)%></td>
+    </tr>
+  <table>
 <%end%>
 
 <div id="map"></div>

@@ -2,9 +2,16 @@ class Enquiry < ApplicationRecord
   belongs_to :user
   belongs_to :freelancer
   has_many :messages
+  # has_one :act_as_bookable_booking
+
+  # before_destroy :archive_bookings
 
   # BOOKABLE GEM (ANDREW)
   acts_as_booker
+
+  # def archive_bookings
+  #   act_as_bookable_booking.update()
+  # end
 
   def opposed_user(current)
     if current == freelancer.user
