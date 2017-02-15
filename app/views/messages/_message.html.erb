@@ -1,0 +1,9 @@
+<div class="messages-<%= "#{@enquiry.id}"%>">
+  <% @enquiry.messages.sort.each do |message| %>
+    <% if current_user == message.sender %>
+      <p class='sender' ><%= raw(message.content) %></p>
+    <% else %>
+      <p class='recipient' ><%= raw(message.content) %></p>
+    <% end %>
+  <% end %>
+</div>

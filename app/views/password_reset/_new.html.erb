@@ -1,0 +1,6 @@
+<h1>Password Reset</h1>
+
+<%= bootstrap_form_for :password_reset, url:password_reset_index_path, html: { method: :post } do |f| %>
+  <%= f.email_field :email, placeholder: 'Email' %>
+  <%= f.submit 'Submit' %>
+<% end %>

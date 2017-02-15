@@ -1,6 +1,0 @@
-<h1>Email</h1>
-
-<%= form_for :password_reset, url:password_reset_index_path, html: { method: :post } do |f| %>
-  <%= f.email_field :email, placeholder: 'Email' %>
-  <%= f.submit 'Submit' %>
-<% end %>

@@ -1,6 +1,23 @@
-<h1>Login</h1>
-<%= form_for :user do |f| %>
-  <%= f.email_field :email, placeholder: "Enter your email" %>
-  <%= f.password_field :password, placeholder: "Enter your password" %>
-  <%= f.submit "Login" %>
-<% end %>
+<div class='container'>
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#login">Log in</a></li>
+    <li><a data-toggle="tab" href="#signup">Sign up</a></li>
+  </ul>
+
+
+
+  <div class="tab-content">
+      <div id="login" class="tab-pane fade in active">
+        <%= render 'sessions/login' %>
+        <a data-toggle="tab" href='#forget_password'>Forget password?</a>
+      </div>
+      <div id="signup" class="tab-pane fade">
+        <%= render 'users/new' %>
+      </div>
+      <div id="forget_password" class="tab-pane fade">
+        <%= render 'password_reset/new' %>
+        <a data-toggle="tab" href="#login">Log in</a>
+      </div>
+    </div>
+  </div>
+</div>
