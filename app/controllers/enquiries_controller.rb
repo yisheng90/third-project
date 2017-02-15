@@ -19,6 +19,15 @@ class EnquiriesController < ApplicationController
   end
 
   def create
+    enquiry = Enquiry.where('freelancer_id =? AND status = ?', enquiry_params[:freelancer_id], 'open')
+
+    if enquiry.size > 0
+      flash[:danger] = "Can't create"
+      redirect_to root_path
+    else
+
+
+
     @enquiry = Enquiry.new(enquiry_params)
     @enquiry.user_id = current_user.id
     # @freelancer = Freelancer.find(params[:profile_id])
@@ -26,6 +35,7 @@ class EnquiriesController < ApplicationController
 
     @enquiry.save!
     redirect_to enquiry_path(@enquiry), notice: 'Enquiry was successfully created.'
+  end
   end
 
   def update
