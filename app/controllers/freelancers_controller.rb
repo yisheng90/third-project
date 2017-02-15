@@ -55,7 +55,7 @@ class FreelancersController < ApplicationController
       # HELPER FUNCTION -> UPDATE SCHEDULE COLUMN
       fl_schedule_column(@freelancer)
       # HELPER FUNCTION -> UPDATE CAPACITY COLUMN
-      fl_capacity_column(@freelancer)
+      fl_capacity_column(@freelancer, params[:capacity])
       # SAVE AFTER UPDATE COLUMN
       @freelancer.save
       # HELPER FUNCTION -> UPDATE DAILY RECURRENCE
