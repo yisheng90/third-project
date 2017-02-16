@@ -28,6 +28,3 @@ $(document).on 'keypress', '.new_message', (event) ->
     App.enquiry.speak event.target.values
     event.target.value = ' '
     event.preventDefault()
-
-@App = {}
-App.cable = ActionCable.createConsumer()

@@ -6,4 +6,3 @@ test:
 
 production:
   adapter: redis
-  url: redis-transparent-71976
