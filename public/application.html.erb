@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,14 +43,42 @@
                     <span class="sr-only">Toggle navigation</span>
                     Menu <i class="fa fa-bars"></i>
                 </button>
+              <% if current_user %>
                 <a class="navbar-brand" href="/"><%= current_user[:email] %></a>
+              <% else %>
                 <a class="navbar-brand" href="/">My Blog</a>
+              <% end %>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-
+                    <li>
+                      <%= link_to 'Home', root_path %>
+                    </li>
+                    <li>
+                      <%= link_to 'About', about_path %>
+                    </li>
+                    <li>
+                    <% if !current_user %>
+                      <%= link_to 'Sign Up', register_path %>
+                    <% end %>
+                    </li>
+                    <li>
+                    <% if !current_user %>
+                      <%= link_to 'Sign In', login_path %>
+                    <% end %>
+                    </li>
+                    <li>
+                    <% if current_user %>
+                      <%= link_to 'Profile', profile_path %>
+                    <% end %>
+                    </li>
+                    <li>
+                    <% if current_user %>
+                      <%= link_to 'Sign Out', logout_path, :method => 'delete' %>
+                    <% end %>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -56,23 +86,7 @@
         <!-- /.container -->
     </nav>
 
-    <header class="intro-header" style="background-image: url('img/post-bg.jpg')">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>Sign Up</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-
-
-
     <%= yield %>
-    <%= debug(params) if Rails.env.development? %>
 
     <br>
 
