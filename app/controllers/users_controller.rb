@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save!
-      UserMailer.registration_confirmation(@user).deliver_later
+      UserMailer.registration_confirmation(@user).deliver
       flash.now[:success] = 'Please check you mail box and confirm email'
       redirect_to email_confirmations_path
     else
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
   def update
     upload_picture
     @user.update(user_params)
-    
+
     if @user
       flash.now[:success] = 'You have successfully updated your profile'
       redirect_to user_path(@user)

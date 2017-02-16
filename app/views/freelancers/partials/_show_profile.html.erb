@@ -27,10 +27,16 @@
 <% end %>
 
 <!-- doo some stuff here!!!! -->
-<h3>Current Overall Rating</h3>
+<br>
+<h4>Current Overall Rating</h4>
 
 <%= render partial: 'partials/form_for_ratings', locals: {big_rating: @compiled_rating} %><br>
-<%= render partial: 'partials/form_for_3_ratings', locals: {big_rating: @compiled_rating, cool_var: 'hey gurl'} %><br>
+<p>Professionalism</p>
+<%= render partial: 'partials/form_for_ratings', locals: {big_rating: @rating_professionalism} %><br>
+<p>Cleanliness</p>
+<%= render partial: 'partials/form_for_ratings', locals: {big_rating: @rating_cleanliness} %><br>
+<p>Value for money</p>
+<%= render partial: 'partials/form_for_ratings', locals: {big_rating: @rating_value} %><br>
 
 
 </div>

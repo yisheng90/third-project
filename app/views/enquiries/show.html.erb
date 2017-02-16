@@ -1,6 +1,6 @@
 <h1>Details</h1>
 <div class='row'>
-  <div class='col-lg-6'>
+  <div class='col-lg-5'>
     <table class='table'>
       <tr>
         <thead>
@@ -13,12 +13,12 @@
         </thead>
         <td><%=@enquiry.freelancer.user.name%></td>
         <td><%=@enquiry.description%></td>
-        <td><%=@enquiry.start_date%></td>
-        <td><%=@enquiry.end_date%></td>
+        <td><%=@enquiry.start_date.strftime("%e %b %Y %l:%M %p")%></td>
+        <td><%=@enquiry.end_date.strftime("%e %b %Y %l:%M %p")%></td>
       </tr>
     </table>
   </div>
-  <div class='col-lg-6'>
+  <div class='col-lg-7'>
     <% if  !current_freelancer %>
     <h1>This is <%= @enquiry.freelancer.user.name %>'s schedule for the week <%=@enquiry.start_date.to_date.cweek%> of 2017 </h1>
     <% end %>

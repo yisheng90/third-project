@@ -8,10 +8,6 @@
     </div>
   </div>
   <div class='col-lg-4 col-lg-offset-2'>
-    <h3>Quick schedule</h3>
-    <% @first_booking_grped_by_date.each do |key,value| %>
-      <p>You have <%= pluralize(value, 'booked slot') %> on <%= key.strftime("%e %b %Y") %></p>
-    <% end %>
   </div>
 </div>
 <p> render search bar in here </p>
@@ -28,9 +24,12 @@
     <div class='current_reviews_limit_3'>
       <h3>Current Overall Rating</h3>
       <%= render partial: 'partials/form_for_ratings', locals: {big_rating: @compiled_rating} %>
+      <br>
       <h3>Latest reviews from other users</h3>
-      <% @first_3_reviews.each do |review| %>
-        <p><%= link_to(review.user.name, user_path(review.user.id)) %> said: <%= review.description_of_job %></p>
+      <% if @first_3_reviews %>
+        <% @first_3_reviews.each do |review| %>
+          <p><%= review.user.name%> said: <%= review.description_of_job %></p>
+        <% end %>
       <% end %>
     </div>
   </div>
@@ -52,12 +51,13 @@
       <h3>Edit your profile to change your schedule</h3>
       <%= month_calendar(partial: 'simple_calendar/month_calendar', events: @occurrences[:dates] ) do |date, occurrences| %>
         <%= date.day %>
-        <% @closed_enquires.each do |booking| %>
-          <% if date == booking.start_date.to_date %>
+        <% @freelancer.bookings.each do |booking| %>
+          <% if date == booking.time_start.to_date %>
             <!-- slightly wrong pls edit in GA ZL slot is not pointing to correct enquiry path (should be finsihed enquiry no edits) -->
-            <%= link_to enquiry_path(booking.id) do %>
-              <p class='slot'>Slot booked from <%= booking.start_date.strftime("%I:%M%p") %> to <%= booking.end_date.strftime("%I:%M%p") %>  </p>
-            <% end %>
+          <%= link_to enquiry_path(booking.booker.id) do %>
+            <p class='slot'>Slot booked from <%= booking.time_start.strftime("%I:%M%p") %> to <%= booking.time_end.strftime("%I:%M%p") %>  </p>
+          <% end %>
+
           <% end %>
         <% end %>
         <% occurrences.each do |occurrence| %>
