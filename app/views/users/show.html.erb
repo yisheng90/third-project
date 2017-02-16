@@ -1,5 +1,4 @@
-<br><br><br>
-
+<h1>Profile</h1>
 <div class="image"><%= cl_image_tag(@user.profile_picture,
       :width => 400, :height => 400,
       :crop => :fill, :gravity => :face)
@@ -7,7 +6,7 @@
 </div>
 
 <div class="cont">
-  <h1>Upcoming Bookings</h1>
+  <h2>Upcoming Bookings</h2>
   <div><table class="table">
     <tr>
       <th>Description</th>
@@ -24,16 +23,16 @@
     <% end %>
     <% end %>
   </table></div>
-  <h1>Pending Enquiries</h1>
+  <h2>Pending Enquiries</h2>
   <table class="table">
+    <% if @user.enquiries.where(:user_id == current_user.id).size > 0 %>
+    <% @user.enquiries.where(:user_id == current_user.id).each do |enquiry| %>
     <tr>
       <th>Description</th>
       <th>Start Date and Time</th>
       <th>End date and time</th>
       <th>Status</th>
     </tr>
-    <% if @user.enquiries.where(:user_id == current_user.id).size > 0 %>
-    <% @user.enquiries.where(:user_id == current_user.id).each do |enquiry| %>
     <tr>
       <td><%= link_to enquiry.description, enquiry_path(enquiry.id) %></td>
       <td><%= enquiry.start_date.strftime("%d/%m/%y - %H:%M") %></td>

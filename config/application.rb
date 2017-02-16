@@ -13,7 +13,6 @@ module ThirdProject
     # -- all .rb files in that directory are automatically loaded.
 
     config.active_job.queue_adapter = :async
-    config.active_job.queue_adapter = :delayed_job
 
     config.time_zone = "Singapore"
 

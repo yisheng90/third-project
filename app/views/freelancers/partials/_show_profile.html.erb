@@ -1,13 +1,6 @@
 
-<p> render nav bar </p>
-<p> render search bar</p>
-
-<br><br><br>
 <h1><%= @freelancer.user.name %>'s Profile</h1>
 <div class="container-full">
-
-
-
 <div class="container">
 <div>
   <%= cl_image_tag(@freelancer.picture,
@@ -49,6 +42,8 @@
 <div class='new_enquiry right'>
   <% if current_user %>
     <%= render 'enquiries/new' %><br>
+  <% else %>
+    <div class="btn btn-default text-white"><%= link_to "Login/Signup to make an enquiry", login_path %></div>
   <% end %>
 
 </div>

@@ -35,7 +35,6 @@ Rails.application.routes.draw do
   resources :enquiries,except: [:new]
   resources :ratings, only: [:show,:create]
 
-  resource :verifications
 
 
 end

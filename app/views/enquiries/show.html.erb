@@ -1,32 +1,18 @@
 <h1>Details</h1>
-<div class='row'>
-  <div class='col-lg-6'>
-    <table class='table'>
+<table class='table'>
+  <tr>
+    <thead>
       <tr>
-        <thead>
-          <tr>
-            <th>Freelancer's name</th>
-            <th>Description of the enquiry</th>
-            <th>Job start date and time</th>
-            <th>Job end date and time</th>
-          </tr>
-        </thead>
-        <td><%=@enquiry.freelancer.user.name%></td>
-        <td><%=@enquiry.description%></td>
-        <td><%=@enquiry.start_date%></td>
-        <td><%=@enquiry.end_date%></td>
+        <th>Freelancer's name</th>
+        <th>Description of the enquiry</th>
+        <th>Job start date and time</th>
+        <th>Job end date and time</th>
       </tr>
-    </table>
-  </div>
-  <div class='col-lg-6'>
-    <% if  !current_freelancer %>
-    <h1>This is <%= @enquiry.freelancer.user.name %>'s schedule for the week <%=@enquiry.start_date.to_date.cweek%> of 2017 </h1>
-    <% end %>
-    <!-- testing out partial for weekly calendar ZL -->
-    <!-- passed_datum requires :dates, :start_time, :end_time and start date and time slots as well later -->
-    <%= render partial: 'partials/calendar_for_specific_booking', locals: { passed_datum: @occurrences } %>
-    <% if @enquiry.status == 'done' %>
-    <%= link_to "Chat with #{@enquiry.freelancer.user.name.capitalize}", edit_enquiry_path(@enquiry), class:'btn btn-primary' %>
-    <% end %>
-  </div>
-</div>
+    </thead>
+    <td><%=@enquiry.freelancer.user.name%></td>
+    <td><%=@enquiry.description%></td>
+    <td><%=@enquiry.start_date%></td>
+    <td><%=@enquiry.end_date%></td>
+  </tr>
+</table>
+<div class='align'><%= link_to 'Chat with the Freelancer', edit_enquiry_path %></div>
