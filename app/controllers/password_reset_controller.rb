@@ -8,7 +8,7 @@ class PasswordResetController < ApplicationController
 
     if @user
       @user.set_reset_token
-      UserMailer.password_reset(@user).deliver_later(wait: 1.minute)
+      UserMailer.password_reset(@user).deliver
       flash.now[:success] = 'Please check you mail box'
       redirect_to login_path
     else
