@@ -1,50 +1,64 @@
 
-<h1><%= @freelancer.user.name %>'s Profile</h1>
-<div class="container-full">
-<div class="container">
-<div>
-  <%= cl_image_tag(@freelancer.picture,
-        :width => 400, :height => 400,
-        :crop => :fill, :gravity => :face)
-        %>
+  <div class="container">
+    <div class='row'>
+    <div class="col-md-6">
+      <div class='col-md-12 text-center'>
+        <%= cl_image_tag(@freelancer.picture,
+              :width => 200, :height => 200,
+              :crop => :fill, :gravity => :face)
+              %>
+      </div>
+      <br>
+      <div class='col-md-12'>
+        <h3><%= @freelancer.profession %></h3>
+        <div class='col-md-4'>
+          <h2><%= @freelancer.user.name.capitalize %></h2>
+          <span>Overall</span>
+            <%= render partial: 'partials/form_for_ratings', locals: {big_rating: @compiled_rating} %><br><br>
+      <span>Professionalism</span>
+      <%= render partial: 'partials/form_for_ratings', locals: {big_rating: @rating_professionalism} %><br><br>
+      <span>Cleanliness</span>
+      <%= render partial: 'partials/form_for_ratings', locals: {big_rating: @rating_cleanliness} %><br><br>
+      <span>Value for money</span>
+      <%= render partial: 'partials/form_for_ratings', locals: {big_rating: @rating_value} %><br><br>
+
+        <% if current_user %>
+          <% if Enquiry.where(user_id: current_user[:id], freelancer_id: @freelancer.id) %>
+            <%= link_to 'Click here to rate me!', rating_path %>
+          <% end %>
+        <% end %>
+            </div>
+        <div class='col-md-8'>
+          <div class='col-md-12 '>
+            <p class='description'> <%= @freelancer.description %></p>
+            <p> $$ <%= @freelancer.price_start %> to <%= @freelancer.price_end %></p>
+          </div>
+        </div>
+      </div>
+
 </div>
-<br>
-<h3>Profession: <%= @freelancer.profession %></h3>
-<h3>Description: <%= @freelancer.description %></h3>
-<h3>Price ranges from <%= @freelancer.price_start %> to <%= @freelancer.price_end %></h3>
 
-<% if current_user %>
-  <% if Enquiry.where(user_id: current_user[:id], freelancer_id: @freelancer.id) %>
-    <%= link_to 'Click here to rate me!', rating_path %>
-  <% end %>
-<% end %>
-
-<!-- doo some stuff here!!!! -->
-<h3>Current Overall Rating</h3>
-
-<%= render partial: 'partials/form_for_ratings', locals: {big_rating: @compiled_rating} %><br>
-<%= render partial: 'partials/form_for_3_ratings', locals: {big_rating: @compiled_rating, cool_var: 'hey gurl'} %><br>
-
-
-</div>
-<div class="container2">
-<div class="calendar">
-<%= month_calendar(partial: 'simple_calendar/month_calendar', events: @occurrences[:dates]) do |date, occurrences| %>
-  <%= date.day %>
-  <% occurrences.each do |occurrence| %>
-  <div>
-    Available from <%= @occurrences[:start_time] %> to <%= @occurrences[:end_time] %>
+  <div class='col-md-6 side-line'>
+    <div class='col-md-12'>
+    <div class="calendar-small">
+      <%= month_calendar(partial: 'simple_calendar/month_calendar', events: @occurrences[:dates]) do |date, occurrences| %>
+      <%= date.day %>
+      <% occurrences.each do |occurrence| %>
+      <div>
+        Available from <%= @occurrences[:start_time] %> to <%= @occurrences[:end_time] %>
+      </div>
+      <% end %>
+    <% end %>
+    </div>
   </div>
-  <% end %>
-<% end %>
 
-
-<div class='new_enquiry right'>
-  <% if current_user %>
-    <%= render 'enquiries/new' %><br>
-  <% else %>
-    <div class="btn btn-default text-white"><%= link_to "Login/Signup to make an enquiry", login_path %></div>
-  <% end %>
+  <div class='new_enquiry col-md-12'>
+      <% if current_user %>
+        <%= render 'enquiries/new' %><br>
+      <% else %>
+        <div class="btn btn-default text-white"><%= link_to "Login/Signup to make an enquiry", login_path %></div>
+      <% end %>
+  </div>
 
 </div>
-</div>
+  </div>

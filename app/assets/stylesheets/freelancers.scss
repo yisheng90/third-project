@@ -17,7 +17,7 @@
 
 .rating:not(:checked) > label {
     float:right;
-    width:1em;
+    width:.1em;
     padding:0 .1em;
     overflow:hidden;
     white-space:nowrap;
@@ -78,7 +78,7 @@
     overflow:hidden;
     white-space:nowrap;
     cursor:pointer;
-    font-size:200%;
+    font-size:120%;
     line-height:1.2;
     color:#ddd;
 }
@@ -141,4 +141,24 @@
 }
 .container-full{
   display: flex;
+}
+
+.description {
+  padding-top:40px;
+  height: 200px;
+}
+
+.side-line {
+  border-left: solid black 1px;
+}
+
+.calendar-small {
+  font-size: 8px;
+}
+
+.calendar-small {
+  .simple-calendar .day {
+    height:40px;
+    width:40px;
+  }
 }

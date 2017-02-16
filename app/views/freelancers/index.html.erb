@@ -48,7 +48,7 @@
                     :class => 'img-responsive')
                     %>
               <% end %>
-              <h3><a href="<%= profile_path(freelancer.id) %>">Project Name</a></h3>
+              <h3><a href="<%= profile_path(freelancer.id) %>"><%= freelancer.user.name.capitalize %></a></h3>
               <p><%=freelancer.profession%></p>
               <span><%= render partial: 'partials/form_for_ratings', locals: {big_rating: @compiled_rating, disabled: true, cool_var: 'hey'} %></span>
             </div>
