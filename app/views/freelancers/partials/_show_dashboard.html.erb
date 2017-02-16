@@ -10,7 +10,7 @@
         <% else %>
         <%= cl_image_tag(@freelancer.picture,
             :width => 400, :height => 400,
-            :crop => :crop, :gravity => :face, :radius => 'max', :default_image => "avatar.png")
+            :crop => :fill, :gravity => :face, :radius => 'max', :default_image => "avatar.png")
             %>
             <% end %>
       </div>
