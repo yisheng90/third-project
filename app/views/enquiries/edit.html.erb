@@ -96,6 +96,7 @@
                     <%= f.submit "Finalise  & Accept" ,class:'form-control btn btn-primary'%>
                   </div>
                 </div>
+                <%= render partial: 'partials/calendar_for_specific_booking', locals: { passed_datum: @occurrences } %>
             </div>
         <% end %>
 
@@ -130,6 +131,7 @@
       <%= f.submit "Update" , class:'form-control btn btn-primary' %>
     </div>
   </div>
+  <%= render partial: 'partials/calendar_for_specific_booking', locals: { passed_datum: @occurrences } %>
 </div>
     <% end %>
       <% end %>
@@ -153,5 +155,3 @@
 </div>
 </div>
 </div>
-
-<%= render partial: 'partials/calendar_for_specific_booking', locals: { passed_datum: @occurrences } %>
