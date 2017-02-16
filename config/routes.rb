@@ -37,5 +37,7 @@ Rails.application.routes.draw do
 
   resource :verifications
 
+  mount ActionCable.server, at: '/cable'
+
 
 end
