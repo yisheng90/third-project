@@ -1,0 +1,14 @@
+.image{
+  float: left;
+  margin: 0px 50px 50px 0px;
+}
+h1{
+  margin-left: 100px
+}
+.table{
+  margin-left: 500px;
+  clear: left;
+}
+.container{
+  display: flex
+}

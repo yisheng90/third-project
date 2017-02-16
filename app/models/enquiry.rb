@@ -13,6 +13,26 @@ class Enquiry < ApplicationRecord
   #   act_as_bookable_booking.update()
   # end
 
+  after_create :deliver
+
+@@REMINDER_TIME = 30.minutes # minutes before appointment
+
+# Notify our appointment attendee X minutes before the appointment time
+def deliver
+  @client = Twilio::REST::Client.new TWILIO_CONFIG['sid'], TWILIO_CONFIG['token']
+  message = @client.account.messages.create(:body => "Appointment msg",
+      :to => current_user.phone,    # Replace with your phone number
+      :from => TWILIO_CONFIG['from'])  # Replace with your Twilio number
+
+  puts "message entered"
+end
+#
+# def when_to_run
+#   time - @@REMINDER_TIME
+# end
+
+handle_asynchronously :deliver, :run_at => Proc.new { 30.minutes.from_now }
+
   def opposed_user(current)
     if current == freelancer.user
           user

@@ -27,7 +27,7 @@ class UsersController < ApplicationController
   def update
     upload_picture
     @user.update(user_params)
-
+    
     if @user
       flash.now[:success] = 'You have successfully updated your profile'
       redirect_to user_path(@user)
