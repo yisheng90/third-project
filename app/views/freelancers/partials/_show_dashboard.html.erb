@@ -29,8 +29,10 @@
       <h3>Current Overall Rating</h3>
       <%= render partial: 'partials/form_for_ratings', locals: {big_rating: @compiled_rating} %>
       <h3>Latest reviews from other users</h3>
+      <% if @first_3_reviews %>
       <% @first_3_reviews.each do |review| %>
         <p><%= link_to(review.user.name, user_path(review.user.id)) %> said: <%= review.description_of_job %></p>
+      <% end %>
       <% end %>
     </div>
   </div>

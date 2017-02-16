@@ -7,9 +7,10 @@ App.enquiry = App.cable.subscriptions.create "EnquiryChannel",
 
   received: (data) ->
     if data['message'] then
-    elm = '<div class="text-right"> <span class="sender">'+data['message']+'</span></div>' if data['sender'] == 1
-    elm = '<div class="text-left"> <span class="recipient">'+data['message']+'</span></div>' if data['sender'] == 0
+    elm = '<div class="text-right"> <div class="sender">'+data['message']+'</div></div>' if data['sender'] == 1
+    elm = '<div class="text-left"> <div class="recipient">'+data['message']+'</div></div>' if data['sender'] == 0
     $("#messages").find(".messages-"+ data['enquiry_id']).append(elm)
+    $('.notification').attr('style', 'color: red')
 
     if data['changes'] then
     for k,v of data['changes']

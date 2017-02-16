@@ -1,24 +1,27 @@
 <div class='container'>
   <% if current_freelancer != nil %>
     <% if current_freelancer.id == @enquiry.freelancer.id %>
+    <div class='row'>
     <div class='col-md-1'>
       <span>
         <%= cl_image_tag(@enquiry.user.profile_picture,
           :width => 80, :height => 80,
           :crop => :fill, :gravity => :face)
           %>
-        </span>
-      </div>
+      </span>
+    </div>
 
-      <div class='col-md-offset-1'>
-        <h2><%= @enquiry.user.name.capitalize %></h2>
+    <div class='col-md-offset-1'>
+        <%= link_to @enquiry.user.name.capitalize, edit_enquiry_path(@enquiry.id),  class:'h2' %>
         <br>
         Requestor
     </div>
+  </div>
 
-    <% end %>
+
   <% else %>
 
+  <div class='row'>
     <div class='col-md-1'>
       <span>
         <%= cl_image_tag(@enquiry.freelancer.picture,
@@ -33,7 +36,9 @@
         <br>
         Freelancer
     </div>
+  </div>
   <% end %>
+    <% end %>
 
   <br>
   <br>
@@ -93,8 +98,8 @@
                 </div>
             </div>
         <% end %>
-    <% end %>
-  <% elsif current_user.id == @enquiry.user_id%>
+
+  <% elsif current_user.id %>
   <div class='row'>
     <div class='col-md-12'>
     <%= bootstrap_form_for(@enquiry, :html=>{:remote => true})do |f| %>
@@ -127,6 +132,7 @@
   </div>
 </div>
     <% end %>
+      <% end %>
   <% end %>
 </div>
 

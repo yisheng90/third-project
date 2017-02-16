@@ -1,26 +1,31 @@
-<h1>Enquiry Index</h1>
+<div class='container'>
+  <h1>My Submitted Enquiries</h1>
 
-<%= @enquiries %>
+  <% if @enquiries.length > 0  %>
 
-<table>
-  <tbody>
-    <% @enquiries.each do |enquiry| %>
+  <table class='table'>
+    <thead>
       <tr>
-        <% for freelancer in @freelancers %>
-        <% if freelancer.id == enquiry.freelancer_id %>
-        <td><%= freelancer.profession %></td>
-        <% end %>
-        <% end %>
-        <td><%= enquiry.freelancer_id %></td>
-        <td><%= enquiry.description %></td>
-        <td><%= enquiry.start_date %></td>
-        <td><%= enquiry.end_date %></td>
-        <td><%= link_to 'Show', enquiry %></td>
-        <td><%= link_to 'Edit', edit_enquiry_path(enquiry) %></td>
-        <td><%= link_to 'Destroy', enquiry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Description of Enquiry</th>
+        <th>Enquiry's start date</th>
+        <th>Enquiry's end date</th>
+        <th>Liason</th>
       </tr>
+    </thead>
+    <% @enquiries.each do |enquiry| %>
+    <tr>
+      <td><%=enquiry.description%></td>
+      <td><%=enquiry.start_date.strftime("%e %b %Y %l:%M %p")%></td>
+      <td><%=enquiry.end_date.strftime("%e %b %Y %l:%M %p")%></td>
+      <td><%= link_to 'continue liason with customer', edit_enquiry_path(enquiry.id), {:class => 'btn btn-default'} %></td>
+    </tr>
     <% end %>
-  </tbody>
-</table>
+  </table>
 
-<br>
+  <% else %>
+    <div>
+      <h1>You have not submitted any enquiry yet.</h1>
+    </div>
+
+  <% end %>
+</div>

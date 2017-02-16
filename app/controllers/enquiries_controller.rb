@@ -4,7 +4,7 @@ class EnquiriesController < ApplicationController
 
   def index
     # @enquiries = Enquiry.where("user_id=?", @current_user.id)
-    @enquiries = Enquiry.all
+    @enquiries = Enquiry.where("user_id =?", current_user.id)
     @freelancers = Freelancer.all
   end
 
