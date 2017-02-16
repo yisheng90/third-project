@@ -6,4 +6,4 @@ test:
 
 production:
   adapter: redis
-  url: https://floating-retreat-48742.herokuapp.com/
+  url: redis-transparent-71976

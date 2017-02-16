@@ -45,6 +45,7 @@ gem 'bootstrap_form'
 gem 'cloudinary'
 gem "httparty"
 gem 'twilio-ruby'
+gem 'redis'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
