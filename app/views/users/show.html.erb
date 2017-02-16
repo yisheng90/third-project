@@ -1,11 +1,11 @@
 <h1>Profile</h1>
 <div class="image">
   <%if !@user.profile_picture%>
-  <%= cl_image_tag('http://res.cloudinary.com/demo/image/upload/c_thumb,g_face,r_20,d_avatar.png/non_existing_id.png')%>
+  <%= cl_image_tag('https://www.soundstream.tv/assets/default_profile-e08597880fc222202f22984a4f1966a29b108e856a3fb935072bfbbc302a4b73.png')%>
   <% else %>
   <%= cl_image_tag(@user.profile_picture,
       :width => 400, :height => 400,
-      :crop => :crop, :gravity => :face, :radius => 'max', :default_image => "avatar.png")
+      :crop => :fill, :gravity => :face, :radius => 'max', :default_image => "avatar.png")
       %>
       <% end %>
 </div>

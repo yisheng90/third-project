@@ -1,4 +1,6 @@
-<h1>Add Profile</h1>
+<div class="container container-profile">
+
+<h1>Add Profile</h1><br>
 <%= form_for :freelancer, url: profile_index_path do |f| %>
 <p>
   <%= f.label :profession %><br>
@@ -12,7 +14,7 @@
 
 <p>
   <%= f.label :picture %><br>
-  <%= f.text_field(:picture, {:class => 'form-control'}) %>
+  <%= f.file_field(:picture, {:class => 'form-control'}) %>
 </p>
 
 <p>
@@ -50,3 +52,4 @@
   <%= f.submit({:class => 'btn btn-primary'}) %>
 </p>
 <% end %>
+</div>
