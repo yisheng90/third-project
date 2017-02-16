@@ -91,25 +91,12 @@
     color: #f70;
 }
 
-// exxcess code for hovering to disbale the labels
-// .rating_read_only:not(:checked) > label:hover,
-// .rating_read_only:not(:checked) > label:hover ~ label {
-//     color: gold;
-// }
-
-// .rating_read_only > input:checked + label:hover,
-// .rating_read_only > input:checked + label:hover ~ label,
-// .rating_read_only > input:checked ~ label:hover,
-// .rating_read_only > input:checked ~ label:hover ~ label,
-// .rating_read_only > label:hover ~ input:checked ~ label {
-//     color: #ea0;
-// }
-
 .rating_read_only > label:active {
     position:relative;
     top:2px;
     left:2px;
 }
+
 
 
 .site-heading {
@@ -119,4 +106,25 @@
   justify-content: center;
   align-items: center;
   width:100%;
+
+.placeholder_box {
+  display: flex;
+  .right {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+  .left {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+}
+
+.freelancer_name {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 5px;
+
 }

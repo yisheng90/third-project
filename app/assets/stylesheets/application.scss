@@ -20,6 +20,42 @@
  @import "bootstrap";
 
 
-.navbar {
-  color: black;
+.simple-calendar {
+  .day {
+    width: 100px;
+    height: 100px;
+    border: 1px solid grey;
+    background-color: white;
+  }
+
+  .wday-0 {}
+  .wday-1 {}
+  .wday-2 {}
+  .wday-3 {}
+  .wday-4 {}
+  .wday-5 {}
+  .wday-6 {}
+
+  .today {
+  }
+  .past {}
+  .future {}
+
+  .start-date {}
+
+  .prev-month {}
+  .next-month { }
+  .current-month {}
+
+  .has-events {
+    .slot {
+      color: red;
+      font-size: smaller;
+    }
+    .free {
+      color: blue;
+      font-size: smaller;
+    }
+  }
+>>>>>>> 64fd77d1aba0a22a65ae4cf59d4631649ce34916
 }

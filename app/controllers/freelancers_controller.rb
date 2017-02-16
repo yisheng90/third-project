@@ -20,33 +20,40 @@ class FreelancersController < ApplicationController
   def show
     @freelancer = Freelancer.find_by(id: params[:id])
     @bookings = @freelancer.bookings
-    @dummy_data = 'Hello'
     @enquiry = Enquiry.new
     # not clean could refactor into function ZL
     if @freelancer.ratings.average('professionalism').is_a? Numeric
       @compiled_rating = ( @freelancer.ratings.average('professionalism') +
                             @freelancer.ratings.average('value') +
                             @freelancer.ratings.average('cleanliness') ) / 3
+      @rating_professionalism = @freelancer.ratings.average('professionalism')
+      @rating_value = @freelancer.ratings.average('value')
+      @rating_cleanliness = @freelancer.ratings.average('cleanliness')
+      @first_3_reviews = @freelancer.ratings.order(created_at: :desc).limit(3)
     else
       @compiled_rating = nil
+      @first_3_reviews = nil
     end
 
-    @enquiries = Enquiry.all.where(freelancer_id: params[:id]).where(status: 'open')
 
-    #pass in data as a hash
+
+    @enquiries = Enquiry.all.where(freelancer_id: params[:id]).where(status: 'open').order(:start_date)
+    @own_enquiries = Enquiry.all.where(user_id: params[:id]).where(status: 'open').order(:start_date)
+    @closed_enquires = Enquiry.all.where(freelancer_id: params[:id]).where(status: 'closed').order(:start_date)
+
     @sanitized_start_time = @freelancer.schedule.start_time.strftime("%I:%M%p")
     @sanitized_end_time = @freelancer.schedule.end_time.strftime("%I:%M%p")
-    # @freelancer.bookings.each do |freelancer_booking|
-      #### YOU STOPPED HERE ZL
-    # @freelancer_bookings_start = @freelancer.bookings[0].time_start
-    # @freelancer_bookings_end = @freelancer.bookings[0].time_end
+
+    #might be able to do something cool with this
+    @bookings_grped_by_date = @freelancer.bookings.order("date(time_start)").group("date(time_start)").count
+    @first_booking_grped_by_date = @freelancer.bookings.limit(1).order("date(time_start)").group("date(time_start)").count
+
+    #### YOU STOPPED HERE ZL
+    ## done
     @occurrences = {
       dates: @freelancer.schedule.occurrences_between(Date.today - 1.year,Date.today + 1.year),
-      test: @dummy_data,
       start_time: @sanitized_start_time,
       end_time: @sanitized_end_time,
-      start_booked_times: @freelancer_bookings_start,
-      end_booked_times: @freelancer_bookings_end
     }
   end
 
