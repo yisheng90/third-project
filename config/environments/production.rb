@@ -57,17 +57,22 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "third-project_#{Rails.env}"
   config.action_mailer.default_url_options = { :host => 'floating-retreat-48742.herokuapp.com' }
-  config.action_mailer.perform_caching = false
-  ActionMailer::Base.delivery_method = :smtp
-ActionMailer::Base.perform_deliveries = true
-ActionMailer::Base.raise_delivery_errors = true
-ActionMailer::Base.smtp_settings = {
-   address: "smtp.gmail.com",
-   port: 587,
-   domain: "gmail.com",
-   user_name: "wdi7zyas",
-   password: "thirdproject"
- }
+  # ActionMailer Config
+  # Setup for production - deliveries, no errors raised
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default :charset => "utf-8"
+  config.action_mailer.smtp_settings = {
+  address: "smtp.gmail.com",
+  port: 587,
+  domain: "gmail.com",
+  authentication: "plain",
+  enable_starttls_auto: true,
+  user_name: ENV["GMAIL_USERNAME"],
+  password: ENV["GMAIL_PASSWORD"]
+}
+
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
