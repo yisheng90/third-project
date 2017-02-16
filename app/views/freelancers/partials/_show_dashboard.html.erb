@@ -6,47 +6,60 @@
       :crop => :fill, :gravity => :face)
       %>
 
-<h3>Pending enquires</h3>
-<table>
-    <% @enquiries.each do |enquiry| %>
-      <tr>
-        <td><%=enquiry.user_id%></td>
-        <td><%=enquiry.description%></td>
-        <td><%=enquiry.start_date%></td>
-        <td><%=enquiry.end_date%></td>
-        <td><%= link_to 'view enquiry', enquiry_path(enquiry.id) %></td>
-      </tr>
-    <% end %>
-  </table>
-
 <h3>Current Overall Rating</h3>
 <%= render partial: 'partials/form_for_ratings', locals: {big_rating: @compiled_rating, cool_var: 'hey gurl'} %>
 
+<h3>Pending enquires</h3>
+<table class='table'>
+  <% @enquiries.each do |enquiry| %>
+    <thead>
+    a table needs a head otherwise it'll become a hydra
+    <tr>
+      <td><%=enquiry.description%></td>
+      <td><%=enquiry.start_date.to_time%></td>
+      <td><%=enquiry.end_date.to_time%></td>
+      <td><%= link_to 'continue liason with customer', edit_enquiry_path(enquiry.id) %></td>
+    </tr>
+  <% end %>
+</table>
+
 <h3>Submitted enquiries(My enquiries)</h3>
-<% @own_enquiries.each do |enquiry| %>
-  <div>
-    <%= enquiry.description %>
-    <%= enquiry.start_date.to_time %>
-    <%= link_to "Chat with #{enquiry.freelancer.user.name.capitalize}", edit_enquiry_path(enquiry.id)%>
-  </div>
-<% end %>
+<table class="table">
+  <% @own_enquiries.each do |enquiry| %>
+    <tr>
+      <td><%= enquiry.description %></td>
+      <td><%= enquiry.start_date.to_time %></td>
+      <td><%= enquiry.end_date.to_time %></td>
+      <td><%= link_to "Chat with #{enquiry.freelancer.user.name.capitalize}", edit_enquiry_path(enquiry.id)%></td>
+    </tr>
+  <% end %>
+</table>
 <br>
 
 <%= @bookings_grped_by_date %>
 
-<h2>View Your Schedule</h2>
-<h3>Your Work <%= @freelancer.schedule %></h3>
+<h2>Your Schedule for the month</h2>
+
+<h5>
+  You work <%= @freelancer.schedule.to_s.downcase %> from
+  <%= @occurrences[:start_time] %> to
+  <%= @occurrences[:end_time] %>
+</h5>
+
 <h3>Edit your profile to change your schedule</h3>
 <%= month_calendar(partial: 'simple_calendar/month_calendar', events: @occurrences[:dates] ) do |date, occurrences| %>
   <%= date %>
   <% @freelancer.bookings.order(:time_start).each do |booking| %>
     <% if date == booking.time_start.to_date %>
-    <p class='slot'>Slot booked from <%= booking.time_start.strftime("%I:%M%p") %> to <%= booking.time_end.strftime("%I:%M%p") %>  </p>
+      <!-- slightly wrong pls edit in GA ZL slot is not pointing to correct enquiry path (should be finsihed enquiry no edits) -->
+      <%= link_to enquiry_path(booking.id) do %>
+        <p class='slot'>Slot booked from <%= booking.time_start.strftime("%I:%M%p") %> to <%= booking.time_end.strftime("%I:%M%p") %>  </p>
+      <% end %>
     <% end %>
   <% end %>
   <% occurrences.each do |occurrence| %>
-  <div class='free'>
+  <p class='free'>
     Available from <%= @occurrences[:start_time] %> to <%= @occurrences[:end_time] %>
-  </div>
+  </p>
   <% end %>
 <% end %>

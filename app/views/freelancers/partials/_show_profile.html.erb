@@ -30,4 +30,6 @@
   <% end %>
 <% end %>
 
-<%= render 'enquiries/new' %><br>
+<% if current_user %>
+  <%= render 'enquiries/new' %><br>
+<% end %>
