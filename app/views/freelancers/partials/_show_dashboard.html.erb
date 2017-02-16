@@ -1,16 +1,6 @@
-<p> render nav bar in here</p>
-<!-- this will be in nav bar -->
-<h3><%= link_to 'edit your profile!', edit_profile_path(@freelancer) %></h3>
+
+<div class='container'>
 <div class='row'>
-  <div class='col-lg-6'>
-    <div>
-      <h1>Freelancer's dashboard</h1>
-    </div>
-  </div>
-  <div class='col-lg-4 col-lg-offset-2'>
-  </div>
-</div>
-<p> render search bar in here </p>
 
 <div class='placeholder_box'>
   <div class='left'>
@@ -58,16 +48,10 @@
         <% @freelancer.bookings.each do |booking| %>
           <% if date == booking.time_start.to_date %>
             <!-- slightly wrong pls edit in GA ZL slot is not pointing to correct enquiry path (should be finsihed enquiry no edits) -->
-<<<<<<< HEAD
-            <%= link_to enquiry_path(booking.id) do %>
-              <p class='slot'>Slot booked from <%= booking.start_date.strftime("%I:%M%p") %> to <%= booking.end_date.in_time_zone("Singapore").strftime("%I:%M%p") %>  </p>
-            <% end %>
-=======
           <%= link_to enquiry_path(booking.booker.id) do %>
             <p class='slot'>Slot booked from <%= booking.time_start.strftime("%I:%M%p") %> to <%= booking.time_end.strftime("%I:%M%p") %>  </p>
           <% end %>
 
->>>>>>> e8ce872ad7b5fe62b9c70bb23b7987ef56113463
           <% end %>
         <% end %>
         <% occurrences.each do |occurrence| %>
@@ -78,4 +62,5 @@
       <% end %>
     </div>
   </div>
+</div>
 </div>

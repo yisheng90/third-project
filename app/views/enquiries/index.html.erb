@@ -17,7 +17,7 @@
       <td><%=enquiry.description%></td>
       <td><%=enquiry.start_date.strftime("%e %b %Y %l:%M %p")%></td>
       <td><%=enquiry.end_date.strftime("%e %b %Y %l:%M %p")%></td>
-      <td><%= link_to 'continue liason with customer', edit_enquiry_path(enquiry.id), {:class => 'btn btn-default'} %></td>
+      <td><%= link_to raw("continue liason with <strong>#{enquiry.freelancer.user.name.capitalize}</strong>"), edit_enquiry_path(enquiry.id), {:class => 'btn btn-default'} %></td>
     </tr>
     <% end %>
   </table>
