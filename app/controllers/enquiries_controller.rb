@@ -19,7 +19,12 @@ class EnquiriesController < ApplicationController
   end
 
   def edit
+    if @enquiry.user_id != current_user.id && @enquiry.freelancer.user.id != current_user.id
+      flash[:danger] = 'No access rights'
+      redirect_to root_path
+    end
     Message.clear_unread(@enquiry.messages, current_user)
+
   end
 
   def new

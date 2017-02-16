@@ -81,6 +81,7 @@ class FreelancersController < ApplicationController
     # SAVE AFTER REMOVE RULE
 
     @freelancer.save
+    @freelancer.user.update(profile_picture: @freelancer.picture)
     if @freelancer.update(freelancer_params)
       # HELPER FUNCTION -> UPDATE SCHEDULE COLUMN
       fl_schedule_column(@freelancer)

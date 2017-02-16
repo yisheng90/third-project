@@ -10,8 +10,8 @@ class Enquiry < ApplicationRecord
   acts_as_booker
 
   def check_time_range
-    debugger
-    if self.start_date == null && self.start_date == null
+
+    if self.start_date == nil && self.start_date == nil
       return true
     else
       return false
@@ -19,7 +19,7 @@ class Enquiry < ApplicationRecord
   end
 
   def default_enquiry_time_range
-    debugger
+
     self.start_date = self.created_at.to_time.utc
     self.end_date = self.created_at.to_time.utc
   end
