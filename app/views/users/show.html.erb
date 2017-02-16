@@ -1,32 +1,51 @@
-<h1><%= @user.name.capitalize %></h1>
-<%= link_to 'edit profile', edit_user_path(@user) %>
+<br><br><br>
 
+<div class="image"><%= cl_image_tag(@user.profile_picture,
+      :width => 400, :height => 400,
+      :crop => :fill, :gravity => :face)
+      %>
+</div>
 
-<h1>Upcoming Bookings</h1>
-  <% @user.enquiries.where(:user_id == current_user.id).each do |enquiry| %>
+<div class="cont">
+  <h1>Upcoming Bookings</h1>
+  <div><table class="table">
+    <tr>
+      <th>Description</th>
+      <th>Start Date and Time</th>
+      <th>End date and time</th>
+    </tr>
+    <% @user.enquiries.where(:user_id == current_user.id).each do |enquiry| %>
     <% if enquiry.bookings[0] %>
-      <div>
-        <%= enquiry.description %>
-
-
-      </div>
+    <tr>
+      <td><%= enquiry.description %></td>
+      <td><%= enquiry.start_date.strftime("%d/%m/%y - %H:%M") %></td>
+      <td><%= enquiry.end_date.strftime("%d/%m/%y - %H:%M") %></td>
+    </tr>
     <% end %>
-  <% end %>
-
-
-<h1>Open Enquiries</h1>
-<% if @user.enquiries.where(:user_id == current_user.id).size > 0 %>
-  <% @user.enquiries.where(:user_id == current_user.id).each do |enquiry| %>
-    <div>
-      <%= link_to enquiry.description, enquiry_path(enquiry.id) %>
-      <%= link_to "Chat with #{enquiry.freelancer.user.name.capitalize}", edit_enquiry_path(enquiry.id) %>
+    <% end %>
+  </table></div>
+  <h1>Pending Enquiries</h1>
+  <table class="table">
+    <tr>
+      <th>Description</th>
+      <th>Start Date and Time</th>
+      <th>End date and time</th>
+      <th>Status</th>
+    </tr>
+    <% if @user.enquiries.where(:user_id == current_user.id).size > 0 %>
+    <% @user.enquiries.where(:user_id == current_user.id).each do |enquiry| %>
+    <tr>
+      <td><%= link_to enquiry.description, enquiry_path(enquiry.id) %></td>
+      <td><%= enquiry.start_date.strftime("%d/%m/%y - %H:%M") %></td>
+      <td><%= enquiry.end_date.strftime("%d/%m/%y - %H:%M") %></td>
+      <td><%= link_to "Chat with #{enquiry.freelancer.user.name.capitalize}", edit_enquiry_path(enquiry.id) %></td>
       <% if enquiry.messages.where('read =? AND sender_id !=?', false , current_user.id).size > 0  %>
-        <p>Unread </p>
+      <td>Unread</td>
       <% end %>
-
-    </div>
-  <% end %>
-
-  <% else %>
-    No open enquiry
-<% end %>
+    </tr>
+    <% end %>
+    <% else %>
+      No open enquiry
+    <% end %>
+  </table>
+</div>

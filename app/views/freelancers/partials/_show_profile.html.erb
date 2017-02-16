@@ -1,20 +1,24 @@
+
 <p> render nav bar </p>
 <p> render search bar</p>
 
-<h1>Freelancer's Profile</h1>
-<div class='picture_freelancer'>
+<br><br><br>
+<h1><%= @freelancer.user.name %>'s Profile</h1>
+<div class="container-full">
+
+
+
+<div class="container">
+<div>
   <%= cl_image_tag(@freelancer.picture,
         :width => 400, :height => 400,
         :crop => :fill, :gravity => :face)
         %>
 </div>
-
-<h3>name: <%= @freelancer.user.name %></h3>
-<h3>profession: <%= @freelancer.profession %></h3>
-<h3>description: <%= @freelancer.description %></h3>
-<h3>picture: <%= @freelancer.picture %></h3>
-<h3>price range from <%= @freelancer.price_start %> to <%= @freelancer.price_end %></h3>
-
+<br>
+<h3>Profession: <%= @freelancer.profession %></h3>
+<h3>Description: <%= @freelancer.description %></h3>
+<h3>Price ranges from <%= @freelancer.price_start %> to <%= @freelancer.price_end %></h3>
 
 <% if current_user %>
   <% if Enquiry.where(user_id: current_user[:id], freelancer_id: @freelancer.id) %>
@@ -24,9 +28,14 @@
 
 <!-- doo some stuff here!!!! -->
 <h3>Current Overall Rating</h3>
-<%= render partial: 'partials/form_for_ratings', locals: {big_rating: @compiled_rating} %><br>
-<br>
 
+<%= render partial: 'partials/form_for_ratings', locals: {big_rating: @compiled_rating} %><br>
+<%= render partial: 'partials/form_for_3_ratings', locals: {big_rating: @compiled_rating, cool_var: 'hey gurl'} %><br>
+
+
+</div>
+<div class="container2">
+<div class="calendar">
 <%= month_calendar(partial: 'simple_calendar/month_calendar', events: @occurrences[:dates]) do |date, occurrences| %>
   <%= date.day %>
   <% occurrences.each do |occurrence| %>
@@ -36,8 +45,11 @@
   <% end %>
 <% end %>
 
+
 <div class='new_enquiry right'>
   <% if current_user %>
     <%= render 'enquiries/new' %><br>
   <% end %>
+
+</div>
 </div>
