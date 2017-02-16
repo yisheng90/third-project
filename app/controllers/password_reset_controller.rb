@@ -4,6 +4,7 @@ class PasswordResetController < ApplicationController
   end
 
   def create
+    puts "RESET #{password_reset_params[:email]}"
     @user = User.find_by_email(password_reset_params[:email])
 
     if @user
@@ -30,7 +31,7 @@ class PasswordResetController < ApplicationController
     @user = User.find_by_reset_token!(params[:id])
 
     @user.password = user_params[:password]
-    if @user.save!
+    if @user.save
       @user.confirm_password_reset
       flash.now[:success] = 'Password reseted'
       redirect_to login_path
