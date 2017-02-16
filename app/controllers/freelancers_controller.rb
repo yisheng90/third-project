@@ -26,6 +26,9 @@ class FreelancersController < ApplicationController
       @compiled_rating = ( @freelancer.ratings.average('professionalism') +
                             @freelancer.ratings.average('value') +
                             @freelancer.ratings.average('cleanliness') ) / 3
+      @rating_professionalism = @freelancer.ratings.average('professionalism')
+      @rating_value = @freelancer.ratings.average('value')
+      @rating_cleanliness = @freelancer.ratings.average('cleanliness')
       @first_3_reviews = @freelancer.ratings.order(created_at: :desc).limit(3)
     else
       @compiled_rating = nil

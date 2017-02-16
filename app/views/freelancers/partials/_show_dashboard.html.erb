@@ -1,14 +1,16 @@
 <p> render nav bar in here</p>
 <!-- this will be in nav bar -->
 <h3><%= link_to 'edit your profile!', edit_profile_path(@freelancer) %></h3>
-<div class='freelancer_name'>
-  <div>
-    <h1>Freelancer's dashboard</h1>
+<div class='row'>
+  <div class='col-lg-6'>
+    <div>
+      <h1>Freelancer's dashboard</h1>
+    </div>
   </div>
-  <div class='upcoming'>
+  <div class='col-lg-4 col-lg-offset-2'>
     <h3>Quick schedule</h3>
     <% @first_booking_grped_by_date.each do |key,value| %>
-      <p>You have <%= pluralize(value, 'booked slot') %> on <%= key %></p>
+      <p>You have <%= pluralize(value, 'booked slot') %> on <%= key.strftime("%e %b %Y") %></p>
     <% end %>
   </div>
 </div>
@@ -34,11 +36,11 @@
   </div>
 
   <div class='right'>
-    <div class='pending_enquires'>
+    <div class='pending_enquires, well'>
       <%= render 'freelancers/partials/show_pending_enquiries_from_others' %>
     </div>
 
-    <div class ='own_calendar'>
+    <div class ='own_calendar, well'>
       <h2>Your Schedule for the month</h2>
 
       <h5>
@@ -49,7 +51,7 @@
 
       <h3>Edit your profile to change your schedule</h3>
       <%= month_calendar(partial: 'simple_calendar/month_calendar', events: @occurrences[:dates] ) do |date, occurrences| %>
-        <%= date %>
+        <%= date.day %>
         <% @closed_enquires.each do |booking| %>
           <% if date == booking.start_date.to_date %>
             <!-- slightly wrong pls edit in GA ZL slot is not pointing to correct enquiry path (should be finsihed enquiry no edits) -->

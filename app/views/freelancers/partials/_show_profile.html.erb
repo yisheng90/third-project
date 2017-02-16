@@ -1,8 +1,13 @@
+<p> render nav bar </p>
+<p> render search bar</p>
+
 <h1>Freelancer's Profile</h1>
-<%= cl_image_tag(@freelancer.picture,
-      :width => 400, :height => 400,
-      :crop => :fill, :gravity => :face)
-      %>
+<div class='picture_freelancer'>
+  <%= cl_image_tag(@freelancer.picture,
+        :width => 400, :height => 400,
+        :crop => :fill, :gravity => :face)
+        %>
+</div>
 
 <h3>name: <%= @freelancer.user.name %></h3>
 <h3>profession: <%= @freelancer.profession %></h3>
@@ -17,12 +22,13 @@
   <% end %>
 <% end %>
 
+<!-- doo some stuff here!!!! -->
 <h3>Current Overall Rating</h3>
 <%= render partial: 'partials/form_for_ratings', locals: {big_rating: @compiled_rating} %><br>
 <br>
 
 <%= month_calendar(partial: 'simple_calendar/month_calendar', events: @occurrences[:dates]) do |date, occurrences| %>
-  <%= date %>
+  <%= date.day %>
   <% occurrences.each do |occurrence| %>
   <div>
     Available from <%= @occurrences[:start_time] %> to <%= @occurrences[:end_time] %>
@@ -30,6 +36,8 @@
   <% end %>
 <% end %>
 
-<% if current_user %>
-  <%= render 'enquiries/new' %><br>
-<% end %>
+<div class='new_enquiry right'>
+  <% if current_user %>
+    <%= render 'enquiries/new' %><br>
+  <% end %>
+</div>

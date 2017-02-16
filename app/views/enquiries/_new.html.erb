@@ -1,5 +1,4 @@
-<h1>WTF IS GOING ON</h1>
-
+<h3>Make an enquiry to <%= @freelancer.user.name %> </h3>
 <%= form_for(@enquiry) do |f| %>
   <% if @enquiry.errors.any? %>
     <div id="error_explanation">
@@ -13,7 +12,7 @@
   <% end %>
     <div class="field">
     <%= f.label :description %>
-    <%= f.text_field :description %>
+    <%= f.text_field :description, {:class => 'form-control'} %>
     </div>
   <br>
   <br>
@@ -25,19 +24,18 @@
   <br>
     <div class="field">
     <%= f.label :end_date %>
-    <%= f.datetime_field :end_date %>
+    <%= f.datetime_field :end_date, {:class => 'form-control'} %>
     </div>
   <br>
   <br>
     <div class="field">
     <%= f.label :price %>
-    <%= f.text_field :price %>
+    <%= f.text_field :price, {:class => 'form-control'} %>
     </div>
   <br>
   <br>
-    <%= f.label :freelancer_id %>
-    <%= f.text_field :freelancer_id, :value => @freelancer.id %>
+    <%= f.hidden_field :freelancer_id, :value => @freelancer.id %>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit({:class => 'btn btn-primary'}) %>
   </div>
 <% end %>
