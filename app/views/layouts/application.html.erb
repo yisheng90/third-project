@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ThirdProject</title>
+    <title>Handy</title>
     <style>
   #map {
     height: 400px;
@@ -15,6 +15,7 @@
   </head>
 
   <body>
+    <%= render 'partials/navbar' %>
     <%= render 'partials/flash' %>
     <% if current_user %>
      <%= current_user.name.inspect %>

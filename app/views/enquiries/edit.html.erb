@@ -90,6 +90,7 @@
 </div>
 
 <form class="new_message" data-behavior="enquiry_speaker">
+  <input name="read" type="hidden" value= false >
   <input name="enquiry_id" type="hidden" value="<%= @enquiry.id %>">
   <input name="sender_id" type="hidden" value="<%= current_user.id %>">
   <textarea name="content" class="form-control" ></textarea>

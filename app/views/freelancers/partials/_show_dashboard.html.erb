@@ -16,6 +16,9 @@
         <td><%=enquiry.start_date%></td>
         <td><%=enquiry.end_date%></td>
         <td><%= link_to 'view enquiry', enquiry_path(enquiry.id) %></td>
+        <% if enquiry.messages.where('read =? AND sender_id !=?', false , current_user.id).size > 0  %>
+          <p>Unread </p>
+        <% end %>
       </tr>
     <% end %>
   </table>
@@ -29,6 +32,9 @@
     <%= enquiry.description %>
     <%= enquiry.start_date.to_time %>
     <%= link_to "Chat with #{enquiry.freelancer.user.name.capitalize}", edit_enquiry_path(enquiry.id)%>
+    <% if enquiry.messages.where('read =? AND sender_id !=?', false , current_user.id).size > 0  %>
+      <p>Unread </p>
+    <% end %>
   </div>
 <% end %>
 
