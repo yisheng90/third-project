@@ -30,27 +30,43 @@
         </div>
       </div>
       <!-- /.row -->
-      <%= form_tag profile_index_path, method: 'GET' do %>
-  <p>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search", name: nil %>
-  </p>
-<% end %>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <h1 class="page-header">
+            <div class="col-lg-6">
+              <div class="input-group input-group-lg">
+                <%= form_tag profile_index_path, method: 'GET' do %>
+                <%= text_field_tag :search, params[:search] %>
+                <span class="input-group-btn">
+                  <div class="btn btn-secondary"><%= submit_tag "Search", name: nil %></div>
+                </span>
+                <% end %>
+              </div>
+            </div>
+          </br>
+        </br>
+      </h1>
+    </div>
+  </div>
+
       <!-- Projects Row -->
       <div class="row">
         <% @freelancers.each do |freelancer| %>
           <div class="col-md-4 portfolio-item">
             <div>
-              <%= link_to profile_path(freelancer.id) do%>
-                <%= cl_image_tag(freelancer.picture,
-                    :width => 700, :height => 400,
-                    :crop => :fill, :gravity => :face,
-                    :class => 'img-responsive')
-                    %>
+              <%if !freelancer.picture%>
+              <%= cl_image_tag('https://www.soundstream.tv/assets/default_profile-e08597880fc222202f22984a4f1966a29b108e856a3fb935072bfbbc302a4b73.png')%>
+              <% else %>
+              <%= cl_image_tag(freelancer.picture,
+                  :width => 300, :height => 300,
+                  :crop => :crop, :gravity => :face, :radius => 'max')
+                  %>
               <% end %>
               <h3><a href="<%= profile_path(freelancer.id) %>"><%= freelancer.user.name.capitalize %></a></h3>
               <p><%=freelancer.profession%></p>
               <span><%= render partial: 'partials/form_for_ratings', locals: {big_rating: @compiled_rating, disabled: true, cool_var: 'hey'} %></span>
+
             </div>
           </div>
         <% end %>

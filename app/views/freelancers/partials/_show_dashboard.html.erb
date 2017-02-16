@@ -19,11 +19,15 @@
 <div class='placeholder_box'>
   <div class='left'>
     <div class='picture_freelancer'>
-      <%= cl_image_tag(@freelancer.picture,
+        <%if !@freelancer.picture%>
+        <%= cl_image_tag('https://www.soundstream.tv/assets/default_profile-e08597880fc222202f22984a4f1966a29b108e856a3fb935072bfbbc302a4b73.png')%>
+        <% else %>
+        <%= cl_image_tag(@freelancer.picture,
             :width => 400, :height => 400,
-            :crop => :fill, :gravity => :face)
+            :crop => :crop, :gravity => :face, :radius => 'max', :default_image => "avatar.png")
             %>
-    </div>
+            <% end %>
+      </div>
 
     <div class='current_reviews_limit_3'>
       <h3>Current Overall Rating</h3>

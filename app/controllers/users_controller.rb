@@ -27,7 +27,7 @@ class UsersController < ApplicationController
   def update
     upload_picture
     @user.update(user_params)
-    
+
     if @user
       flash.now[:success] = 'You have successfully updated your profile'
       redirect_to user_path(@user)
@@ -53,6 +53,9 @@ class UsersController < ApplicationController
        uploaded_file = params[:user][:profile_picture].path
        cloudnary_file = Cloudinary::Uploader.upload(uploaded_file)
        @user.profile_picture = cloudnary_file['public_id']
+     else
+       cloudnary_file = Cloudinary::Uploader.upload("../assets/images/default.png")
+       @freelancer.picture = cloudnary_file['public_id']
      end
      params[:user].delete :profile_picture
    end

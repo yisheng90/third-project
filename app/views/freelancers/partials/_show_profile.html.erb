@@ -1,12 +1,17 @@
 
+
   <div class="container">
     <div class='row'>
     <div class="col-md-6">
       <div class='col-md-12 text-center'>
+        <%if !@freelancer.picture%>
+        <%= cl_image_tag('https://www.soundstream.tv/assets/default_profile-e08597880fc222202f22984a4f1966a29b108e856a3fb935072bfbbc302a4b73.png')%>
+        <% else %>
         <%= cl_image_tag(@freelancer.picture,
-              :width => 200, :height => 200,
-              :crop => :fill, :gravity => :face)
-              %>
+            :width => 400, :height => 400,
+            :crop => :crop, :gravity => :face, :radius => 'max', :default_image => "avatar.png")
+            %>
+            <% end %>
       </div>
       <br>
       <div class='col-md-12'>
