@@ -23,7 +23,6 @@ class BookingsController < ApplicationController
 
   def index
     @bookings_fl = current_freelancer.bookings
-    @bookings_user = Enquiry.find_by(user_id: current_user.id).bookings
   end
 
   def update
