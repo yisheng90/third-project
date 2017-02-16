@@ -13,9 +13,9 @@
     </thead>
     <% @bookings_fl.each do |booking| %>
     <tr>
-      <td><%=booking.description%></td>
-      <td><%=booking.start_date.strftime("%e %b %Y %l:%M %p")%></td>
-      <td><%=booking.end_date.strftime("%e %b %Y %l:%M %p")%></td>
+      <td><%=booking.enquiry.description%></td>
+      <td><%=booking.enquiry.start_date.strftime("%e %b %Y %l:%M %p")%></td>
+      <td><%=booking.enquiry.end_date.strftime("%e %b %Y %l:%M %p")%></td>
     </tr>
     <% end %>
   </table>
