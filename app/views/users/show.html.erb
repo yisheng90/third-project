@@ -1,8 +1,13 @@
 <h1>Profile</h1>
-<div class="image"><%= cl_image_tag(@user.profile_picture,
+<div class="image">
+  <%if !@user.profile_picture%>
+  <%= cl_image_tag('http://res.cloudinary.com/demo/image/upload/c_thumb,g_face,r_20,d_avatar.png/non_existing_id.png')%>
+  <% else %>
+  <%= cl_image_tag(@user.profile_picture,
       :width => 400, :height => 400,
-      :crop => :fill, :gravity => :face)
+      :crop => :crop, :gravity => :face, :radius => 'max', :default_image => "avatar.png")
       %>
+      <% end %>
 </div>
 
 <div class="cont">

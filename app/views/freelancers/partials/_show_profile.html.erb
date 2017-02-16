@@ -2,12 +2,16 @@
 <h1><%= @freelancer.user.name %>'s Profile</h1>
 <div class="container-full">
 <div class="container">
-<div>
-  <%= cl_image_tag(@freelancer.picture,
+  <div class="image">
+    <%if !@freelancer.picture%>
+    <%= cl_image_tag('https://www.soundstream.tv/assets/default_profile-e08597880fc222202f22984a4f1966a29b108e856a3fb935072bfbbc302a4b73.png')%>
+    <% else %>
+    <%= cl_image_tag(@freelancer.picture,
         :width => 400, :height => 400,
-        :crop => :fill, :gravity => :face)
+        :crop => :crop, :gravity => :face, :radius => 'max', :default_image => "avatar.png")
         %>
-</div>
+        <% end %>
+  </div>
 <br>
 <h3>Profession: <%= @freelancer.profession %></h3>
 <h3>Description: <%= @freelancer.description %></h3>

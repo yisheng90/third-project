@@ -172,6 +172,9 @@ class FreelancersController < ApplicationController
        puts "PATH #{uploaded_file}"
        cloudnary_file = Cloudinary::Uploader.upload(uploaded_file)
        @freelancer.picture = cloudnary_file['public_id']
+     else
+       cloudnary_file = Cloudinary::Uploader.upload("../assets/images/default.png")
+       @freelancer.picture = cloudnary_file['public_id']
      end
      params[:freelancer].delete :picture
    end
