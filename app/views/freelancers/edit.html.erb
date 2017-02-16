@@ -1,8 +1,8 @@
 <h1>Edit Profile</h1>
 <%= form_for :freelancer, url: profile_path(@freelancer), method: :patch do |f| %>
 <p>
-  <%= f.label :profession %><br>
-  <%= f.text_field(:profession, {:class => 'form-control'}) %>
+  <%= f.label :profession_name %><br>
+  <%= f.text_field(:profession_name, {:class => 'form-control'}) %>
 </p>
 
 <p>

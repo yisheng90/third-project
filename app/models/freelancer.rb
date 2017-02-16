@@ -1,6 +1,7 @@
 class Freelancer < ApplicationRecord
   # ASSOCIATIONS (ANDREW)
   belongs_to :user
+  belongs_to :profession
   has_many :enquiries, dependent: :destroy
   has_many :bookings, dependent: :destroy
   has_many :ratings,  dependent: :destroy
@@ -10,13 +11,21 @@ class Freelancer < ApplicationRecord
 
   validates :user_id, uniqueness: true
 
-  before_save :downcase_description_profression
-  before_update :downcase_description_profression
+  # before_save :downcase_description_profession
+  # before_update :downcase_description_profession
   after_validation :convert_to_utc, :if => :working_hours_set
+
+  def profession_name
+    profession.try(:name)
+  end
+
+  def profession_name=(name)
+    self.profession = Profession.find_by_name(name) if name.present?
+  end
 
   def self.search(search)
     if search
-      where('profession LIKE ?', "%#{search}%")
+      where('profession ILIKE ?', "%#{search}%")
     else
       all
     end
@@ -30,7 +39,7 @@ class Freelancer < ApplicationRecord
 
   private
 
-  def downcase_description_profression
+  def downcase_description_profession
     self.description = self.description.downcase
     self.profession = self.profession.downcase
   end

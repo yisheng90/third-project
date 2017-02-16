@@ -17,12 +17,14 @@
         <div class="col-lg-12">
           <h1 class="page-header">
             <div class="col-lg-6">
-              <div class="input-group input-group-lg">
-                <input type="text" class="form-control" placeholder="Search for profession..">
-                <span class="input-group-btn">
-                  <button class="btn btn-secondary" type="button">Go!</button>
-                </span>
-              </div>
+              <%= form_tag :url => profile_index_path, html: {class: "form-inline"} do %>
+                <p>
+                  <%= text_field_tag :search, params[:search], {:class => 'form-control'} %>
+                </p>
+                <p>
+                  <%= submit_tag "Search", ({:class => 'btn btn-primary'}) %>
+                </p>
+              <% end %>
             </div>
           </br>
           </br>
@@ -30,12 +32,6 @@
         </div>
       </div>
       <!-- /.row -->
-      <%= form_tag profile_index_path, method: 'GET' do %>
-  <p>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search", name: nil %>
-  </p>
-<% end %>
       <!-- Projects Row -->
       <div class="row">
         <% @freelancers.each do |freelancer| %>
@@ -48,8 +44,8 @@
                     :class => 'img-responsive')
                     %>
               <% end %>
-              <h3><a href="<%= profile_path(freelancer.id) %>">Project Name</a></h3>
-              <p><%=freelancer.profession%></p>
+              <h3><a href="<%= profile_path(freelancer.id) %>"><%= User.find(freelancer.id).name %></a></h3>
+              <p><%=freelancer.profession.name%></p>
               <span><%= render partial: 'partials/form_for_ratings', locals: {big_rating: @compiled_rating, disabled: true, cool_var: 'hey'} %></span>
             </div>
           </div>
