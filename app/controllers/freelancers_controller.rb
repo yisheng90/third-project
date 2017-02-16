@@ -32,6 +32,7 @@ class FreelancersController < ApplicationController
 
     @enquiries = Enquiry.all.where(freelancer_id: params[:id]).where(status: 'open').order(:start_date)
     @own_enquiries = Enquiry.all.where(user_id: params[:id]).where(status: 'open').order(:start_date)
+    @closed_enquires = Enquiry.all.where(freelancer_id: params[:id]).where(status: 'closed').order(:start_date)
 
     @sanitized_start_time = @freelancer.schedule.start_time.strftime("%I:%M%p")
     @sanitized_end_time = @freelancer.schedule.end_time.strftime("%I:%M%p")

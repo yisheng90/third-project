@@ -37,6 +37,7 @@
 <br>
 
 <%= @bookings_grped_by_date %>
+<%= @closed_enquires.inspect %>
 
 <h2>Your Schedule for the month</h2>
 
@@ -49,11 +50,11 @@
 <h3>Edit your profile to change your schedule</h3>
 <%= month_calendar(partial: 'simple_calendar/month_calendar', events: @occurrences[:dates] ) do |date, occurrences| %>
   <%= date %>
-  <% @freelancer.bookings.order(:time_start).each do |booking| %>
-    <% if date == booking.time_start.to_date %>
+  <% @closed_enquires.each do |booking| %>
+    <% if date == booking.start_date.to_date %>
       <!-- slightly wrong pls edit in GA ZL slot is not pointing to correct enquiry path (should be finsihed enquiry no edits) -->
       <%= link_to enquiry_path(booking.id) do %>
-        <p class='slot'>Slot booked from <%= booking.time_start.strftime("%I:%M%p") %> to <%= booking.time_end.strftime("%I:%M%p") %>  </p>
+        <p class='slot'>Slot booked from <%= booking.start_date.strftime("%I:%M%p") %> to <%= booking.end_date.strftime("%I:%M%p") %>  </p>
       <% end %>
     <% end %>
   <% end %>
