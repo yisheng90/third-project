@@ -1,7 +1,21 @@
+<div class='row'>
+
 <% @freelancers.each do |freelancer| %>
+  <div class='col-md-3'>
     <div>
-      <h3><%=freelancer.user.name%></h3>
-      <p><%=freelancer.profession%><p>
-      <%= link_to "view freelancer's profile", profile_path(freelancer.id), class:'btn btn-primary'%>
+      <%= link_to profile_path(freelancer.id) do%>
+        <div class='col-md-10 col-md-offset-2'>
+          <%= cl_image_tag(freelancer.picture,
+              :width => 150, :height => 150,
+              :crop => :fill, :gravity => :face)
+              %>
+        </div>
+      <% end %>
+      <strong><%=freelancer.user.name.capitalize%></strong><br>
+      <%=freelancer.profession%>
+      <%= render partial: 'partials/form_for_ratings', locals: {big_rating: @compiled_rating, disabled: true, cool_var: 'hey'} %>
     </div>
+  </div>
 <%end%>
+<%= @freelancers %>
+</div>

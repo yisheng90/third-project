@@ -14,6 +14,14 @@ class Freelancer < ApplicationRecord
   before_update :downcase_description_profression
   after_validation :convert_to_utc, :if => :working_hours_set
 
+  def self.search(search)
+    if search
+      where('profession LIKE ?', "%#{search}%")
+    else
+      all
+    end
+  end
+
   def convert_to_utc
     @freelancer = Freelancer.find_by_id(id)
     @freelancer.start_working_hours = @freelancer.start_working_hours.to_time.utc

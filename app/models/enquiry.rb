@@ -2,16 +2,27 @@ class Enquiry < ApplicationRecord
   belongs_to :user
   belongs_to :freelancer
   has_many :messages
-  # has_one :act_as_bookable_booking
 
-  # before_destroy :archive_bookings
+  before_save :default_enquiry_time_range, :if => :check_time_range
+  before_update :default_enquiry_time_range, :if => :check_time_range
 
   # BOOKABLE GEM (ANDREW)
   acts_as_booker
 
-  # def archive_bookings
-  #   act_as_bookable_booking.update()
-  # end
+  def check_time_range
+    debugger
+    if self.start_date == null && self.start_date == null
+      return true
+    else
+      return false
+    end
+  end
+
+  def default_enquiry_time_range
+    debugger
+    self.start_date = self.created_at.to_time.utc
+    self.end_date = self.created_at.to_time.utc
+  end
 
   def opposed_user(current)
     if current == freelancer.user
