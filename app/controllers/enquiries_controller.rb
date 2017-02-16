@@ -46,7 +46,7 @@ class EnquiriesController < ApplicationController
 
     @enquiry.save!
     redirect_to enquiry_path(@enquiry), notice: 'Enquiry was successfully created.'
-  end
+    end
   end
 
   def update

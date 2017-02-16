@@ -14,7 +14,7 @@ class FreelancersController < ApplicationController
   end
 
   def index
-    @freelancers = Freelancer.all
+    @freelancers = Freelancer.search(params[:search])
   end
 
   def show

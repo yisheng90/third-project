@@ -1,6 +1,7 @@
 class BookingsController < ApplicationController
   before_action :check_user
   before_action :is_freelancer?
+  before_action :enquiry_status_accept, only: [:create]
 
   def create
     # ENQUIRY SEARCH
@@ -25,6 +26,21 @@ class BookingsController < ApplicationController
     @bookings_user = Enquiry.find_by(user_id: current_user.id).bookings
   end
 
+  def update
+    @enquiry = Enquiry.find_by(user_id: current_freelancer.id)
+
+    if (enquiry.bookings.length > 0)
+      @enquiry.status = 'done'
+        if @enquiry.save!
+         flash[:success] = 'Booking completed!'
+         redirect_to edit_enquiry_path(@enquiry)
+        else
+         flash[:danger] = 'Error in booking..'
+         redirect_to edit_enquiry_path(@enquiry)
+        end
+    end
+  end
+
   private
 
   def booking_params
@@ -47,6 +63,15 @@ class BookingsController < ApplicationController
     if !current_user
       flash[:danger] = 'Please login in to use the service!'
       redirect_to login_path
+    end
+  end
+
+  def enquiry_status_accept
+    enquiry = Enquiry.find_by(user_id: current_freelancer.id)
+
+    if (enquiry.bookings.length > 0)
+      enquiry.status = 'accepted'
+      enquiry.save!
     end
   end
 end
