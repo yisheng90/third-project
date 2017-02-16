@@ -35,8 +35,6 @@ class FreelancersController < ApplicationController
       @first_3_reviews = nil
     end
 
-
-
     @enquiries = Enquiry.all.where(freelancer_id: params[:id]).where(status: 'open').order(:created_at)
     @own_enquiries = Enquiry.all.where(user_id: params[:id]).where(status: 'open').order(:start_date)
     # @accepted_enquires = Enquiry.all.where(freelancer_id: params[:id]).where(status: 'accepted').order(:start_date)
