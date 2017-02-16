@@ -13,7 +13,7 @@ class EnquiryChannel < ApplicationCable::Channel
      hash[el.values.first] = el.values.last
    end
 
-    Message.create (message_params)
+    Message.create!(message_params)
   end
 
 end

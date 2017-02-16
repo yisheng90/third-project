@@ -18,6 +18,10 @@ class EnquiriesController < ApplicationController
      }
   end
 
+  def edit
+    Message.clear_unread(@enquiry.messages, current_user)
+  end
+
   def new
     @enquiry = Enquiry.new
     @freelancer = Freelancer.find(params[:profile_id])
@@ -30,7 +34,7 @@ class EnquiriesController < ApplicationController
   end
 
   def create
-    enquiry = Enquiry.where('freelancer_id =? AND status = ?', enquiry_params[:freelancer_id], 'open')
+    enquiry = Enquiry.where('freelancer_id =? AND status = ? AND user_id =? ', enquiry_params[:freelancer_id], 'open', current_user.id)
 
     if enquiry.size > 0
       flash[:danger] = "Can't create"
@@ -46,7 +50,7 @@ class EnquiriesController < ApplicationController
 
     @enquiry.save!
     redirect_to enquiry_path(@enquiry), notice: 'Enquiry was successfully created.'
-  end
+    end
   end
 
   def update
