@@ -1,7 +1,6 @@
-<h1>Details</h1>
-
-<div class='row'>
-  <div class='col-lg-5'>
+  <h1>Details</h1>
+<div class='container'>
+  <div class='left'>
     <table class='table'>
       <tr>
         <thead>
@@ -19,7 +18,7 @@
       </tr>
     </table>
   </div>
-  <div class='col-lg-7'>
+  <div class='right'>
     <% if  !current_freelancer %>
     <h1>This is <%= @enquiry.freelancer.user.name %>'s schedule for the week <%=@enquiry.start_date.to_date.cweek%> of 2017 </h1>
     <% end %>

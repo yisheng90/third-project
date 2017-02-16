@@ -1,55 +1,64 @@
-<h1>Profile</h1>
-<div class="image">
-  <%if !@user.profile_picture%>
-  <%= cl_image_tag('http://res.cloudinary.com/demo/image/upload/c_thumb,g_face,r_20,d_avatar.png/non_existing_id.png')%>
-  <% else %>
-  <%= cl_image_tag(@user.profile_picture,
-      :width => 400, :height => 400,
-      :crop => :crop, :gravity => :face, :radius => 'max', :default_image => "avatar.png")
-      %>
-      <% end %>
-</div>
+<div class='container'>
+  <div class='left'>
+    <div class='text-center'>
+    <h1>Profile</h1>
+    </div>
+    <div class="image">
+      <%if !@user.profile_picture%>
+      <%= cl_image_tag('http://res.cloudinary.com/demo/image/upload/c_thumb,g_face,r_20,d_avatar.png/non_existing_id.png')%>
+      <% else %>
+      <%= cl_image_tag(@user.profile_picture,
+          :width => 400, :height => 400,
+          :crop => :crop, :gravity => :face, :radius => 'max', :default_image => "avatar.png")
+          %>
+          <% end %>
+    </div>
+  </div>
 
-<div class="cont">
-  <h2>Upcoming Bookings</h2>
-  <div><table class="table">
-    <tr>
-      <th>Description</th>
-      <th>Start Date and Time</th>
-      <th>End date and time</th>
-    </tr>
-    <% @user.enquiries.where(:user_id == current_user.id).each do |enquiry| %>
-    <% if enquiry.bookings[0] %>
-    <tr>
-      <td><%= enquiry.description %></td>
-      <td><%= enquiry.start_date.strftime("%d/%m/%y - %H:%M") %></td>
-      <td><%= enquiry.end_date.strftime("%d/%m/%y - %H:%M") %></td>
-    </tr>
-    <% end %>
-    <% end %>
-  </table></div>
-  <h2>Pending Enquiries</h2>
-  <table class="table">
-    <% if @user.enquiries.where(:user_id == current_user.id).size > 0 %>
-    <% @user.enquiries.where(:user_id == current_user.id).each do |enquiry| %>
-    <tr>
-      <th>Description</th>
-      <th>Start Date and Time</th>
-      <th>End date and time</th>
-      <th>Status</th>
-    </tr>
-    <tr>
-      <td><%= link_to enquiry.description, enquiry_path(enquiry.id) %></td>
-      <td><%= enquiry.start_date.strftime("%d/%m/%y - %H:%M") %></td>
-      <td><%= enquiry.end_date.strftime("%d/%m/%y - %H:%M") %></td>
-      <td><%= link_to "Chat with #{enquiry.freelancer.user.name.capitalize}", edit_enquiry_path(enquiry.id) %></td>
-      <% if enquiry.messages.where('read =? AND sender_id !=?', false , current_user.id).size > 0  %>
-      <td>Unread</td>
-      <% end %>
-    </tr>
-    <% end %>
-    <% else %>
-      No open enquiry
-    <% end %>
-  </table>
+  <div class='right'>
+    <div class="cont">
+      <h2>Upcoming Bookings</h2>
+      <div><table class="table">
+        <tr>
+          <th>Description</th>
+          <th>Start Date and Time</th>
+          <th>End date and time</th>
+        </tr>
+        <% @user.enquiries.where(:user_id == current_user.id).each do |enquiry| %>
+        <% if enquiry.bookings[0] %>
+        <tr>
+          <td><%= enquiry.description %></td>
+          <td><%= enquiry.start_date.strftime("%d/%m/%y - %H:%M") %></td>
+          <td><%= enquiry.end_date.strftime("%d/%m/%y - %H:%M") %></td>
+        </tr>
+        <% end %>
+        <% end %>
+      </table></div>
+      <h2>Pending Enquiries</h2>
+      <table class="table">
+        <tr>
+          <th>Description</th>
+          <th>Start Date and Time</th>
+          <th>End date and time</th>
+          <th>Liason</th>
+          <th>Status</th>
+        </tr>
+        <% if @user.enquiries.where(:user_id == current_user.id).size > 0 %>
+        <% @user.enquiries.where(:user_id == current_user.id).each do |enquiry| %>
+        <tr>
+          <td><%= link_to enquiry.description, enquiry_path(enquiry.id) %></td>
+          <td><%= enquiry.start_date.strftime("%d/%m/%y - %H:%M") %></td>
+          <td><%= enquiry.end_date.strftime("%d/%m/%y - %H:%M") %></td>
+          <td><%= link_to "Chat with #{enquiry.freelancer.user.name.capitalize}", edit_enquiry_path(enquiry.id) %></td>
+          <% if enquiry.messages.where('read =? AND sender_id !=?', false , current_user.id).size > 0  %>
+          <td>Unread</td>
+          <% end %>
+        </tr>
+        <% end %>
+        <% else %>
+          No open enquiry
+        <% end %>
+      </table>
+    </div>
+  </div>
 </div>

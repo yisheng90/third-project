@@ -11,3 +11,19 @@
   display: flex;
   flex-direction: column;
 }
+
+
+.container {
+  display: flex;
+  padding: 75px;
+  flex-direction: row;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+}
+.left {
+  display: flex;
+  flex-direction: column;
+}
