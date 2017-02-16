@@ -1,4 +1,6 @@
 class RatingsController < ApplicationController
+  before_action :is_authenticated
+  
   def create
     @rating = Rating.new(rating_params)
     @rating.user_id = current_user.id

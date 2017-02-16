@@ -1,5 +1,6 @@
 class EnquiriesController < ApplicationController
   before_action :set_enquiry, only: [:show, :edit, :update, :destroy]
+  before_action :is_authenticated, only: [:index, :edit, :update, :destroy]
 
 
   def index

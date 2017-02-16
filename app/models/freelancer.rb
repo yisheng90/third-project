@@ -16,7 +16,7 @@ class Freelancer < ApplicationRecord
 
   def self.search(search)
     if search
-      where('profession LIKE ?', "%#{search}%")
+      where('profession ILIKE ?', "%#{search}%")
     else
       all
     end
