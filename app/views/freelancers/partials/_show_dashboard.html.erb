@@ -58,7 +58,7 @@
           <% if date == booking.start_date.to_date %>
             <!-- slightly wrong pls edit in GA ZL slot is not pointing to correct enquiry path (should be finsihed enquiry no edits) -->
             <%= link_to enquiry_path(booking.id) do %>
-              <p class='slot'>Slot booked from <%= booking.start_date.strftime("%I:%M%p") %> to <%= booking.end_date.strftime("%I:%M%p") %>  </p>
+              <p class='slot'>Slot booked from <%= booking.start_date.strftime("%I:%M%p") %> to <%= booking.end_date.in_time_zone("Singapore").strftime("%I:%M%p") %>  </p>
             <% end %>
           <% end %>
         <% end %>
