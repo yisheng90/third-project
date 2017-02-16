@@ -23,6 +23,13 @@ class EnquiriesController < ApplicationController
       flash[:danger] = 'No access rights'
       redirect_to root_path
     end
+
+    @occurrences = {
+       dates: @enquiry.freelancer.schedule.occurrences_between(Date.today - 1.year,Date.today + 1.year),
+       start_time: @enquiry.freelancer.schedule.start_time.strftime("%I:%M%p"),
+       end_time: @enquiry.freelancer.schedule.end_time.strftime("%I:%M%p"),
+       start_date: @enquiry.start_date
+     }
     Message.clear_unread(@enquiry.messages, current_user)
 
   end
@@ -89,6 +96,5 @@ class EnquiriesController < ApplicationController
   def enquiry_params
     params.require(:enquiry).permit(:name, :description, :start_date, :end_date, :user_id, :freelancer_id, :price, :status, :id)
   end
-
 
 end

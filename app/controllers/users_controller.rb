@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save!
-      UserMailer.registration_confirmation(@user).deliver_later
+      UserMailer.registration_confirmation(@user).deliver
       flash.now[:success] = 'Please check you mail box and confirm email'
       redirect_to email_confirmations_path
     else

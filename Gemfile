@@ -13,7 +13,6 @@ gem 'pg', '~> 0.18'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
-gem 'delayed_job_active_record'
 gem 'sass-rails', '>= 3.2'
 
 # Use Uglifier as compressor for JavaScript assets

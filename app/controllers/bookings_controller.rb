@@ -66,11 +66,9 @@ class BookingsController < ApplicationController
   end
 
   def enquiry_status_accept
-    enquiry = Enquiry.find_by(user_id: current_freelancer.id)
-
-    if (enquiry.bookings.length > 0)
-      enquiry.status = 'accepted'
-      enquiry.save!
-    end
+    enquiry = Enquiry.find_by(id: params[:enquiry][:id])
+    # debugger
+    enquiry.status = 'accepted'
+    enquiry.save!
   end
 end
