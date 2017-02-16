@@ -18,7 +18,7 @@
 <% end %>
 
 <h3>Current Overall Rating</h3>
-<%= render partial: 'partials/form_for_ratings', locals: {big_rating: @compiled_rating, cool_var: 'hey gurl'} %><br>
+<%= render partial: 'partials/form_for_ratings', locals: {big_rating: @compiled_rating} %><br>
 <br>
 
 <%= month_calendar(partial: 'simple_calendar/month_calendar', events: @occurrences[:dates]) do |date, occurrences| %>

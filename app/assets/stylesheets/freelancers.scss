@@ -96,3 +96,24 @@
     top:2px;
     left:2px;
 }
+
+.placeholder_box {
+  display: flex;
+  .right {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+  .left {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+}
+
+.freelancer_name {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 5px;
+}

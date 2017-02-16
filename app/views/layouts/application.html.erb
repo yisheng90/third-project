@@ -41,7 +41,9 @@
                     <span class="sr-only">Toggle navigation</span>
                     Menu <i class="fa fa-bars"></i>
                 </button>
+                <% if current_user %>
                 <a class="navbar-brand" href="/"><%= current_user[:email] %></a>
+                <% end %>
                 <a class="navbar-brand" href="/">My Blog</a>
             </div>
 

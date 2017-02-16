@@ -26,9 +26,13 @@ class FreelancersController < ApplicationController
       @compiled_rating = ( @freelancer.ratings.average('professionalism') +
                             @freelancer.ratings.average('value') +
                             @freelancer.ratings.average('cleanliness') ) / 3
+      @first_3_reviews = @freelancer.ratings.order(created_at: :desc).limit(3)
     else
       @compiled_rating = nil
+      @first_3_reviews = nil
     end
+
+
 
     @enquiries = Enquiry.all.where(freelancer_id: params[:id]).where(status: 'open').order(:start_date)
     @own_enquiries = Enquiry.all.where(user_id: params[:id]).where(status: 'open').order(:start_date)
@@ -39,6 +43,7 @@ class FreelancersController < ApplicationController
 
     #might be able to do something cool with this
     @bookings_grped_by_date = @freelancer.bookings.order("date(time_start)").group("date(time_start)").count
+    @first_booking_grped_by_date = @freelancer.bookings.limit(1).order("date(time_start)").group("date(time_start)").count
 
     #### YOU STOPPED HERE ZL
     ## done

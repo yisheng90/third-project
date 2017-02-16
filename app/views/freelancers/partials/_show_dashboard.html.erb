@@ -1,66 +1,72 @@
-<h1>Freelancer's dashboard</h1>
-<h3><%= link_to 'edit your profile!', edit_profile_path(@freelancer) %>
-
-<%= cl_image_tag(@freelancer.picture,
-      :width => 400, :height => 400,
-      :crop => :fill, :gravity => :face)
-      %>
-
-<h3>Current Overall Rating</h3>
-<%= render partial: 'partials/form_for_ratings', locals: {big_rating: @compiled_rating} %>
-
-<h3>Pending enquires</h3>
-<table class='table'>
-  <% @enquiries.each do |enquiry| %>
-    <thead>
-    a table needs a head otherwise it'll become a hydra
-    <tr>
-      <td><%=enquiry.description%></td>
-      <td><%=enquiry.start_date.to_time%></td>
-      <td><%=enquiry.end_date.to_time%></td>
-      <td><%= link_to 'continue liason with customer', edit_enquiry_path(enquiry.id) %></td>
-    </tr>
-  <% end %>
-</table>
-
-<h3>Submitted enquiries(My enquiries)</h3>
-<table class="table">
-  <% @own_enquiries.each do |enquiry| %>
-    <tr>
-      <td><%= enquiry.description %></td>
-      <td><%= enquiry.start_date.to_time %></td>
-      <td><%= enquiry.end_date.to_time %></td>
-      <td><%= link_to "Chat with #{enquiry.freelancer.user.name.capitalize}", edit_enquiry_path(enquiry.id)%></td>
-    </tr>
-  <% end %>
-</table>
-<br>
-
-<%= @bookings_grped_by_date %>
-<%= @closed_enquires.inspect %>
-
-<h2>Your Schedule for the month</h2>
-
-<h5>
-  You work <%= @freelancer.schedule.to_s.downcase %> from
-  <%= @occurrences[:start_time] %> to
-  <%= @occurrences[:end_time] %>
-</h5>
-
-<h3>Edit your profile to change your schedule</h3>
-<%= month_calendar(partial: 'simple_calendar/month_calendar', events: @occurrences[:dates] ) do |date, occurrences| %>
-  <%= date %>
-  <% @closed_enquires.each do |booking| %>
-    <% if date == booking.start_date.to_date %>
-      <!-- slightly wrong pls edit in GA ZL slot is not pointing to correct enquiry path (should be finsihed enquiry no edits) -->
-      <%= link_to enquiry_path(booking.id) do %>
-        <p class='slot'>Slot booked from <%= booking.start_date.strftime("%I:%M%p") %> to <%= booking.end_date.strftime("%I:%M%p") %>  </p>
-      <% end %>
+<p> render nav bar in here</p>
+<!-- this will be in nav bar -->
+<h3><%= link_to 'edit your profile!', edit_profile_path(@freelancer) %></h3>
+<div class='freelancer_name'>
+  <div>
+    <h1>Freelancer's dashboard</h1>
+  </div>
+  <div class='upcoming'>
+    <h3>Quick schedule</h3>
+    <% @first_booking_grped_by_date.each do |key,value| %>
+      <p>You have <%= pluralize(value, 'booked slot') %> on <%= key %></p>
     <% end %>
-  <% end %>
-  <% occurrences.each do |occurrence| %>
-  <p class='free'>
-    Available from <%= @occurrences[:start_time] %> to <%= @occurrences[:end_time] %>
-  </p>
-  <% end %>
-<% end %>
+  </div>
+</div>
+<p> render search bar in here </p>
+
+
+
+
+<div class='placeholder_box'>
+  <div class='left'>
+    <div class='picture_freelancer'>
+      <%= cl_image_tag(@freelancer.picture,
+            :width => 400, :height => 400,
+            :crop => :fill, :gravity => :face)
+            %>
+    </div>
+
+    <div class='current_reviews_limit_3'>
+      <h3>Current Overall Rating</h3>
+      <%= render partial: 'partials/form_for_ratings', locals: {big_rating: @compiled_rating} %>
+      <h3>Latest reviews from other users</h3>
+      <% @first_3_reviews.each do |review| %>
+        <p><%= link_to(review.user.name, user_path(review.user.id)) %> said: <%= review.description_of_job %></p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class='right'>
+    <div class='pending_enquires'>
+      <%= render 'freelancers/partials/show_pending_enquiries_from_others' %>
+    </div>
+
+    <div class ='own_calendar'>
+      <h2>Your Schedule for the month</h2>
+
+      <h5>
+        You work <%= @freelancer.schedule.to_s.downcase %> from
+        <%= @occurrences[:start_time] %> to
+        <%= @occurrences[:end_time] %>
+      </h5>
+
+      <h3>Edit your profile to change your schedule</h3>
+      <%= month_calendar(partial: 'simple_calendar/month_calendar', events: @occurrences[:dates] ) do |date, occurrences| %>
+        <%= date %>
+        <% @closed_enquires.each do |booking| %>
+          <% if date == booking.start_date.to_date %>
+            <!-- slightly wrong pls edit in GA ZL slot is not pointing to correct enquiry path (should be finsihed enquiry no edits) -->
+            <%= link_to enquiry_path(booking.id) do %>
+              <p class='slot'>Slot booked from <%= booking.start_date.strftime("%I:%M%p") %> to <%= booking.end_date.strftime("%I:%M%p") %>  </p>
+            <% end %>
+          <% end %>
+        <% end %>
+        <% occurrences.each do |occurrence| %>
+        <p class='free'>
+          Available from <%= @occurrences[:start_time] %> to <%= @occurrences[:end_time] %>
+        </p>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
