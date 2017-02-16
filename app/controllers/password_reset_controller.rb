@@ -13,7 +13,7 @@ class PasswordResetController < ApplicationController
       redirect_to login_path
     else
       flash.now[:danger] = 'Please enter a valid email'
-      render :new
+      redirect_to login_path
     end
   end
 
@@ -36,7 +36,7 @@ class PasswordResetController < ApplicationController
       redirect_to login_path
     else
       flash.now[:danger] = 'Error'
-      render :new
+      redirect_to login_path
     end
   end
 
