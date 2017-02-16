@@ -1,7 +1,7 @@
 <div class='container'>
   <h1>My Bookings</h1>
 
-  <% if @bookings != nil %>
+  <% if @bookings_fl != nil %>
 
   <table class='table'>
     <thead>
@@ -11,7 +11,7 @@
         <th>Booking's end date</th>
       </tr>
     </thead>
-    <% @bookings.each do |booking| %>
+    <% @bookings_fl.each do |booking| %>
     <tr>
       <td><%=booking.description%></td>
       <td><%=booking.start_date.strftime("%e %b %Y %l:%M %p")%></td>
