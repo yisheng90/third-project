@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:edit, :show, :update]
-  before_action :is_authenticated, only: [:edit, :update, :destroy]
+  before_action :is_authenticated, only: [ :destroy]
 
   def new
     @user = User.new
