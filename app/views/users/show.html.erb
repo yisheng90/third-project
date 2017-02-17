@@ -40,8 +40,8 @@
           <th>Liason</th>
           <th>Status</th>
         </tr>
-        <% if @user.enquiries.where(:user_id == current_user.id).size > 0 %>
-        <% @user.enquiries.where(:user_id == current_user.id).each do |enquiry| %>
+        <% if @user.enquiries.where('user_id =? AND status =?', current_user.id, 'open').size > 0 %>
+        <%  @user.enquiries.where('user_id =? AND status =?', current_user.id, 'open').each do |enquiry| %>
         <tr>
           <td><%= link_to enquiry.description, enquiry_path(enquiry.id) %></td>
           <td><%= enquiry.start_date.strftime("%d/%m/%y - %H:%M") %></td>

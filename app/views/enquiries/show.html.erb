@@ -27,7 +27,7 @@
     <!-- passed_datum requires :dates, :start_time, :end_time and start date and time slots as well later -->
     <%= render partial: 'partials/calendar_for_specific_booking', locals: { passed_datum: @occurrences } %>
     <% if @enquiry.status != 'done' %>
-    <%= link_to "Chat with #{@enquiry.freelancer.user.name.capitalize}", edit_enquiry_path(@enquiry), class:'btn btn-primary' %>
+    <%= link_to "Chat", edit_enquiry_path(@enquiry), class:'btn btn-primary' %>
     <% end %>
   </div>
 </div>
