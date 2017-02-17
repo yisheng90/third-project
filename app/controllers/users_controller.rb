@@ -20,7 +20,7 @@ class UsersController < ApplicationController
       redirect_to email_confirmations_path
     else
       flash.now[:error] = "Ooooppss, something went wrong!"
-      render :new
+      redirect_to login_path
     end
   end
 
