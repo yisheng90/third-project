@@ -11,6 +11,9 @@ App.enquiry = App.cable.subscriptions.create "EnquiryChannel",
     elm = '<div class="text-left"> <div class="recipient">'+data['message']+'</div></div>' if data['sender'] == 0
     $("#messages").find(".messages-"+ data['enquiry_id']).append(elm)
     $('.notification').attr('style', 'color: red')
+    count = $('#notification-content li').find('<a href="/enquiries/'+ data['enquiry_id']+'/edit"> Enquiry'+ data['enquiry_id']+'</a>').length
+
+    $('#notification-content').append('<li></li>').html('<a href="/enquiries/'+ data['enquiry_id']+'/edit"> Enquiry'+ data['enquiry_id']+'</a>') if count == 0
     element = document.getElementById("messages")
     element.scrollTop = element.scrollHeight
 

@@ -21,7 +21,7 @@
                    <li class='dropdown'>
                      <a href="#" class="dropdown-toggle text-center notification" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Messages</a>
 
-                     <ul class="dropdown-menu">
+                     <ul class="dropdown-menu" id='notification-content'>
                        <% current_user.enquiries.each do |enquiry| %>
                          <% if enquiry.messages.where('sender_id !=? AND read =?', current_user.id, false).size > 0 %>
                            <li><%= link_to enquiry.description, edit_enquiry_path(enquiry) %></li>
@@ -51,7 +51,7 @@
                       <li class='dropdown'>
                         <a href="#" class="dropdown-toggle text-center notification" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Messages</a>
 
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu" id='notification-content'>
                           <% current_user.enquiries.each do |enquiry| %>
                             <% if enquiry.messages.where('sender_id !=? AND read =?', current_user.id, false).size > 0 %>
                               <li><%= link_to enquiry.description, edit_enquiry_path(enquiry) %></li>
