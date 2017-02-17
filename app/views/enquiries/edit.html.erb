@@ -104,7 +104,7 @@
                     <%= f.submit "Finalise  & Accept" ,class:'form-control btn btn-primary'%>
                   </div>
                   <% else %>
-                  <%= f.submit "This Deal is finalised" , class:'form-control btn btn-primary', disabled: true %>
+                  <%= f.submit "Deal Finalised" , class:'form-control btn btn-primary', disabled: true %>
                   <% end  %>
 
 
@@ -148,7 +148,7 @@
       <%= f.submit "Update" , class:'form-control btn btn-primary' %>
     </div>
     <% else %>
-    <%= f.submit "This Deal is finalised" , class:'form-control btn btn-primary', disabled: true %>
+    <%= f.submit "Deal Finalised" , class:'form-control btn btn-primary', disabled: true %>
     <% end  %>
   </div>
   <%= render partial: 'partials/calendar_for_specific_booking', locals: { passed_datum: @occurrences } %>
