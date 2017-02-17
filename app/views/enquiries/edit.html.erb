@@ -155,3 +155,20 @@
 </div>
 </div>
 </div>
+
+
+<script>
+var scrolled = false;
+function updateScroll(){
+    if(!scrolled){
+        var element = document.getElementById("messages");
+        element.scrollTop = element.scrollHeight;
+    }
+}
+
+$("#messages").on('scroll', function(){
+    scrolled=true;
+});
+
+updateScroll()
+</script>

@@ -11,6 +11,9 @@ App.enquiry = App.cable.subscriptions.create "EnquiryChannel",
     elm = '<div class="text-left"> <div class="recipient">'+data['message']+'</div></div>' if data['sender'] == 0
     $("#messages").find(".messages-"+ data['enquiry_id']).append(elm)
     $('.notification').attr('style', 'color: red')
+    element = document.getElementById("messages")
+    element.scrollTop = element.scrollHeight
+
 
     if data['changes'] then
     for k,v of data['changes']
