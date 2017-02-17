@@ -61,7 +61,7 @@
           </div>
         <% end %>
 
-    
+
 
 
 
@@ -98,9 +98,17 @@
                   <div class="field">
                     <%= f.hidden_field :id, {:class => 'form-control'} %>
                   </div>
+                  <% if @enquiry.status != 'accepted' %>
+
                   <div class="actions">
                     <%= f.submit "Finalise  & Accept" ,class:'form-control btn btn-primary'%>
                   </div>
+                  <% else %>
+                  <%= f.submit "This Deal is finalised" , class:'form-control btn btn-primary', disabled: true %>
+                  <% end  %>
+
+
+
                 </div>
                 <%= render partial: 'partials/calendar_for_specific_booking', locals: { passed_datum: @occurrences } %>
             </div>
@@ -133,9 +141,15 @@
 
       <%= f.number_field :price, class:"enquiry-"+ @enquiry.id.to_s + "-price" %>
     </div>
+
+    <% if @enquiry.status != 'accepted' %>
+
     <div class="actions">
       <%= f.submit "Update" , class:'form-control btn btn-primary' %>
     </div>
+    <% else %>
+    <%= f.submit "This Deal is finalised" , class:'form-control btn btn-primary', disabled: true %>
+    <% end  %>
   </div>
   <%= render partial: 'partials/calendar_for_specific_booking', locals: { passed_datum: @occurrences } %>
 </div>
