@@ -62,7 +62,7 @@
         <% end %>
 
       <% if @enquiry.status == 'accepted' %>
-      <div class='row'>
+    
         <div class='col-md-12'>
           <%= bootstrap_form_for(@enquiry, url: bookings_create_path, html: {method: "POST"})do |f| %>
             <div class="field">
