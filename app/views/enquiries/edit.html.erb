@@ -61,47 +61,7 @@
           </div>
         <% end %>
 
-      <% if @enquiry.status == 'accepted' %>
     
-        <div class='col-md-12'>
-          <%= bootstrap_form_for(@enquiry, url: bookings_create_path, html: {method: "POST"})do |f| %>
-            <div class="field">
-
-              <%= f.text_field :description, class:"enquiry-"+ @enquiry.id.to_s + "-description", disabled: true %>
-              <%= f.hidden_field :description, class:"enquiry-"+ @enquiry.id.to_s + "-description" %>
-            </div>
-            <br>
-            <div class="field">
-
-              <%= f.datetime_field :start_date, class:"enquiry-"+@enquiry.id.to_s + "-start_date", disabled: true  %>
-              <%= f.hidden_field :start_date, class:"enquiry-"+@enquiry.id.to_s + "-start_date"  %>
-            </div>
-            <br>
-            <div class="field">
-
-              <%= f.datetime_field :end_date, class:"enquiry-"+@enquiry.id.to_s+ "-end_date", disabled: true  %>
-              <%= f.hidden_field :end_date, class:"enquiry-"+@enquiry.id.to_s+ "-end_date" %>
-            </div>
-            <br>
-            <div class="field">
-
-              <%= f.number_field :price, class:"enquiry-"+ @enquiry.id.to_s + "-price", disabled: true  %>
-              <%= f.hidden_field :price, class:"enquiry-"+ @enquiry.id.to_s + "-price" %>
-            </div>
-            <br>
-            <div class="field">
-              <%= f.hidden_field :id, {:class => 'form-control'} %>
-            </div>
-            <div class="actions">
-              <%= f.submit "This deal is finalise" ,class:'form-control btn btn-primary', disabled: true%>
-            </div>
-          </div>
-          <%= render partial: 'partials/calendar_for_specific_booking', locals: { passed_datum: @occurrences } %>
-
-    <% end %>
-
-
-    <% else %>
 
 
 
@@ -182,8 +142,6 @@
     <% end %>
   <% end %>
 </div>
-
-<% end %>
 
 
 <div class='col-md-7'>
