@@ -2,16 +2,47 @@ class Enquiry < ApplicationRecord
   belongs_to :user
   belongs_to :freelancer
   has_many :messages
-  # has_one :act_as_bookable_booking
 
-  # before_destroy :archive_bookings
+  before_save :default_enquiry_time_range, :if => :check_time_range
+  before_update :default_enquiry_time_range, :if => :check_time_range
 
   # BOOKABLE GEM (ANDREW)
   acts_as_booker
 
-  # def archive_bookings
-  #   act_as_bookable_booking.update()
-  # end
+  def check_time_range
+
+    if self.start_date == nil && self.start_date == nil
+      return true
+    else
+      return false
+    end
+  end
+
+  def default_enquiry_time_range
+
+    self.start_date = self.created_at.to_time.utc
+    self.end_date = self.created_at.to_time.utc
+  end
+
+#   after_create :deliver
+#
+# @@REMINDER_TIME = 30.minutes # minutes before appointment
+#
+# # Notify our appointment attendee X minutes before the appointment time
+# def deliver
+#   @client = Twilio::REST::Client.new TWILIO_CONFIG['sid'], TWILIO_CONFIG['token']
+#   message = @client.account.messages.create(:body => "Appointment msg",
+#       :to => current_user.phone,    # Replace with your phone number
+#       :from => TWILIO_CONFIG['from'])  # Replace with your Twilio number
+#
+#   puts "message entered"
+# end
+# #
+# # def when_to_run
+# #   time - @@REMINDER_TIME
+# # end
+#
+# handle_asynchronously :deliver, :run_at => Proc.new { 30.minutes.from_now }
 
   def opposed_user(current)
     if current == freelancer.user

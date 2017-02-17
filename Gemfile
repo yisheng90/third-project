@@ -13,7 +13,6 @@ gem 'pg', '~> 0.18'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
-
 gem 'sass-rails', '>= 3.2'
 
 # Use Uglifier as compressor for JavaScript assets
@@ -33,6 +32,9 @@ gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '3.1.11', :require => 'bcrypt'
+gem 'momentjs-rails', '>= 2.9.0'
+
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17.43'
 
 gem 'acts_as_bookable'
 gem "simple_calendar", "~> 2.0"
@@ -40,8 +42,8 @@ gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 gem 'bootstrap_form'
 gem 'cloudinary'
-
 gem "httparty"
+gem 'redis'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

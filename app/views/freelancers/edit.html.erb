@@ -1,3 +1,5 @@
+<div class="container">
+
 <h1>Edit Profile</h1>
 <%= form_for :freelancer, url: profile_path(@freelancer), method: :patch do |f| %>
 <p>
@@ -55,3 +57,5 @@
   <%= f.submit({:class => 'btn btn-primary'}) %>
 </p>
 <% end %>
+
+</div>

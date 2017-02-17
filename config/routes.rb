@@ -36,5 +36,7 @@ Rails.application.routes.draw do
   resources :ratings, only: [:show,:create]
 
 
+  mount ActionCable.server, at: '/cable'
+
 
 end

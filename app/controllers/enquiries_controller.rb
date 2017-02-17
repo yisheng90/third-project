@@ -1,10 +1,11 @@
 class EnquiriesController < ApplicationController
   before_action :set_enquiry, only: [:show, :edit, :update, :destroy]
+  before_action :is_authenticated, only: [:index, :edit, :update, :destroy]
 
 
   def index
     # @enquiries = Enquiry.where("user_id=?", @current_user.id)
-    @enquiries = Enquiry.all
+    @enquiries = Enquiry.where("user_id =?", current_user.id)
     @freelancers = Freelancer.all
   end
 
@@ -16,6 +17,22 @@ class EnquiriesController < ApplicationController
        end_time: @enquiry.freelancer.schedule.end_time.strftime("%I:%M%p"),
        start_date: @enquiry.start_date
      }
+  end
+
+  def edit
+    if @enquiry.user_id != current_user.id && @enquiry.freelancer.user.id != current_user.id
+      flash[:danger] = 'No access rights'
+      redirect_to root_path
+    end
+
+    @occurrences = {
+       dates: @enquiry.freelancer.schedule.occurrences_between(Date.today - 1.year,Date.today + 1.year),
+       start_time: @enquiry.freelancer.schedule.start_time.strftime("%I:%M%p"),
+       end_time: @enquiry.freelancer.schedule.end_time.strftime("%I:%M%p"),
+       start_date: @enquiry.start_date
+     }
+    Message.clear_unread(@enquiry.messages, current_user)
+
   end
 
   def new
@@ -30,7 +47,7 @@ class EnquiriesController < ApplicationController
   end
 
   def create
-    enquiry = Enquiry.where('freelancer_id =? AND status = ?', enquiry_params[:freelancer_id], 'open')
+    enquiry = Enquiry.where('freelancer_id =? AND status = ? AND user_id =? ', enquiry_params[:freelancer_id], 'open', current_user.id)
 
     if enquiry.size > 0
       flash[:danger] = "Can't create"
@@ -45,8 +62,8 @@ class EnquiriesController < ApplicationController
     # @enquiry.freelancer_id = @freelancer.id
 
     @enquiry.save!
-    redirect_to enquiry_path(@enquiry), notice: 'Enquiry was successfully created.'
-  end
+      redirect_to enquiry_path(@enquiry), notice: 'Enquiry was successfully created.'
+    end
   end
 
   def update
@@ -80,6 +97,5 @@ class EnquiriesController < ApplicationController
   def enquiry_params
     params.require(:enquiry).permit(:name, :description, :start_date, :end_date, :user_id, :freelancer_id, :price, :status, :id)
   end
-
 
 end

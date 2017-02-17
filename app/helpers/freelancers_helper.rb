@@ -52,4 +52,15 @@ module FreelancersHelper
     # DELETE RECURRENCE IN ICE_CUBE SCHEDULE RULE
     freelancer.schedule.remove_recurrence_rule(freelancer_schedule_validation)
   end
+
+  def compiled_rating(freelancer)
+    if freelancer.ratings.average('professionalism').is_a? Numeric
+      result = (freelancer.ratings.average('professionalism') +
+                          freelancer.ratings.average('value') +
+                          freelancer.ratings.average('cleanliness') ) / 3
+    else
+      result = nil
+    end
+    return result
+  end
 end

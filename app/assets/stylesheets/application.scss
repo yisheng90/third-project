@@ -18,3 +18,49 @@
 
  @import "bootstrap-sprockets";
  @import "bootstrap";
+
+
+.simple-calendar {
+  .day {
+    width: 100px;
+    height: 100px;
+    border: 1px solid grey;
+    background-color: white;
+  }
+
+  .wday-0 {}
+  .wday-1 {}
+  .wday-2 {}
+  .wday-3 {}
+  .wday-4 {}
+  .wday-5 {}
+  .wday-6 {}
+
+  .today {
+  }
+  .past {}
+  .future {}
+
+  .start-date {}
+
+  .prev-month {}
+  .next-month { }
+  .current-month {}
+
+  .has-events {
+    .slot {
+      color: red;
+      font-size: smaller;
+    }
+    .free {
+      color: blue;
+      font-size: smaller;
+    }
+  }
+}
+
+
+#map {
+  height: 50vh;
+  width: 100vw;
+}

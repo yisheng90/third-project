@@ -1,5 +1,5 @@
 <%= form_for :rating, url: ratings_path, html: { method: :post } do |f| %>
-  <h3>Professionalism</h3>
+  <h4>Professionalism</h4>
   <fieldset class="rating">
     <%= f.radio_button(:professionalism, "5") %> <%= f.label(:professionalism.to_s + "_5", "Rocks") %>
     <%= f.radio_button(:professionalism, "4") %> <%= f.label(:professionalism.to_s + "_4", "Pretty good") %>
@@ -9,7 +9,7 @@
   </fieldset>
   <br>
 
-  <h3>Value for money</h3>
+  <h4>Value for money</h4>
   <fieldset class="rating">
     <%= f.radio_button(:value, "5") %> <%= f.label(:value.to_s + "_5", "Rocks") %>
     <%= f.radio_button(:value, "4") %> <%= f.label(:value.to_s + "_4", "Pretty good") %>
@@ -19,7 +19,7 @@
   </fieldset>
   <br>
 
-  <h3>Cleanliness</h3>
+  <h4>Cleanliness</h4>
   <fieldset class="rating">
     <%= f.radio_button(:cleanliness, "5") %> <%= f.label(:cleanliness.to_s + "_5", "Rocks") %>
     <%= f.radio_button(:cleanliness, "4") %> <%= f.label(:cleanliness.to_s + "_4", "Pretty good") %>
@@ -29,7 +29,7 @@
   </fieldset>
   <br>
 
-  <h3>Description of Job</h3>
+  <h4>Description of Job</h4>
   <%= f.number_field(:freelancer_id, {:style => 'display:none', :value => @freelancer.id}) %>
 
   <p>

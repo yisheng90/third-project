@@ -1,45 +1,44 @@
-<h1>WTF IS GOING ON</h1>
+<div class='col-md-12 '>
 
+  <h3 class='text-center'>Enquiry Request</h3>
 <%= form_for(@enquiry) do |f| %>
-<% if @enquiry.errors.any? %>
-<div id="error_explanation">
-  <h2><%= pluralize(enquiry.errors.count, "error") %> prohibited this enquiry from being saved:</h2>
-  <ul>
-  <% @enquiry.errors.full_messages.each do |message| %>
-    <li><%= message %></li>
+  <% if @enquiry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(enquiry.errors.count, "error") %> prohibited this enquiry from being saved:</h2>
+      <ul>
+      <% @enquiry.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
   <% end %>
-  </ul>
-</div>
+    <div class="field">
+    <%= f.label :description %>
+    <%= f.text_field :description, {:class => 'form-control'} %>
+    </div>
+  <br>
+  <br>
+    <div class="field">
+    <%= f.label :start_date %>
+    <%= f.datetime_field :start_date, {:class => 'form-control'}%>
+  </div>
+  <br>
+  <br>
+    <div class="field">
+    <%= f.label :end_date %>
+    <%= f.datetime_field :end_date, {:class => 'form-control'} %>
+    </div>
+  <br>
+  <br>
+    <div class="field">
+    <%= f.label :price %>
+    <%= f.text_field :price, {:class => 'form-control'} %>
+    </div>
+  <br>
+  <br>
+    <%= f.hidden_field :freelancer_id, :value => @freelancer.id %>
+  <div class="actions">
+    <%= f.submit({:class => 'btn btn-primary form-control'}) %>
+  </div>
 <% end %>
-<div class="field">
-<%= f.label :description %>
-<%= f.text_field :description %>
 </div>
-<br>
-<br>
-<div class="field">
-<%= f.label :start_date %>
-<%= f.datetime_field :start_date, {:class => 'form-control'}%>
-</div>
-<br>
-<br>
-<div class="field">
-<%= f.label :end_date %>
-<%= f.datetime_field :end_date %>
-</div>
-<br>
-<br>
-<div class="field">
-<%= f.label :price %>
-<%= f.text_field :price %>
-</div>
-<br>
-<br>
-<%= f.label :freelancer_id %>
-<%= f.text_field :freelancer_id, :value => @freelancer.id %>
-
-
-<div class="actions">
-<%= f.submit %>
-</div>
-<% end %>

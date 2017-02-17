@@ -1,28 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ThirdProject</title>
-    <style>
-  #map {
-    height: 400px;
-    width: 100%;
-   }
-</style>
+      <title>Handy</title>
+    <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Handy</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+</head>
+<body>
 
-  <body>
-    <%= render 'partials/flash' %>
-    <% if current_user %>
-     <%= current_user.name.inspect %>
-     <% if current_freelancer %>
-      <%= current_freelancer.inspect %>
-      <% end %>
-    <% end %>
+  <%= render 'partials/navbar' %>
+  <%= render 'partials/flash' %>
+
     <%= yield %>
-    <%= debug(params) if Rails.env.development? %>
+
+    <br>
   </body>
 </html>

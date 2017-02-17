@@ -1,17 +1,15 @@
-$.getScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyBCTtS1KnxXuh22lty2vDgBn54QlfhiVKM&callback=initMap", function(){
+<div id="map"></div>
 
-   alert("Script loaded but not necessarily executed.");
 
-});
-
+<script>
 function initMap() {
+  console.log("entered")
   var uluru = {lat: 1.3521, lng: 103.8198};
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
     center: uluru
   });
 
-var posit
   var infoWindow = new google.maps.InfoWindow({map: map});
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
@@ -38,6 +36,7 @@ var posit
       }
 
   <% @freelancers.each do |freelancer| %>
+  <% if !freelancer.latitude.blank? && !freelancer.longitude.blank? %>
 
   var marker = new google.maps.Marker({
     position: {lat: <%=freelancer.latitude%>, lng: <%=freelancer.longitude%>},
@@ -48,8 +47,13 @@ var posit
   marker.addListener('click', function() {
     console.log('entered')
     infowindow.open(map, this);
-    infowindow.setContent('<a href="<%= profile_path(freelancer) %>">Book</a>')
+    infowindow.setContent('<p><%= freelancer.profession%></p><br><a href="<%= profile_path(freelancer) %>">Book</a>')
   });
 
   <% end %>
+  <% end %>
 }
+</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCTtS1KnxXuh22lty2vDgBn54QlfhiVKM&callback=initMap&libraries=geometry">
+</script>

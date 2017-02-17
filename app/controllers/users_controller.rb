@@ -14,13 +14,13 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    if @user.save!
-      UserMailer.registration_confirmation(@user).deliver_later
+    if @user.save
+      UserMailer.registration_confirmation(@user).deliver
       flash.now[:success] = 'Please check you mail box and confirm email'
       redirect_to email_confirmations_path
     else
       flash.now[:error] = "Ooooppss, something went wrong!"
-      render :new
+      redirect_to login_path
     end
   end
 
@@ -53,6 +53,9 @@ class UsersController < ApplicationController
        uploaded_file = params[:user][:profile_picture].path
        cloudnary_file = Cloudinary::Uploader.upload(uploaded_file)
        @user.profile_picture = cloudnary_file['public_id']
+     else
+       cloudnary_file = Cloudinary::Uploader.upload("../assets/images/default.png")
+       @freelancer.picture = cloudnary_file['public_id']
      end
      params[:user].delete :profile_picture
    end

@@ -4,16 +4,17 @@ class PasswordResetController < ApplicationController
   end
 
   def create
+    puts "RESET #{password_reset_params[:email]}"
     @user = User.find_by_email(password_reset_params[:email])
 
     if @user
       @user.set_reset_token
-      UserMailer.password_reset(@user).deliver_later(wait: 1.minute)
+      UserMailer.password_reset(@user).deliver
       flash.now[:success] = 'Please check you mail box'
       redirect_to login_path
     else
       flash.now[:danger] = 'Please enter a valid email'
-      render :new
+      redirect_to login_path
     end
   end
 
@@ -30,13 +31,13 @@ class PasswordResetController < ApplicationController
     @user = User.find_by_reset_token!(params[:id])
 
     @user.password = user_params[:password]
-    if @user.save!
+    if @user.save
       @user.confirm_password_reset
       flash.now[:success] = 'Password reseted'
       redirect_to login_path
     else
       flash.now[:danger] = 'Error'
-      render :new
+      redirect_to login_path
     end
   end
 

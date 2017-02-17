@@ -31,9 +31,7 @@ class User < ApplicationRecord
   end
 
   def set_reset_token
-    if self.reset_token.blank?
-      self.update_columns(reset_confirmed: 0, reset_token: SecureRandom.urlsafe_base64.to_s)
-    end
+      self.update_columns(reset_confirmed: 0, reset_token: SecureRandom.urlsafe_base64.to_s, email_confirmed: 1)
   end
 
   private
