@@ -99,8 +99,8 @@
                 <%= render partial: 'partials/calendar_for_specific_booking', locals: { passed_datum: @occurrences } %>
             </div>
         <% end %>
-
-  <% elsif current_user.id %>
+<% end %>
+  <% else %>
   <div class='row'>
     <div class='col-md-12'>
     <%= bootstrap_form_for(@enquiry, :html=>{:remote => true})do |f| %>
@@ -134,7 +134,6 @@
   <%= render partial: 'partials/calendar_for_specific_booking', locals: { passed_datum: @occurrences } %>
 </div>
     <% end %>
-      <% end %>
   <% end %>
 </div>
 
