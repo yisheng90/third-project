@@ -55,8 +55,6 @@
                           <% current_user.enquiries.each do |enquiry| %>
                             <% if enquiry.messages.where('sender_id !=? AND read =?', current_user.id, false).size > 0 %>
                               <li><%= link_to enquiry.description, edit_enquiry_path(enquiry) %></li>
-                            <% else %>
-                              <li> No Active Messages </li>
                             <% end %>
                           <% end %>
                         </ul>
