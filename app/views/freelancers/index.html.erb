@@ -27,8 +27,7 @@
               <% end %>
               <h3><a href="<%= profile_path(freelancer.id) %>"><%= freelancer.user.name.capitalize %></a></h3>
               <p><%=freelancer.profession%></p>
-              <span><%= render partial: 'partials/form_for_ratings', locals: {big_rating: @compiled_rating, disabled: true, cool_var: 'hey'} %></span>
-
+              <span><%= render partial: 'partials/form_for_ratings', locals: {big_rating: compiled_rating(freelancer), disabled: true, cool_var: 'hey'} %></span>
             </div>
           </div>
         <% end %>
