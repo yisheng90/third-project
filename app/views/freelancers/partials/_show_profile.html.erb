@@ -27,7 +27,7 @@
       <%= render partial: 'partials/form_for_ratings', locals: {big_rating: @rating_value} %><br><br>
 
         <% if current_user %>
-          <% if Enquiry.where(user_id: current_user[:id], freelancer_id: @freelancer.id) %>
+          <% if Enquiry.where(user_id: current_user[:id], freelancer_id: @freelancer.id).size > 0 %>
             <%= link_to 'Click here to rate me!', rating_path %>
           <% end %>
         <% end %>
