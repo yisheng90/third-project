@@ -1,6 +1,6 @@
 <div class='container'>
-  <% if current_freelancer != nil %>
-    <% if current_freelancer.id == @enquiry.freelancer.id %>
+  <% if current_freelancer != nil && current_freelancer.id == @enquiry.freelancer.id%>
+
     <div class='row'>
     <div class='col-md-1'>
       <span>
@@ -17,7 +17,6 @@
         Requestor
     </div>
   </div>
-  <% end %>
 
 
   <% else %>
