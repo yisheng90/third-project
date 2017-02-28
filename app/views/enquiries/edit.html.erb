@@ -65,8 +65,7 @@
 
 
 
-        <% if current_freelancer != nil %>
-          <% if current_freelancer.id == @enquiry.freelancer.id %>
+        <% if current_freelancer != nil && current_freelancer.id == @enquiry.freelancer.id %>
             <div class='row'>
               <div class='col-md-12'>
                 <%= bootstrap_form_for(@enquiry, url: bookings_create_path, html: {method: "POST"})do |f| %>
@@ -111,7 +110,6 @@
                 </div>
                 <%= render partial: 'partials/calendar_for_specific_booking', locals: { passed_datum: @occurrences } %>
             </div>
-        <% end %>
 <% end %>
   <% else %>
   <div class='row'>
